@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Categoria {
+  codigoCategoria     String              @id @db.VarChar(12)
+  nomeCategoria       String?             @db.VarChar(45)
+  produtoHasCategoria ProdutoHasCategoria[]
+}
+
+model Produto {
+  codigoProduto       String              @id @db.VarChar(12)
+  valor               Decimal             @db.Decimal(10,2)
+  nomeProduto         String?             @db.VarChar(45)
+  descricaoProduto    String?             @db.VarChar(45)
+  imagensFolder       String?             @db.VarChar(45)
+  nota                Float?
+  produtoHasCategoria ProdutoHasCategoria[]
+  estoque             Estoque?
+  avaliacao           Avaliacao[]
+  pedidoHasProduto    PedidoHasProduto[]
+}
+
+model ProdutoHasCategoria {
+  codigoProduto       String
+  codigoCategoria     String
+  produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "produto_has_categoria_ibfk_1")
+  categoria           Categoria           @relation(fields: [codigoCategoria], references: [codigoCategoria], onUpdate: Restrict, map: "produto_has_categoria_ibfk_2")
+  @@id([codigoProduto, codigoCategoria])
+  @@index([codigoCategoria], map: "codigoCategoria")
+}
+
+model Estoque {
+  codigoEstoque       String              @id @db.VarChar(12)
+  codigoProduto       String              @unique
+  quantidade          Int
+  produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "estoque_ibfk_1")
+  alteracoesEstoque   AlteracoesEstoque[]
+  @@index([codigoProduto], map: "codigoProduto")
+}
+
+model AlteracoesEstoque {
+  codigoAlteracao     String              @id @db.VarChar(12)
+  valorAlteracao      Float
+  dataAlteracao       DateTime
+  codigoEstoque       String
+  estoque             Estoque             @relation(fields: [codigoEstoque], references: [codigoEstoque], onUpdate: Restrict, map: "alteracoes_estoque_ibfk_1")
+  @@index([codigoEstoque], map: "codigoEstoque")
+}
+
+model Cliente {
+  codigoCliente       String              @id @db.VarChar(12)
+  cpfCliente          String              @unique
+  nomeCliente         String              @db.VarChar(45)
+  celularCliente      String              @db.VarChar(12)
+  emailCliente        String              @db.VarChar(30)
+  createdAt           DateTime?
+  endereco            Endereco[]
+  avaliacao           Avaliacao[]
+  pedido              Pedido[]
+}
+
+model Endereco {
+  codigoEndereco      String              @id @db.VarChar(12)
+  cep                 String?             @db.VarChar(12)
+  nomeRua             String?             @db.VarChar(30)
+  numeroCasa          String?             @db.VarChar(10)
+  complemento         String?             @db.VarChar(30)
+  bairro              String?             @db.VarChar(30)
+  cidade              String              @db.VarChar(30)
+  estado              String              @db.VarChar(30)
+  codigoCliente       String
+  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "endereco_ibfk_1")
+  pedido              Pedido[]
+  @@index([codigoCliente], map: "codigoCliente")
+}
+
+model Avaliacao {
+  codigoAvaliacao     String              @id @db.VarChar(12)
+  titulo              String?             @db.VarChar(30)
+  descricao           String?             @db.VarChar(120)
+  imagensFolder       String?             @db.VarChar(30)
+  relevancia          String?             @db.VarChar(5)
+  codigoProduto       String
+  codigoCliente       String              
+  produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "avaliacao_ibfk_1")
+  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "avaliacao_ibfk_2")
+}
+
+model Pedido {
+  codigoPedido        String              @id @db.VarChar(12)
+  isPago              Boolean
+  formaPagamento      String?             @db.VarChar(30)
+  parcelas            String?             @db.VarChar(30)
+  dataPagamento       DateTime?
+  isEntregue          Boolean
+  dataEntrega         DateTime?
+  subtotal            Float?
+  valorFrete          Float?
+  descontoCupom       Float?
+  total               Float?
+  codigoCliente       String
+  codigoEndereco      String
+  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "codigoCliente")
+  endereco            Endereco            @relation(fields: [codigoEndereco], references: [codigoEndereco], onUpdate: Restrict, map: "codigoEndereco")
+  pedidoHasProduto    PedidoHasProduto[]
+}
+
+model PedidoHasProduto {
+  codigoProduto       String
+  codigoPedido        String
+  quantidade          Int?
+  valorUnitario       Decimal?            @db.Decimal(10,2)
+  produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "codigoProduto")
+  pedido              Pedido              @relation(fields: [codigoPedido], references: [codigoPedido], onUpdate: Restrict, map: "codigoPedido")
+  @@id([codigoProduto, codigoPedido])
+}
