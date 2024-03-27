@@ -23,13 +23,19 @@ model Produto {
   codigoProduto       String              @id @db.VarChar(12)
   valor               Decimal             @db.Decimal(10,2)
   nomeProduto         String?             @db.VarChar(45)
+  marca               String?             @db.VarChar(45)
   descricaoProduto    String?             @db.VarChar(45)
   imagensFolder       String?             @db.VarChar(45)
-  nota                Float?
+  nota                Decimal             @db.Decimal(3,2)
+  peso                Float
+  medidasLAC          String
+  isDisponivelCompra  Boolean
+  isVisivel           Boolean
   produtoHasCategoria ProdutoHasCategoria[]
   estoque             Estoque?
   avaliacao           Avaliacao[]
   pedidoHasProduto    PedidoHasProduto[]
+  clienteHasProdutoFavorito ClienteHasProdutoFavorito[]
 }
 
 model ProdutoHasCategoria {
@@ -51,8 +57,8 @@ model Estoque {
 }
 
 model AlteracoesEstoque {
-  codigoAlteracao     String              @id @db.VarChar(12)
-  valorAlteracao      Float
+  codigoAlteracaoEstoque String              @id @db.VarChar(12)
+  valorAlteracao      Int
   dataAlteracao       DateTime
   codigoEstoque       String
   estoque             Estoque             @relation(fields: [codigoEstoque], references: [codigoEstoque], onUpdate: Restrict, map: "alteracoes_estoque_ibfk_1")
@@ -66,9 +72,11 @@ model Cliente {
   celularCliente      String              @db.VarChar(12)
   emailCliente        String              @db.VarChar(30)
   createdAt           DateTime?
+  isAdmin             Boolean
   endereco            Endereco[]
   avaliacao           Avaliacao[]
   pedido              Pedido[]
+  clienteHasProdutoFavorito ClienteHasProdutoFavorito[]
 }
 
 model Endereco {
@@ -91,7 +99,7 @@ model Avaliacao {
   titulo              String?             @db.VarChar(30)
   descricao           String?             @db.VarChar(120)
   imagensFolder       String?             @db.VarChar(30)
-  relevancia          String?             @db.VarChar(5)
+  nota                Decimal             @db.Decimal(3,2)
   codigoProduto       String
   codigoCliente       String              
   produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "avaliacao_ibfk_1")
@@ -106,10 +114,10 @@ model Pedido {
   dataPagamento       DateTime?
   isEntregue          Boolean
   dataEntrega         DateTime?
-  subtotal            Float?
-  valorFrete          Float?
-  descontoCupom       Float?
-  total               Float?
+  subtotal            Decimal?            @db.Decimal(10,2)
+  valorFrete          Decimal?            @db.Decimal(10,2)
+  descontoCupom       Decimal?            @db.Decimal(10,2)
+  total               Decimal             @db.Decimal(10,2)
   codigoCliente       String
   codigoEndereco      String
   cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "codigoCliente")
@@ -125,4 +133,12 @@ model PedidoHasProduto {
   produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "codigoProduto")
   pedido              Pedido              @relation(fields: [codigoPedido], references: [codigoPedido], onUpdate: Restrict, map: "codigoPedido")
   @@id([codigoProduto, codigoPedido])
+}
+
+model ClienteHasProdutoFavorito {
+  codigoProduto       String
+  codigoCliente       String
+  produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "codigoProduto")
+  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "codigoCliente")
+  @@id([codigoProduto, codigoCliente])
 }
