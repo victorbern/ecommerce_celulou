@@ -7,18 +7,11 @@ export class DecriptarSenhaUC {
     async execute(data: IDecriptarSenhaRequestDTO): Promise<IDecriptarSenhaResponseDTO> {
         try {
             const { senha, hash } = data;
-            bcrypt.compare(senha, hash, (err, result) => {
-                if (err) {
-                    console.error(err);
-                    throw err;
-                }
-                if (result) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-            return;
+
+            const result = await bcrypt.compare(senha, hash);
+
+            return { result };
+
         } catch (error) {
             throw error;
         }

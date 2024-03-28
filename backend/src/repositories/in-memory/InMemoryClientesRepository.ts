@@ -14,11 +14,16 @@ export class InMemoryClientesRepository implements IClientesRepository {
             "isAdmin": false
         }
     ];
-    getByCodigoCliente(codigoCliente: string): Promise<Cliente> {
-        throw new Error("Method not implemented.");
+    async getByCodigoCliente(codigoCliente: string): Promise<Cliente> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].codigoCliente === codigoCliente) {
+                return this.items[i];
+            }
+        }
+        return null;
     }
-    save(cliente: Cliente): Promise<void> {
-        throw new Error("Method not implemented.");
+    async save(cliente: Cliente): Promise<void> {
+        this.items.push(cliente);
     }
 
 

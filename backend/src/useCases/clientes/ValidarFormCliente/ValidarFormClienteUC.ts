@@ -38,6 +38,7 @@ export class ValidarFormClienteUC {
         }
         try {
             clienteSchema.parse(cliente);
+            return;
         } catch (error) {
             if (error instanceof Error || error instanceof ZodError) {
                 throw error;

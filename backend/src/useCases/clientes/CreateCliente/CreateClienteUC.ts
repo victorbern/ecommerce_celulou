@@ -5,6 +5,7 @@ import { encriptarSenhaUC } from "../../../utils/EncriptarSenha";
 import { validarFormClienteUC } from "../ValidarFormCliente";
 import { ICreateClienteRequestDTO, ICreateClienteResponseDTO } from "./CreateClienteDTO";
 import uniqid from "uniqid";
+import { cpf } from "cpf-cnpj-validator";
 
 export class CreateClienteUC {
     constructor(
@@ -15,8 +16,12 @@ export class CreateClienteUC {
         try {
             let { nomeCliente, cpfCliente, celularCliente, emailCliente, senha } = data;
             cpfCliente = cpfCliente.replace(/[.-]/g, '');
-            console.log("Numero de digitos: " + cpfCliente)
-            validarFormClienteUC.execute({
+
+            if (!cpf.isValid(cpfCliente)) {
+                throw new AppError("O CPF é Inválido", 400);
+            }
+
+            await validarFormClienteUC.execute({
                 nomeCliente, cpfCliente, celularCliente, emailCliente, senha
             });
 
