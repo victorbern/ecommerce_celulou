@@ -70,7 +70,8 @@ model Cliente {
   cpfCliente          String              @unique
   nomeCliente         String              @db.VarChar(45)
   celularCliente      String              @db.VarChar(12)
-  emailCliente        String              @db.VarChar(30)
+  emailCliente        String
+  senha               String
   createdAt           DateTime?
   isAdmin             Boolean
   endereco            Endereco[]
