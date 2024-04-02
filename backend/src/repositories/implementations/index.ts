@@ -1,5 +1,5 @@
-import { MySqlClientesRepository } from "./MySqlClientesRepository";
+import { PostgresClientesRepository } from "./PostgresClientesRepository";
 
-const mySqlClientesRepository = new MySqlClientesRepository;
+const postgresClientesRepository = new PostgresClientesRepository;
 
-export { mySqlClientesRepository }
+export { postgresClientesRepository }

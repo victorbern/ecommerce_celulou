@@ -26,5 +26,22 @@ export class InMemoryClientesRepository implements IClientesRepository {
         this.items.push(cliente);
     }
 
+    async getByCpfCliente(cpfCliente: string): Promise<Cliente> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].cpfCliente === cpfCliente) {
+                return this.items[i];
+            }
+        }
+        return null;
+    }
+
+    async getByEmailCliente(emailCliente: string): Promise<Cliente> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].emailCliente === emailCliente) {
+                return this.items[i];
+            }
+        }
+        return null;
+    }
 
 }
