@@ -70,7 +70,7 @@ model Cliente {
   cpfCliente          String              @unique
   nomeCliente         String              @db.VarChar(45)
   celularCliente      String              @db.VarChar(12)
-  emailCliente        String
+  emailCliente        String              @unique
   senha               String
   createdAt           DateTime?
   isAdmin             Boolean
