@@ -8,8 +8,16 @@ services:
       - POSTGRES_PASSWORD=celulou123
     volumes:
       - postgres:/var/lib/postgresql/data
+    expose:
+      - '5432'
     ports:
       - '5432:5432'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U celulou"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 1s
 
   adminer:
     image: adminer
@@ -17,5 +25,26 @@ services:
     ports:
       - 8080:8080
 
+  api:
+    build:
+      context: ./backend/
+      target: development
+    restart: on-failure
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    command: sh -cx "npm run generate && npm run dev"
+    depends_on: 
+      postgres:
+        condition: service_healthy
+    networks:
+      - net
+
 volumes:
   postgres:
+
+networks:
+  net:
+    driver:
+      bridge
