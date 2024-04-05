@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Celulou API
+  description: API para um sistema de ecommerce simples
+  version: 1.0
+servers:
+  - url: http://localhost:3000/
+    description: Servidor local para receber requisições como desenvolvedor
+
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        nomeCliente: 
+          type: string
+          example: Victor Oliveira
+        cpfCliente:
+          type: string
+          example: 248.927.760-09
+        celularCliente:
+          type: string
+          example: 11956365632
+        emailCliente:
+          type: string
+          example: victor@gmail.com
+        senha:
+          type: string
+          example: victor123
+      required:
+        - nomeCliente
+        - cpfCliente
+        - celularCliente
+        - emailCliente
+        - senha
+
+paths:
+  /cliente:
+    post:
+      summary: Cria um novo cliente.
+      description: Essa rota é a responsável pela criação de um novo cliente. Todos os clientes começam sem serem administradores.
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '201':    # status code
+          description: Cliente cadastrado com sucesso!
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  message: string
+                  example: Cliente cadastrado com sucesso!
+      
+        '400':
+          description: Ocorreu algum erro nos dados enviados pelo cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: string
+                  example: O CPF é inválido
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: string
+                  example: Unexpected Error!
