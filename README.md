@@ -2,9 +2,8 @@
 Sistema de ecommerce criado por mim para fins de estudo.
 
 # Requisitos:
-- Node versão 20.11 ou superior OU
-- Docker instalado na máquina
-Há duas formas diferentes de rodar a aplicação: com o node de sua máquina ou usando docker.
+- Node versão 20.11 ou superior OU Docker instalado na máquina  
+Há duas formas diferentes de rodar a aplicação: com o node de sua máquina ou usando docker.  
 
 # Como rodar a aplicação (usando node da própria máquina)
 A aplicação ainda está em modo de desenvolvimento, mas caso queira testá-la, siga os seguintes passos:  
@@ -15,10 +14,10 @@ A aplicação ainda está em modo de desenvolvimento, mas caso queira testá-la,
 5- Insira o comando ```npm run dev```  
 A partir daí, a aplicação estará funcionando na porta 3000.  
 
-# Como rodar a aplicação (usando apenas docker)
-1- Clone o repositório em sua máquina
-2- Abra o diretório por um terminal e rode o comando ```docker compose up``` (certifique-se de que as portas 3000, 8080 e 5432 estejam disponíveis)
-Caso tudo ocorra bem, é para a aplicação estar disponivel na porta 3000 para requisições
+# Como rodar a aplicação (usando apenas docker)  
+1- Clone o repositório em sua máquina  
+2- Abra o diretório por um terminal e rode o comando ```docker compose up``` (certifique-se de que as portas 3000, 8080 e 5432 estejam disponíveis)  
+Caso tudo ocorra bem, é para a aplicação estar disponivel na porta 3000 para requisições  
 
 # Como rodar os testes
-Para rodar os testes unitários, repita os passos acima até o passo número 4 e insira o comando ```npm test``` ao invés de ```npm run dev``` 
+Para rodar os testes unitários, você deverá rodar com o node de sua máquina. O comando para rodar os testes unitários é ```npm test``` ao invés de ```npm run dev``` 
