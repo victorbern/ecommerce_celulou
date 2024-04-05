@@ -27,24 +27,6 @@ services:
     ports:
       - 8080:8080
 
-  api:
-    build:
-      context: ./backend/
-      target: development
-    restart: on-failure
-    expose:
-      - '3000'
-    ports:
-      - '3000:3000'
-    command: sh -cx "npm run generate && npm run dev"
-    depends_on: 
-      postgres:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgres://celulou:celulou123@postgres:5432/celuloudb?schema=public
-    networks:
-      - net
-
 volumes:
   postgres:
 
