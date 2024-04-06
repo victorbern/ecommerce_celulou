@@ -16,7 +16,11 @@ export class FindClienteController {
                 codigoCliente: codigo
             });
 
-            return response.status(200).json({ result })
+            if (result) {
+                return response.status(200).json({ result: result })
+            }
+
+            return response.status(404).json({ error: "Cliente não encontrado "})
         } catch (error) {
             if (error instanceof Error) {
                 console.log(error)
