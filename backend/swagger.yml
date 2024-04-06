@@ -58,7 +58,11 @@ paths:
                 type: object
                 properties: 
                   message: string
+<<<<<<< HEAD
                   example: "Cliente cadastrado com sucesso!"
+=======
+                  example: "Cliente cadastrado com sucesso!""
+>>>>>>> 1473b311bda3220c9278f0f9ceb7fd0d2e10bbdd
       
         '400':
           description: Ocorreu algum erro nos dados enviados pelo cliente
