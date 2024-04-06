@@ -14,19 +14,23 @@ components:
       properties:
         nomeCliente: 
           type: string
-          example: Victor Oliveira
+          example: "Victor Oliveira"
         cpfCliente:
           type: string
-          example: 248.927.760-09
+          example: "248.927.760-09"
+          description: CPF do cliente (pode ser inserido com ou sem pontos e traços)
         celularCliente:
           type: string
-          example: 11956365632
+          example: "11956365632"
+          description: Celular do cliente (somente números, sem pontos e traços) e deve conter de 10 a 12 caracteres
         emailCliente:
           type: string
-          example: victor@gmail.com
+          example: "victor@gmail.com"
+          format: email
+          description: Endereço de e-mail do cliente.
         senha:
           type: string
-          example: victor123
+          example: "victor123"
       required:
         - nomeCliente
         - cpfCliente
@@ -54,7 +58,7 @@ paths:
                 type: object
                 properties: 
                   message: string
-                  example: Cliente cadastrado com sucesso!
+                  example: "Cliente cadastrado com sucesso!"
       
         '400':
           description: Ocorreu algum erro nos dados enviados pelo cliente
@@ -64,7 +68,7 @@ paths:
                 type: object
                 properties:
                   error: string
-                  example: O CPF é inválido
+                  example: "O CPF é inválido"
         default:
           description: Unexpected Error
           content:
@@ -73,4 +77,67 @@ paths:
                 type: object
                 properties:
                   error: string
-                  example: Unexpected Error!
+                  example: "Unexpected Error!"
+
+  /cliente/{codigo}:
+    get:
+      summary: Busca um cliente pelo codigo
+      description: Busca um cliente que possua um codigo identico ao da url
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
+          required: true
+      responses:
+        '200':
+          description: Um objeto de cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      codigoCliente:
+                        type: string
+                        description: Código do cliente.
+                      nomeCliente:
+                        type: string
+                        description: Nome do cliente.
+                      cpfCliente:
+                        type: string
+                        description: CPF do cliente
+                      celularCliente:
+                        type: string
+                        description: Celular do cliente.
+                      emailCliente:
+                        type: string
+                        description: E-mail do cliente.
+                      createdAt:
+                        type: date-time
+                        description: Data e hora da criação do cliente.
+                      isAdmin:
+                        type: boolean
+                        description: Valor que informa se o cliente possui permissões de administrador ou não
+              example:
+                result:
+                  codigoCliente: "Cdtoluifd7u7",
+                  nomeCliente: "Victor",
+                  cpfCliente: "15466379077",
+                  celularCliente: "11965049540",
+                  emailCliente: "victor1@gmail.com",
+                  createdAt: "2024-04-02T13:38:38.453Z",
+                  isAdmin: false
+        '404':
+          description: Nenhum cliente encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Cliente não encontrado"
