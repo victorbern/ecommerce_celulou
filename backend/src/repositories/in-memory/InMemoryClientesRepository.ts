@@ -6,10 +6,10 @@ export class InMemoryClientesRepository implements IClientesRepository {
         {
             "codigoCliente": "Cksjskslsksls",
             "nomeCliente": "Victor",
-            "cpfCliente": "47575127282",
+            "cpfCliente": "25402037019",
             "celularCliente": "11964758393",
             "emailCliente": "victor@gmail.com",
-            "senha": "wqijwjiwjiw",
+            "senha": "$2a$10$lre5tzhhWfQkSGJfNnJOa.Gcm2g6ahrOPyqtdRkGYIfgtGiKHftDq",
             "createdAt": new Date(Date.now()),
             "isAdmin": false
         }
