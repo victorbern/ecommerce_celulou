@@ -3,7 +3,6 @@ export interface ICreateClienteRequestDTO {
     nomeCliente: string;
     celularCliente: string;
     emailCliente: string;
-    senha: string;
 }
 
 export interface ICreateClienteResponseDTO {

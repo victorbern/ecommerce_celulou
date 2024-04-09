@@ -6,7 +6,6 @@ export class Cliente {
     public nomeCliente: string;
     public celularCliente: string;
     public emailCliente: string;
-    public senha: string;
     public createdAt: Date;
     public isAdmin: boolean;
     private static clienteSchema = z.object({
@@ -29,10 +28,6 @@ export class Cliente {
             required_error: "É necessário inserir um e-mail",
             invalid_type_error: "O e-mail deve ser uma string"
         }).email({ message: "Endereço de e-mail inválido! " }),
-        senha: z.string({
-            required_error: "É necessário inserir uma senha",
-            invalid_type_error: "A senha deve ser uma string",
-        }).min(8, {message: "A senha deve conter pelo menos 8 caracteres"})
     })
     
     constructor(props: Cliente) {

@@ -71,7 +71,6 @@ model Cliente {
   nomeCliente         String              @db.VarChar(45)
   celularCliente      String              @db.VarChar(12)
   emailCliente        String              @unique
-  senha               String
   createdAt           DateTime?
   endereco            Endereco[]
   avaliacao           Avaliacao[]

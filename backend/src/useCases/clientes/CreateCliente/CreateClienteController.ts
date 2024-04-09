@@ -10,10 +10,10 @@ export class CreateClienteController {
 
     async handle(request: Request, response: Response): Promise<Response> {
         try {
-            const { nomeCliente, cpfCliente, celularCliente, emailCliente, senha } = request.body;
+            const { nomeCliente, cpfCliente, celularCliente, emailCliente } = request.body;
 
             let result = await this.createClienteUC.execute({
-                nomeCliente, cpfCliente, celularCliente, emailCliente, senha
+                nomeCliente, cpfCliente, celularCliente, emailCliente
             });
 
             return response.status(201).json({ message: result.message })
