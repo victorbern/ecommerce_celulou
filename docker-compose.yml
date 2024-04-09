@@ -26,6 +26,8 @@ services:
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - net
 
   api:
     build:
@@ -36,7 +38,7 @@ services:
       - '3000'
     ports:
       - '3000:3000'
-    command: sh -cx "npm run generate && npm run dev"
+    command: sh -cx "npm run generate && npm run migrate && npm run dev"
     depends_on: 
       postgres:
         condition: service_healthy

@@ -73,7 +73,6 @@ model Cliente {
   emailCliente        String              @unique
   senha               String
   createdAt           DateTime?
-  isAdmin             Boolean
   endereco            Endereco[]
   avaliacao           Avaliacao[]
   pedido              Pedido[]
