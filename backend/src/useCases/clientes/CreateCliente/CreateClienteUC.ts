@@ -5,7 +5,6 @@ import { ICreateClienteRequestDTO, ICreateClienteResponseDTO } from "./CreateCli
 import uniqid from "uniqid";
 import { cpf } from "cpf-cnpj-validator";
 import { ZodError } from "zod";
-import { encriptarSenhaUC } from "../../autenticacao/EncriptarSenha";
 
 export class CreateClienteUC {
     constructor(
@@ -14,14 +13,10 @@ export class CreateClienteUC {
 
     async execute(data: ICreateClienteRequestDTO): Promise<ICreateClienteResponseDTO> {
         try {
-            let { nomeCliente, cpfCliente, celularCliente, emailCliente, senha } = data;
+            let { nomeCliente, cpfCliente, celularCliente, emailCliente } = data;
             cpfCliente = cpfCliente.replace(/[.-]/g, '');
             if (!cpf.isValid(cpfCliente)) {
                 throw new AppError("O CPF é Inválido", 400);
-            }
-
-            if (senha.length < 8) {
-                throw new AppError("A senha deve conter pelo menos 8 caracteres", 400);
             }
 
             let codigoCliente, codigoExists = null;
@@ -36,9 +31,7 @@ export class CreateClienteUC {
             const createdAt = new Date(Date.now());
             const isAdmin = false;
 
-            const hash = (await encriptarSenhaUC.execute({senha})).hash;
-
-            const cliente = new Cliente({ codigoCliente, nomeCliente, cpfCliente, celularCliente, emailCliente, senha: hash, createdAt, isAdmin });
+            const cliente = new Cliente({ codigoCliente, nomeCliente, cpfCliente, celularCliente, emailCliente, createdAt, isAdmin });
 
             let clienteExists = await this.clientesRepository.getByCpfCliente(cpfCliente);
 

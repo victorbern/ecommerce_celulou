@@ -10,7 +10,6 @@ describe("Testing the entity Cliente", () => {
             cpfCliente: "12312312321",
             celularCliente: "11965636563",
             emailCliente: "victor@gmail.com",
-            senha: "qwert123",
             createdAt: new Date(Date.now()),
             isAdmin: false
         })).satisfies;
@@ -27,7 +26,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             });
@@ -41,7 +39,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             });
@@ -55,7 +52,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "12312312321",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             });
@@ -69,7 +65,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "12312312321",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             });
@@ -84,7 +79,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             });
@@ -98,7 +92,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -112,7 +105,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -127,7 +119,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -141,7 +132,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: null,
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -156,7 +146,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -170,7 +159,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "0011965636563",
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -184,7 +172,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: null,
                 emailCliente: "victor@gmail.com",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -199,7 +186,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11953654555",
                 emailCliente: "victor@a",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -213,7 +199,6 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11953654555",
                 emailCliente: "",
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
@@ -227,25 +212,9 @@ describe("Testing the entity Cliente", () => {
                 cpfCliente: "39302302932",
                 celularCliente: "11953654555",
                 emailCliente: null,
-                senha: "qwert123",
                 createdAt: new Date(Date.now()),
                 isAdmin: false
             })
         }).toThrow("O e-mail deve ser uma string");
-
-        // Testando senha
-        // Testando com uma senha nula
-        expect(() => {
-            new Cliente({
-                codigoCliente: "Cabchfjdkier",
-                nomeCliente: "Victor",
-                cpfCliente: "39302302932",
-                celularCliente: "11953654555",
-                emailCliente: "victor@gmail.com",
-                senha: "",
-                createdAt: new Date(Date.now()),
-                isAdmin: false
-            })
-        }).toThrow("A senha deve conter pelo menos 8 caracteres");
     })
 })

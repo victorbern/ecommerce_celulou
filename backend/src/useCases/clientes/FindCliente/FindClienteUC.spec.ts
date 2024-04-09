@@ -14,7 +14,6 @@ describe("Testando a classe FindClienteUC", () => {
             "cpfCliente": "25402037019",
             "celularCliente": "11964758393",
             "emailCliente": "victor@gmail.com",
-            "senha": "$2a$10$lre5tzhhWfQkSGJfNnJOa.Gcm2g6ahrOPyqtdRkGYIfgtGiKHftDq",
             "createdAt": date,
             "isAdmin": false
         }
