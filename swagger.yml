@@ -132,3 +132,62 @@ paths:
                   error:
                     type: string
                     example: "Cliente não encontrado"
+    
+    put:
+      summary: Altera dados de um cliente
+      description: Altera os dados de um cliente com base no código passado pela url
+      parameters:
+        - in: path
+        name: codigo
+        schema:
+          type: string
+          description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
+        required: true
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+              
+      responses:
+        '200':
+          description: Dados atualizados com sucesso!
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  message: string
+                  example: "Dados atualizados com sucesso!"
+
+        '400':
+          description: Ocorreu algum erro nos dados enviados pelo cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: string
+                  example: "O CPF é inválido"
+
+        '404':
+          description: Nenhum cliente encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Cliente não encontrado"
+
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: string
+                  example: "Unexpected Error!"
