@@ -26,7 +26,7 @@ export class Cliente {
         emailCliente: z.string({
             required_error: "É necessário inserir um e-mail",
             invalid_type_error: "O e-mail deve ser uma string"
-        }).email({ message: "Endereço de e-mail inválido! " }),
+        }).email({ message: "Endereço de e-mail inválido!" }),
     })
     
     constructor(props: Cliente) {
