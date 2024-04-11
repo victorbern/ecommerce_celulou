@@ -11,7 +11,6 @@ describe("Testing the entity Cliente", () => {
             celularCliente: "11965636563",
             emailCliente: "victor@gmail.com",
             createdAt: new Date(Date.now()),
-            isAdmin: false
         })).satisfies;
 
     })
@@ -27,7 +26,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             });
         }).toThrow("O tamanho do código precisa ser de 12 caracteres")
 
@@ -40,7 +38,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             });
         }).toThrow("O código precisa ser uma string");
 
@@ -53,7 +50,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             });
         }).toThrow("O código de cliente precisa começar com C");
 
@@ -66,7 +62,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             });
         }).toThrow("O tamanho do código precisa ser de 12 caracteres");
 
@@ -80,7 +75,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             });
         }).toThrow("É necessário inserir um nome");
 
@@ -93,7 +87,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O nome precisa ser uma string");
 
@@ -106,7 +99,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O nome não pode ter mais do que 45 caracteres")
 
@@ -120,7 +112,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O CPF deve ter 11 dígitos");
 
@@ -133,7 +124,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O CPF precisa ser uma string");
 
@@ -147,7 +137,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O tamanho mínimo para número de celualar deve ser de 10 caracteres");
 
@@ -160,7 +149,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "0011965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O tamanho máximo para número de celular deve ser de 12 caracteres");
 
@@ -173,7 +161,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: null,
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O número de celular deve ser uma string");
     
@@ -187,7 +174,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11953654555",
                 emailCliente: "victor@a",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("Endereço de e-mail inválido!");
 
@@ -200,7 +186,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11953654555",
                 emailCliente: "",
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("Endereço de e-mail inválido!");
 
@@ -213,7 +198,6 @@ describe("Testing the entity Cliente", () => {
                 celularCliente: "11953654555",
                 emailCliente: null,
                 createdAt: new Date(Date.now()),
-                isAdmin: false
             })
         }).toThrow("O e-mail deve ser uma string");
     })

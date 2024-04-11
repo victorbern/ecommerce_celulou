@@ -9,5 +9,4 @@ export interface IFindClienteResponseDTO {
     celularCliente: string;
     emailCliente: string;
     createdAt: Date;
-    isAdmin: boolean;
 }

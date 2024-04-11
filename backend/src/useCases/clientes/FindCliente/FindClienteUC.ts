@@ -26,7 +26,6 @@ export class FindClienteUC {
                     celularCliente: cliente.celularCliente,
                     emailCliente: cliente.emailCliente,
                     createdAt: cliente.createdAt,
-                    isAdmin: cliente.isAdmin
                 };
             }
 

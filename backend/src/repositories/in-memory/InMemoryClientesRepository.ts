@@ -9,9 +9,7 @@ export class InMemoryClientesRepository implements IClientesRepository {
             "cpfCliente": "25402037019",
             "celularCliente": "11964758393",
             "emailCliente": "victor@gmail.com",
-            "senha": "$2a$10$lre5tzhhWfQkSGJfNnJOa.Gcm2g6ahrOPyqtdRkGYIfgtGiKHftDq",
             "createdAt": new Date(Date.now()),
-            "isAdmin": false
         }
     ];
     async getByCodigoCliente(codigoCliente: string): Promise<Cliente> {
@@ -42,6 +40,17 @@ export class InMemoryClientesRepository implements IClientesRepository {
             }
         }
         return null;
+    }
+
+    async update(cliente: Cliente): Promise<void> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].codigoCliente === cliente.codigoCliente) {
+                this.items[i].nomeCliente = cliente.nomeCliente;
+                this.items[i].cpfCliente = cliente.cpfCliente;
+                this.items[i].celularCliente = cliente.celularCliente;
+                this.items[i].emailCliente = cliente.emailCliente;
+            }
+        }
     }
 
 }

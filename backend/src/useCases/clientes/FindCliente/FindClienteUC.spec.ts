@@ -15,7 +15,6 @@ describe("Testando a classe FindClienteUC", () => {
             "celularCliente": "11964758393",
             "emailCliente": "victor@gmail.com",
             "createdAt": date,
-            "isAdmin": false
         }
     ];
 
@@ -29,17 +28,8 @@ describe("Testando a classe FindClienteUC", () => {
             expect(result.celularCliente).toStrictEqual("11964758393");
             expect(result.emailCliente).toStrictEqual("victor@gmail.com");
             expect(result.createdAt).toBe(date);
-            expect(result.isAdmin).toBe(false);
         })).resolves
     });
-
-    test("Should not be able to bring the client's password", () => {
-        expect(findClienteUCTest.execute({
-            codigoCliente: "Cksjskslsksls"
-        }).then((result) => {
-            expect(result).not.toHaveProperty("senha")
-        })).resolves
-    })
 
     test("Should not be able to bring a client", () => {
         // Enviando apenas parte de um código de cliente

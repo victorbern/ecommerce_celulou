@@ -28,15 +28,11 @@ components:
           example: "victor@gmail.com"
           format: email
           description: Endereço de e-mail do cliente.
-        senha:
-          type: string
-          example: "victor123"
       required:
         - nomeCliente
         - cpfCliente
         - celularCliente
         - emailCliente
-        - senha
 
 paths:
   /cliente:
@@ -118,9 +114,6 @@ paths:
                       createdAt:
                         type: date-time
                         description: Data e hora da criação do cliente.
-                      isAdmin:
-                        type: boolean
-                        description: Valor que informa se o cliente possui permissões de administrador ou não
               example:
                 result:
                   codigoCliente: "Cdtoluifd7u7",
@@ -128,8 +121,7 @@ paths:
                   cpfCliente: "15466379077",
                   celularCliente: "11965049540",
                   emailCliente: "victor1@gmail.com",
-                  createdAt: "2024-04-02T13:38:38.453Z",
-                  isAdmin: false
+                  createdAt: "2024-04-02T13:38:38.453Z"
         '404':
           description: Nenhum cliente encontrado
           content:

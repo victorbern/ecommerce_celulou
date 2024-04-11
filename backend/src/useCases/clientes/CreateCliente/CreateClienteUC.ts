@@ -29,9 +29,8 @@ export class CreateClienteUC {
             } while (codigoExists != null);
 
             const createdAt = new Date(Date.now());
-            const isAdmin = false;
 
-            const cliente = new Cliente({ codigoCliente, nomeCliente, cpfCliente, celularCliente, emailCliente, createdAt, isAdmin });
+            const cliente = new Cliente({ codigoCliente, nomeCliente, cpfCliente, celularCliente, emailCliente, createdAt });
 
             let clienteExists = await this.clientesRepository.getByCpfCliente(cpfCliente);
 
@@ -44,8 +43,6 @@ export class CreateClienteUC {
             if (clienteExists) {
                 throw new AppError("O e-mail já está cadastrado", 400);
             }
-
-            // Adiciona a senha com encriptação  
 
             await this.clientesRepository.save(cliente);
 

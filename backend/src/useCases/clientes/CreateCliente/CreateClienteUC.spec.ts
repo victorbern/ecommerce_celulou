@@ -14,7 +14,6 @@ describe("Testando a classe CreateClienteUC", () => {
         "celularCliente": "11964758393",
         "emailCliente": "victor@gmail.com",
         "createdAt": new Date(Date.now()),
-        "isAdmin": false
     })
 
     test("Should be able to create a client", () => {
@@ -25,7 +24,6 @@ describe("Testando a classe CreateClienteUC", () => {
             expect(inMemoryClientesRepository.items[1].cpfCliente).toBe("54689276080");
             expect(inMemoryClientesRepository.items[1].celularCliente).toBe("11953254126");
             expect(inMemoryClientesRepository.items[1].emailCliente).toBe("teste@gmail.com");
-            expect(inMemoryClientesRepository.items[1].isAdmin).toBe(false);
 
         })).resolves;
     });

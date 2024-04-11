@@ -7,7 +7,6 @@ export class Cliente {
     public celularCliente: string;
     public emailCliente: string;
     public createdAt: Date;
-    public isAdmin: boolean;
     private static clienteSchema = z.object({
         codigoCliente: z.string({
             required_error: "É necessário inserir um código",
