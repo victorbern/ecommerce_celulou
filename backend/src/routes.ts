@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createClienteController } from "./useCases/clientes/CreateCliente";
 import { findClienteController } from "./useCases/clientes/FindCliente";
+import { updateClienteController } from "./useCases/clientes/UpdateCliente";
 
 const router = Router();
 
@@ -13,5 +14,10 @@ router.post('/cliente', async (request, response) => {
 router.get('/cliente/:codigo', async (request, response) => {
     return findClienteController.handle(request, response);
 });
+
+// Editar dados de um cliente pelo código
+router.put('/cliente/:codigo', async (request, response) => {
+    return updateClienteController.handle(request, response);
+})
 
 export { router }

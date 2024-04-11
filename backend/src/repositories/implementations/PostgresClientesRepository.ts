@@ -40,4 +40,12 @@ export class PostgresClientesRepository implements IClientesRepository {
         });
     }
     
+    async update(cliente: Cliente): Promise<void> {
+        await this.prisma.cliente.update({
+            where: {
+                codigoCliente: cliente.codigoCliente,
+            },
+            data: cliente,
+        })
+    }
 }
