@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "./AppError";
 import { ZodError } from "zod";
+import { PrismaClientInitializationError, PrismaClientKnownRequestError, PrismaClientRustPanicError, PrismaClientUnknownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library";
 
 export const errorHandlerMiddleware = (
     error: Error, request: Request, response: Response, next: NextFunction
