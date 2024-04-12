@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "cpf-cnpj-validator": "^1.0.3",
     "express": "^4.19.1",
+    "express-async-errors": "^3.1.1",
     "mysql": "^2.18.1",
     "prisma": "^5.11.0",
     "uniqid": "^5.4.0",

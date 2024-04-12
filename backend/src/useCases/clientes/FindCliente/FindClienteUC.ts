@@ -9,37 +9,25 @@ export class FindClienteUC {
     ) { }
 
     async execute(data: IFindClienteRequestDTO): Promise<IFindClienteResponseDTO> {
-        try {
-            const { codigoCliente } = data;
+        const { codigoCliente } = data;
 
-            if (codigoCliente == null) {
-                throw new AppError("Código inválido", 400);
-            }
-
-            let cliente: IFindClienteResponseDTO = await this.clientesRepository.getByCodigoCliente(codigoCliente);
-
-            if (cliente) {
-                return {
-                    codigoCliente: cliente.codigoCliente,
-                    nomeCliente: cliente.nomeCliente,
-                    cpfCliente: cliente.cpfCliente,
-                    celularCliente: cliente.celularCliente,
-                    emailCliente: cliente.emailCliente,
-                    createdAt: cliente.createdAt,
-                };
-            }
-
-            return null;
-        } catch (error) {
-            if (error instanceof ZodError) {
-                throw new AppError(error.errors[0].message, 400);
-            }
-
-            if (error instanceof Error) {
-                throw error;
-            } else {
-                throw new AppError("Unexpected error!", 500)
-            }
+        if (codigoCliente == null) {
+            throw new AppError("Código inválido", 400);
         }
+
+        let cliente: IFindClienteResponseDTO = await this.clientesRepository.getByCodigoCliente(codigoCliente);
+
+        if (cliente) {
+            return {
+                codigoCliente: cliente.codigoCliente,
+                nomeCliente: cliente.nomeCliente,
+                cpfCliente: cliente.cpfCliente,
+                celularCliente: cliente.celularCliente,
+                emailCliente: cliente.emailCliente,
+                createdAt: cliente.createdAt,
+            };
+        }
+
+        return null;
     }
 }
