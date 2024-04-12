@@ -48,4 +48,12 @@ export class PostgresClientesRepository implements IClientesRepository {
             data: cliente,
         })
     }
+
+    async delete(codigoCliente: string): Promise<void> {
+        await this.prisma.cliente.delete({
+            where: {
+                codigoCliente: codigoCliente,
+            }
+        })
+    }
 }

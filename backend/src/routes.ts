@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createClienteController } from "./useCases/clientes/CreateCliente";
 import { findClienteController } from "./useCases/clientes/FindCliente";
 import { updateClienteController } from "./useCases/clientes/UpdateCliente";
+import { delClienteController } from "./useCases/clientes/DelCliente";
 
 const router = Router();
 
@@ -18,6 +19,11 @@ router.get('/cliente/:codigo', async (request, response, next) => {
 // Editar dados de um cliente pelo código
 router.put('/cliente/:codigo', async (request, response, next) => {
     return updateClienteController.handle(request, response, next);
+})
+
+// Deletar um cliente pelo código
+router.delete('/cliente/:codigo', async (request, response, next) => {
+    return delClienteController.handle(request, response, next);
 })
 
 export { router }

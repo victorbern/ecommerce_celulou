@@ -53,4 +53,12 @@ export class InMemoryClientesRepository implements IClientesRepository {
         }
     }
 
+    async delete(codigoCliente: string): Promise<void> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].codigoCliente === codigoCliente) {
+                this.items.splice(i);
+            }
+        }
+    }
+
 }

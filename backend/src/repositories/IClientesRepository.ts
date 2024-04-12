@@ -6,5 +6,6 @@ export interface IClientesRepository {
     getByCpfCliente(cpfCliente: string): Promise<Cliente>;
     getByEmailCliente(emailCliente: string): Promise<Cliente>;
     update(cliente: Cliente): Promise<void>;
+    delete(codigoCliente: string): Promise<void>;
 }
 

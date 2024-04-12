@@ -191,3 +191,45 @@ paths:
                 properties:
                   error: string
                   example: "Unexpected Error!"
+    
+    delete:
+      summary: Deleta um cliente
+      description: Deleta um cliente do banco com base em seu código
+      parameters:
+        - in: path
+        name: codigo
+        schema:
+          type: string
+          description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
+        required: true
+      responses:
+        '200':
+          description: Cliente deletado com sucesso!
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  message: string
+                  example: "Cliente deletado com sucesso!"
+
+        '404':
+          description: Nenhum cliente encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Cliente não encontrado"
+
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: string
+                  example: "Unexpected Error!"
