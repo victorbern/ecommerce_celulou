@@ -34,6 +34,43 @@ components:
         - celularCliente
         - emailCliente
 
+    Endereco:
+      type: object
+      properties:
+        cep:
+          type: string
+          example: "12970-000"
+        nomeRua:
+          type: string
+          example: "Rua 1"
+        numeroCasa:
+          type: string
+          example: "11C"
+        complemento:
+          type: string
+          example: "Apartamento 14A"
+        bairro:
+          type: string
+          example: "Centro"
+        cidade:
+          type: string
+          example: "São José dos Campos"
+        estado:
+          type: string
+          example: "São Paulo"
+        codigoCliente:
+          type: string
+          example: "CQWERTYUIQWE"
+      required:
+        - cep
+        - nomeRua
+        - numeroCasa
+        - complemento
+        - bairro
+        - cidade
+        - estado
+        - codigoCliente
+
 paths:
   /cliente:
     post:
@@ -224,6 +261,55 @@ paths:
                     type: string
                     example: "Cliente não encontrado"
 
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: string
+                  example: "Unexpected Error!"
+
+  /enderco:
+    post:
+      summary: Cria um novo endereço
+      description: Essa rota é a responsável pela criação de um novo endereço, atrelado a um cliente existente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Endereco'
+      responses:
+        '201':
+          description: Endereço cadastrado com sucesso!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: string
+                  example: "Endereço cadastrado com sucesso!"
+        '400':
+          description: Ocorreu algum erro nos dados enviados pelo cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: string
+                  example: "É necessário inserir uma rua"
+        '404':
+          description: Cliente não encontrado!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Cliente não encontrado!"
         default:
           description: Unexpected Error
           content:
