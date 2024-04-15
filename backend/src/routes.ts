@@ -4,6 +4,7 @@ import { findClienteController } from "./useCases/clientes/FindCliente";
 import { updateClienteController } from "./useCases/clientes/UpdateCliente";
 import { delClienteController } from "./useCases/clientes/DelCliente";
 import { createEnderecoController } from "./useCases/enderecos/CreateEndereco";
+import { findEnderecoByClienteController } from "./useCases/enderecos/FindEnderecoByCliente";
 
 const router = Router();
 
@@ -30,6 +31,11 @@ router.delete('/cliente/:codigo', async (request, response, next) => {
 // Inserir novo endereço
 router.post('/endereco', async (request, response, next) => {
     return createEnderecoController.handle(request, response, next);
+})
+
+// Buscar endereço pelo codigo do cliente
+router.get('/enderecos/:codigo', async (request, response, next) => {
+    return findEnderecoByClienteController.handle(request, response, next);
 })
 
 export { router }

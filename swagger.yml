@@ -271,7 +271,7 @@ paths:
                   error: string
                   example: "Unexpected Error!"
 
-  /enderco:
+  /endereco:
     post:
       summary: Cria um novo endereço
       description: Essa rota é a responsável pela criação de um novo endereço, atrelado a um cliente existente
@@ -319,3 +319,46 @@ paths:
                 properties:
                   error: string
                   example: "Unexpected Error!"
+  /enderecos/:codigo:
+    get:
+      summary: Busca todos os endereços de um cliente
+      description: Essa rota é responsável por fazer a busca de todos os endereços cadastrados de um cliente em específico com base no seu codigo
+      parameters:
+        -in: path
+        name: codigo
+        schema:
+          type: string
+          description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
+        required: true
+        responses:
+          '200':
+            description: Um array com vários endereços
+            content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Endereco'
+          '404':
+            description: Dados não encontrados
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: "Nenhum endereço encontrado!"
+          
+          default:
+            description: Unexpected Error
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error: string
+                    example: "Unexpected Error!"

@@ -17,7 +17,6 @@ export class InMemoryEnderecosRepository implements IEnderecosRepository {
         }
     ]
 
-
     async getByCodigoEndereco(codigoEndereco: string): Promise<Endereco> {
         for (let i = 0; i < this.items.length; i++) {
             if (this.items[i].codigoEndereco === codigoEndereco) {
@@ -25,6 +24,18 @@ export class InMemoryEnderecosRepository implements IEnderecosRepository {
             }
         }
         return null;
+    }
+
+    async getByCodigoCliente(codigoCliente: string): Promise<Endereco[]> {
+        let enderecos: Endereco[] = [];
+
+        for (let i in this.items) {
+            if (this.items[i].codigoCliente === codigoCliente) {
+                enderecos.push(this.items[i]);
+            }
+        }
+
+        return enderecos;
     }
     async save(endereco: Endereco): Promise<void> {
         this.items.push(endereco);
