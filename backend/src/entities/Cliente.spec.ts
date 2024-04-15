@@ -17,7 +17,7 @@ describe("Testing the entity Cliente", () => {
 
     test("Should not be able to create a Client object", () => {
         // Testando codigoCliente
-        // Tentando criar um objeto de cliente com codigoCliente nulo
+        // Tentando criar um objeto de cliente com codigoCliente vazio
         expect(() => {
             new Cliente({
                 codigoCliente: "",
