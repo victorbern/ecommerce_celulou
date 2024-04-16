@@ -1,10 +1,11 @@
-import { Router } from "express";
+import { Router, request } from "express";
 import { createClienteController } from "./useCases/clientes/CreateCliente";
 import { findClienteController } from "./useCases/clientes/FindCliente";
 import { updateClienteController } from "./useCases/clientes/UpdateCliente";
 import { delClienteController } from "./useCases/clientes/DelCliente";
 import { createEnderecoController } from "./useCases/enderecos/CreateEndereco";
 import { findEnderecoByClienteController } from "./useCases/enderecos/FindEnderecoByCliente";
+import { findEnderecoController } from "./useCases/enderecos/FindEndereco";
 
 const router = Router();
 
@@ -36,6 +37,11 @@ router.post('/endereco', async (request, response, next) => {
 // Buscar endereço pelo codigo do cliente
 router.get('/enderecos/:codigo', async (request, response, next) => {
     return findEnderecoByClienteController.handle(request, response, next);
+})
+
+// Buscar endereço pelo codigo do endereço
+router.get('/endereco/:codigo', async (request, response, next) => {
+    return findEnderecoController.handle(request, response, next);
 })
 
 export { router }

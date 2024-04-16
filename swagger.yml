@@ -319,6 +319,72 @@ paths:
                 properties:
                   error: string
                   example: "Unexpected Error!"
+    get:
+      summary: Buscar endereço pelo código
+      description: Busca um endereço específico com base no seu código
+      parameters:
+        - in: path
+        name: codigo
+        schema:
+          type: string
+          description: Codigo do endereço (12 digitos) para buscá-lo no banco de dados
+        required: true
+
+      responses:
+        '200':
+          description: Um objeto de endereço
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      codigoEndereco:
+                        type: string
+                        example: "Ebcglv163kci"
+                      cep:
+                        type: string
+                        example: "12970000"
+                      nomeRua:
+                        type: string
+                        example: "Rua 1"
+                      numeroCasa:
+                        type: string
+                        example: "11B"
+                      complemento:
+                        type: string
+                        example: "Apartamento 2B"
+                      bairro:
+                        type: string
+                        example: "Centro"
+                      cidade:
+                        type: string
+                        example: "São José dos Campos"
+                      estado:
+                        type: string
+                        example: "São Paulo"
+
+                            example:
+              result:
+                codigoCliente: "Cdtoluifd7u7",
+                nomeCliente: "Victor",
+                cpfCliente: "15466379077",
+                celularCliente: "11965049540",
+                emailCliente: "victor1@gmail.com",
+                createdAt: "2024-04-02T13:38:38.453Z"
+        '404':
+          description: Endereço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Endereço não encontrado!"
+
   /enderecos/:codigo:
     get:
       summary: Busca todos os endereços de um cliente
