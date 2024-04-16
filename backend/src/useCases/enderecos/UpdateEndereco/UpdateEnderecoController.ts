@@ -1,0 +1,23 @@
+import { Request, Response, NextFunction } from "express";
+import { UpdateEnderecoUC } from "./UpdateEnderecoUC";
+
+export class UpdateEnderecoController {
+    constructor(
+        private updateEnderecoUC: UpdateEnderecoUC,
+    ) {}
+
+    async handle (request: Request, response: Response, next: NextFunction) {
+        const codigo = request.params.codigo;
+        const { cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado } = request.body;
+        try {
+            let result = await this.updateEnderecoUC.execute({
+                codigoEndereco: codigo, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado
+            });
+
+            return response.status(200).json({ message: result.message });
+            
+        } catch (error) {
+            next(error);
+        }
+    }
+}

@@ -30,4 +30,13 @@ export class PostgresEnderecosRepository implements IEnderecosRepository {
             data: endereco,
         });
     }
+
+    async update(endereco: Endereco): Promise<void> {
+        await this.prisma.endereco.update({
+            where: {
+                codigoEndereco: endereco.codigoEndereco,
+            },
+            data: endereco,
+        });
+    }
 }

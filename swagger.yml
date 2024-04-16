@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Celulou API
   description: API para um sistema de ecommerce simples
-  version: 1.0
+  version: "1.0"
 servers:
   - url: http://localhost:3000/
     description: Servidor local para receber requisições como desenvolvedor
@@ -90,8 +90,9 @@ paths:
               schema: 
                 type: object
                 properties: 
-                  message: string
-                  example: "Cliente cadastrado com sucesso!"
+                  message: 
+                    type: string
+                    example: "Cliente cadastrado com sucesso!"
         '400':
           description: Ocorreu algum erro nos dados enviados pelo cliente
           content:
@@ -99,8 +100,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  error: string
-                  example: "O CPF é inválido"
+                  error: 
+                    type: string
+                    example: "O CPF é inválido"
         default:
           description: Unexpected Error
           content:
@@ -108,8 +110,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  error: string
-                  example: "Unexpected Error!"
+                  error: 
+                    type: string
+                    example: "Unexpected Error!"
 
   /cliente/{codigo}:
     get:
@@ -149,15 +152,16 @@ paths:
                         type: string
                         description: E-mail do cliente.
                       createdAt:
-                        type: date-time
+                        type: string
+                        format: date # or date-time
                         description: Data e hora da criação do cliente.
               example:
                 result:
-                  codigoCliente: "Cdtoluifd7u7",
-                  nomeCliente: "Victor",
-                  cpfCliente: "15466379077",
-                  celularCliente: "11965049540",
-                  emailCliente: "victor1@gmail.com",
+                  codigoCliente: "Cdtoluifd7u7"
+                  nomeCliente: "Victor"
+                  cpfCliente: "15466379077"
+                  celularCliente: "11965049540"
+                  emailCliente: "victor1@gmail.com"
                   createdAt: "2024-04-02T13:38:38.453Z"
         '404':
           description: Nenhum cliente encontrado
@@ -175,11 +179,11 @@ paths:
       description: Altera os dados de um cliente com base no código passado pela url
       parameters:
         - in: path
-        name: codigo
-        schema:
-          type: string
-          description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
-        required: true
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
+          required: true
       requestBody:
         required: true
         content: 
@@ -195,8 +199,9 @@ paths:
               schema: 
                 type: object
                 properties: 
-                  message: string
-                  example: "Dados atualizados com sucesso!"
+                  message: 
+                    type: string
+                    example: "Dados atualizados com sucesso!"
 
         '400':
           description: Ocorreu algum erro nos dados enviados pelo cliente
@@ -205,8 +210,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  error: string
-                  example: "O CPF é inválido"
+                  error: 
+                    type: string
+                    example: "O CPF é inválido"
 
         '404':
           description: Nenhum cliente encontrado
@@ -226,19 +232,20 @@ paths:
               schema:
                 type: object
                 properties:
-                  error: string
-                  example: "Unexpected Error!"
+                  error: 
+                    type: string
+                    example: "Unexpected Error!"
     
     delete:
       summary: Deleta um cliente
       description: Deleta um cliente do banco com base em seu código
       parameters:
         - in: path
-        name: codigo
-        schema:
-          type: string
-          description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
-        required: true
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
+          required: true
       responses:
         '200':
           description: Cliente deletado com sucesso!
@@ -247,8 +254,9 @@ paths:
               schema: 
                 type: object
                 properties: 
-                  message: string
-                  example: "Cliente deletado com sucesso!"
+                  message: 
+                    type: string
+                    example: "Cliente deletado com sucesso!"
 
         '404':
           description: Nenhum cliente encontrado
@@ -268,8 +276,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  error: string
-                  example: "Unexpected Error!"
+                  error: 
+                    type: string
+                    example: "Unexpected Error!"
 
   /endereco:
     post:
@@ -289,8 +298,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  message: string
-                  example: "Endereço cadastrado com sucesso!"
+                  message: 
+                    type: string
+                    example: "Endereço cadastrado com sucesso!"
         '400':
           description: Ocorreu algum erro nos dados enviados pelo cliente
           content:
@@ -298,8 +308,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  error: string
-                  example: "É necessário inserir uma rua"
+                  error: 
+                    type: string
+                    example: "É necessário inserir uma rua"
         '404':
           description: Cliente não encontrado!
           content:
@@ -317,18 +328,19 @@ paths:
               schema:
                 type: object
                 properties:
-                  error: string
-                  example: "Unexpected Error!"
+                  error: 
+                    type: string
+                    example: "Unexpected Error!"
     get:
       summary: Buscar endereço pelo código
       description: Busca um endereço específico com base no seu código
       parameters:
         - in: path
-        name: codigo
-        schema:
-          type: string
-          description: Codigo do endereço (12 digitos) para buscá-lo no banco de dados
-        required: true
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do endereço (12 digitos) para buscá-lo no banco de dados
+          required: true
 
       responses:
         '200':
@@ -366,13 +378,13 @@ paths:
                         type: string
                         example: "São Paulo"
 
-                            example:
-              result:
-                codigoCliente: "Cdtoluifd7u7",
-                nomeCliente: "Victor",
-                cpfCliente: "15466379077",
-                celularCliente: "11965049540",
-                emailCliente: "victor1@gmail.com",
+            result:
+              example:
+                codigoCliente: "Cdtoluifd7u7"
+                nomeCliente: "Victor"
+                cpfCliente: "15466379077"
+                celularCliente: "11965049540"
+                emailCliente: "victor1@gmail.com"
                 createdAt: "2024-04-02T13:38:38.453Z"
         '404':
           description: Endereço não encontrado
@@ -390,24 +402,24 @@ paths:
       summary: Busca todos os endereços de um cliente
       description: Essa rota é responsável por fazer a busca de todos os endereços cadastrados de um cliente em específico com base no seu codigo
       parameters:
-        -in: path
-        name: codigo
-        schema:
-          type: string
-          description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
-        required: true
-        responses:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
+          required: true
+      responses:
           '200':
             description: Um array com vários endereços
             content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Endereco'
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    result:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Endereco'
           '404':
             description: Dados não encontrados
             content:
@@ -426,5 +438,78 @@ paths:
                 schema:
                   type: object
                   properties:
-                    error: string
-                    example: "Unexpected Error!"
+                    error: 
+                      type: string
+                      example: "Unexpected Error!"
+
+    put:
+      summary: Atualiza dados de endereço
+      description: Atualiza os dados de um endereço com base em seu código
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do endereço (12 digitos) para buscá-lo no banco de dados
+          required: true
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                cep:
+                  type: string
+                  example: "12970000"
+                nomeRua:
+                  type: string
+                  example: "Rua 1"
+                numeroCasa:
+                  type: string
+                  example: "20"
+                complemento:
+                  type: string
+                  example: "Apartamento 1C"
+                bairro:
+                  type: string
+                  example: "Centro"
+                cidade:
+                  type: string
+                  example: "Piracaia"
+                estado:
+                  type: string
+                  example: "São Paulo"
+      responses:
+        '200':
+          description: Dados alterados com sucesso!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Dados atualizados com sucesso!"
+        
+        '400':
+          description: Erro em algum dos dados enviados pelo cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "O tamanho do cep precisa ser de 8 caracteres"
+        
+        '404':
+          description: Erro informando que algo não foi encontrado
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Endereço não encontrado!"

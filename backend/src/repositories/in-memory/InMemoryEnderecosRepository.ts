@@ -37,8 +37,16 @@ export class InMemoryEnderecosRepository implements IEnderecosRepository {
 
         return enderecos;
     }
+
     async save(endereco: Endereco): Promise<void> {
         this.items.push(endereco);
     }
 
+    async update(endereco: Endereco): Promise<void> {
+        for (let i in this.items) {
+            if (this.items[i].codigoEndereco == endereco.codigoEndereco) {
+                this.items[i] = endereco;
+            }
+        }
+    }
 }
