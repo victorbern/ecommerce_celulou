@@ -39,4 +39,12 @@ export class PostgresEnderecosRepository implements IEnderecosRepository {
             data: endereco,
         });
     }
+
+    async delete(codigoEndereco: string): Promise<void> {
+        await this.prisma.endereco.delete({
+            where: {
+                codigoEndereco: codigoEndereco,
+            }
+        });
+    }
 }

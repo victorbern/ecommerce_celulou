@@ -5,4 +5,5 @@ export interface IEnderecosRepository {
     getByCodigoCliente(codigoCliente: string): Promise<Endereco[]>;
     save(endereco: Endereco): Promise<void>;
     update(endereco: Endereco): Promise<void>;
+    delete(codigoEndereco: string): Promise<void>;
 }

@@ -49,4 +49,12 @@ export class InMemoryEnderecosRepository implements IEnderecosRepository {
             }
         }
     }
+
+    async delete(codigoEndereco: string): Promise<void> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].codigoEndereco == codigoEndereco) {
+                this.items.splice(i);
+            }
+        }
+    }
 }
