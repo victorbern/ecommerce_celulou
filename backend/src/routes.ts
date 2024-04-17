@@ -8,6 +8,7 @@ import { findEnderecoByClienteController } from "./useCases/enderecos/FindEndere
 import { findEnderecoController } from "./useCases/enderecos/FindEndereco";
 import { updateEnderecoController } from "./useCases/enderecos/UpdateEndereco";
 import { deleteEnderecoController } from "./useCases/enderecos/DeleteEndereco";
+import { createCategoriaController } from "./useCases/categorias/CreateCategoria";
 
 const router = Router();
 
@@ -54,6 +55,11 @@ router.put('/endereco/:codigo', async (request, response, next) => {
 // Deleta um endereço pelo código
 router.delete('/endereco/:codigo', async (request, response, next) => {
     return deleteEnderecoController.handle(request, response, next);
+})
+
+// Inserir nova categoria
+router.post('/categoria/', async (request, response, next) => {
+    return createCategoriaController.handle(request, response, next);
 })
 
 export { router }
