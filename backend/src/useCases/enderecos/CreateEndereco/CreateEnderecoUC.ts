@@ -1,6 +1,5 @@
 import { AppError } from "../../../errors/AppError";
 import uniqid from "uniqid";
-import { findClienteUC } from "../../clientes/FindCliente";
 import { ICreateEnderecoRequestDTO, ICreateEnderecoResponseDTO } from "./CreateEnderecoDTO";
 import { IEnderecosRepository } from "../../../repositories/IEnderecosRepository";
 import { Endereco } from "../../../entities/Endereco";
