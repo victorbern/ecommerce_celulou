@@ -15,7 +15,7 @@ datasource db {
 
 model Categoria {
   codigoCategoria     String              @id @db.VarChar(12)
-  nomeCategoria       String?             @db.VarChar(45)
+  nomeCategoria       String              @unique
   produtoHasCategoria ProdutoHasCategoria[]
 }
 
