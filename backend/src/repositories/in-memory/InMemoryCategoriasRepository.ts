@@ -28,5 +28,19 @@ export class InMemoryCategoriasRepository implements ICategoriasRepository {
     async save(categoria: Categoria): Promise<void> {
         this.items.push(categoria);
     }
+
+    async getAll(): Promise<Categoria[]> {
+        return this.items;
+    }
+
+    async getAllWithFilter(filtro: string): Promise<Categoria[]> {
+        let result: Categoria[] = [];
+        for (let i in this.items) {
+            if (this.items[i].nomeCategoria.includes(filtro)) {
+                result.push(this.items[i]);
+            }
+        }
+        return result;
+    }
     
 }

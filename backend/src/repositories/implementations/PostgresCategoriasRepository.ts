@@ -30,5 +30,24 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
             data: categoria,
         });
     }
+
+    async getAll(): Promise<Categoria[]> {
+        let categorias: Categoria[] = await this.prisma.categoria.findMany();
+
+        return categorias;
+    }
+
+    async getAllWithFilter(filtro: string): Promise<Categoria[]> {
+        let categorias: Categoria[] = await this.prisma.categoria.findMany({
+            where: {
+                nomeCategoria: {
+                    contains: filtro,
+                    mode: "insensitive"
+                }
+            }
+        });
+
+        return categorias;
+    }
     
 }
