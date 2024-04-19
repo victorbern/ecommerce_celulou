@@ -406,7 +406,7 @@ paths:
                     type: string
                     example: "Endereço não encontrado!"
 
-  /enderecos/:codigo:
+  /enderecos/{codigo}:
     get:
       summary: Busca todos os endereços de um cliente
       description: Essa rota é responsável por fazer a busca de todos os endereços cadastrados de um cliente em específico com base no seu codigo
@@ -621,3 +621,87 @@ paths:
                     error: 
                       type: string
                       example: "Unexpected Error!"
+    
+  /categorias/:
+    get:
+      summary: Buscar todas as categorias
+      description: Faz a busca de todas as categorias presentes no banco de dados
+      responses:
+        '200':
+          description: Um array com várias categorias
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Categoria'
+        
+        '404':
+          description: Nenhuma categoria encontrada!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Nenhuma categoria encontrada!"
+
+        '500':
+          description: Unexpected Error!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unexpected Error!"
+  
+  /categorias/{filtro}:
+    get:
+      summary: Buscar todos as categorias com base no filtro
+      description: Filtra todas as categorias do banco com base no nome da categoria
+      parameters:
+        - in: path
+          name: filtro
+          schema:
+            type: string
+            description: Palavra ou parte de palavra para buscar as categorias
+          required: true
+      responses:
+        '200':
+          description: Devolve um array com as categorias encontradas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Categoria'
+        
+        '404':
+          description: Nenhuma categoria encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Nenhuma categoria encontrada!"
+        '500':
+          description: Unexpected Error!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unexpected Error!"
