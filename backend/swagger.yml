@@ -340,6 +340,7 @@ paths:
                   error: 
                     type: string
                     example: "Unexpected Error!"
+  /endereco:{codigo}:
     get:
       summary: Buscar endereço pelo código
       description: Busca um endereço específico com base no seu código
