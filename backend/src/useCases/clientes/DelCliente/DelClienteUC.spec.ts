@@ -5,20 +5,30 @@ import { delClienteUCTest } from ".";
 describe("Testando a classe DelClienteUC", () => {
     inMemoryClientesRepository.items = [];
 
-    inMemoryClientesRepository.items = [{
-        "codigoCliente": "Cksjskslsksls",
-        "nomeCliente": "Victor",
-        "cpfCliente": "25402037019",
-        "celularCliente": "11964758393",
-        "emailCliente": "victor@gmail.com",
-        "createdAt": new Date(Date.now()),
-    }]
+    inMemoryClientesRepository.items = [
+        {
+            "codigoCliente": "Cksjskslsksls",
+            "nomeCliente": "Victor",
+            "cpfCliente": "25402037019",
+            "celularCliente": "11964758393",
+            "emailCliente": "victor@gmail.com",
+            "createdAt": new Date(Date.now()),
+        },
+        {
+            "codigoCliente": "Casjskslsksls",
+            "nomeCliente": "Victor",
+            "cpfCliente": "25402037019",
+            "celularCliente": "11964758393",
+            "emailCliente": "victor@gmail.com",
+            "createdAt": new Date(Date.now()),
+        }
+    ]
 
     test("Should be able to delete a client", () => {
         expect(delClienteUCTest.execute({
             codigoCliente: "Cksjskslsksls"
         }).then(() => {
-            expect(inMemoryClientesRepository.items.length).toBe(0);
+            expect(inMemoryClientesRepository.items.length).toBe(1);
         }))
     });
 

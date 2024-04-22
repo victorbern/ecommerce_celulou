@@ -16,14 +16,25 @@ describe("Testando a classe DeleteEnderecoUC", () => {
             cidade: "Piracaia",
             estado: "São Paulo",
             codigoCliente: "C12312323123"
-        }
+        },
+        {
+            codigoEndereco: "EAQWWWEEERRR",
+            cep: "12970000",
+            nomeRua: "Rua 1",
+            numeroCasa: "44B",
+            complemento: "",
+            bairro: "Centro",
+            cidade: "Piracaia",
+            estado: "São Paulo",
+            codigoCliente: "C12312323123"
+        },
     ];
 
     test("Deve ser possível conseguir apagar um endereço", () => {
         expect(deleteEnderecoUCTest.execute({
             codigoEndereco: "EQQWWWEEERRR"
         }).then(() => {
-            expect(inMemoryEnderecosRepository.items).toHaveLength(0);
+            expect(inMemoryEnderecosRepository.items).toHaveLength(1);
         }));
     })
 
