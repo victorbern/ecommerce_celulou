@@ -42,5 +42,13 @@ export class InMemoryCategoriasRepository implements ICategoriasRepository {
         }
         return result;
     }
+
+    async update(categoria: Categoria): Promise<void> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].codigoCategoria == categoria.codigoCategoria) {
+                this.items[i] = categoria;
+            }
+        }
+    }
     
 }

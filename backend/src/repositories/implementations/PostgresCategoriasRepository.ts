@@ -50,4 +50,12 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
         return categorias;
     }
     
+    async update(categoria: Categoria): Promise<void> {
+        await this.prisma.categoria.update({
+            where: {
+                codigoCategoria: categoria.codigoCategoria
+            },
+            data: categoria,
+        })
+    }
 }

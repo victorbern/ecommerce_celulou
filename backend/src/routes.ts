@@ -10,6 +10,7 @@ import { updateEnderecoController } from "./useCases/enderecos/UpdateEndereco";
 import { deleteEnderecoController } from "./useCases/enderecos/DeleteEndereco";
 import { createCategoriaController } from "./useCases/categorias/CreateCategoria";
 import { findAllCategoriaController } from "./useCases/categorias/FindAllCategoria";
+import { updateCategoriaController } from "./useCases/categorias/UpdateCategoria";
 
 const router = Router();
 
@@ -71,6 +72,11 @@ router.get('/categorias/', async (request, response, next) => {
 // Buscar todas as categorias (com filtro)
 router.get('/categorias/:filtro', async (request, response, next) => {
     return findAllCategoriaController.handle(request, response, next);
+})
+
+// Alterar dados de uma categoria
+router.put('/categoria/:codigo', async(request, response, next) => {
+    return updateCategoriaController.handle(request, response, next);
 })
 
 export { router }

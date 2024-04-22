@@ -6,4 +6,5 @@ export interface ICategoriasRepository {
     getAllWithFilter(filtro: string): Promise<Categoria[]>;
     getByCodigo(codigoCategoria: string): Promise<Categoria>;
     save(categoria: Categoria): Promise<void>;
+    update(categoria: Categoria): Promise<void>;
 }

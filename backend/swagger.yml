@@ -12,6 +12,10 @@ components:
     Cliente:
       type: object
       properties:
+        codigoCliente:
+          type: string
+          example: "CAABBBCCCDDD"
+          readOnly: true
         nomeCliente: 
           type: string
           example: "Victor Oliveira"
@@ -28,6 +32,11 @@ components:
           example: "victor@gmail.com"
           format: email
           description: Endereço de e-mail do cliente.
+        createdAt:
+          type: string
+          format: date # or date-time
+          description: Data e hora da criação do cliente.
+          readOnly: true
       required:
         - nomeCliente
         - cpfCliente
@@ -80,11 +89,67 @@ components:
       required:
         - nomeCategoria
 
+  responses:
+    Sucesso:
+      description: Deu tudo certo!
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: 
+                type: string
+                example: "Dados alterados com sucesso!"
+
+    Criado:
+      description: Objeto criado com sucesso!
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Item criado com sucesso!"
+
+    Error400:
+      description: Ocorreu um erro em um dos dados enviados
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: O valor precisa ser uma string!
+
+    Error404:
+      description: Algo não foi encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "O item não foi encontrado!"
+
+    ErrorDefault:
+      description: Erro inesperado!
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Unexpected Error!
+
 paths:
   /cliente:
     post:
       summary: Cria um novo cliente.
-      description: Essa rota é a responsável pela criação de um novo cliente. Todos os clientes começam sem serem administradores.
+      description: Essa rota é a responsável pela criação de um novo cliente.
       requestBody:
         required: true
         content: 
@@ -92,36 +157,12 @@ paths:
             schema:
               $ref: '#/components/schemas/Cliente'
       responses:
-        '201':    # status code
-          description: Cliente cadastrado com sucesso!
-          content:
-            application/json:
-              schema: 
-                type: object
-                properties: 
-                  message: 
-                    type: string
-                    example: "Cliente cadastrado com sucesso!"
+        '201':
+          $ref: '#/components/responses/Criado'
         '400':
-          description: Ocorreu algum erro nos dados enviados pelo cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error: 
-                    type: string
-                    example: "O CPF é inválido"
+          $ref: '#/components/responses/Error400'
         default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error: 
-                    type: string
-                    example: "Unexpected Error!"
+          $ref: '#/components/responses/ErrorDefault'
 
   /cliente/{codigo}:
     get:
@@ -143,27 +184,7 @@ paths:
                 type: object
                 properties:
                   result:
-                    type: object
-                    properties:
-                      codigoCliente:
-                        type: string
-                        description: Código do cliente.
-                      nomeCliente:
-                        type: string
-                        description: Nome do cliente.
-                      cpfCliente:
-                        type: string
-                        description: CPF do cliente
-                      celularCliente:
-                        type: string
-                        description: Celular do cliente.
-                      emailCliente:
-                        type: string
-                        description: E-mail do cliente.
-                      createdAt:
-                        type: string
-                        format: date # or date-time
-                        description: Data e hora da criação do cliente.
+                    $ref: '#/components/schemas/Cliente'
               example:
                 result:
                   codigoCliente: "Cdtoluifd7u7"
@@ -173,15 +194,7 @@ paths:
                   emailCliente: "victor1@gmail.com"
                   createdAt: "2024-04-02T13:38:38.453Z"
         '404':
-          description: Nenhum cliente encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Cliente não encontrado"
+          $ref: "#/components/responses/Error404"
     
     put:
       summary: Altera dados de um cliente
@@ -202,48 +215,16 @@ paths:
               
       responses:
         '200':
-          description: Dados atualizados com sucesso!
-          content:
-            application/json:
-              schema: 
-                type: object
-                properties: 
-                  message: 
-                    type: string
-                    example: "Dados atualizados com sucesso!"
+          $ref: '#/components/responses/Sucesso'
 
         '400':
-          description: Ocorreu algum erro nos dados enviados pelo cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error: 
-                    type: string
-                    example: "O CPF é inválido"
+          $ref: "#/components/responses/Error400"
 
         '404':
-          description: Nenhum cliente encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Cliente não encontrado"
+          $ref: "#/components/responses/Error404"
 
         default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error: 
-                    type: string
-                    example: "Unexpected Error!"
+          $ref: "#/components/responses/ErrorDefault"
     
     delete:
       summary: Deleta um cliente
@@ -257,37 +238,13 @@ paths:
           required: true
       responses:
         '200':
-          description: Cliente deletado com sucesso!
-          content:
-            application/json:
-              schema: 
-                type: object
-                properties: 
-                  message: 
-                    type: string
-                    example: "Cliente deletado com sucesso!"
+          $ref: "#/components/responses/Sucesso"
 
         '404':
-          description: Nenhum cliente encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Cliente não encontrado"
+          $ref: "#/components/responses/Error404"
 
         default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error: 
-                    type: string
-                    example: "Unexpected Error!"
+          $ref: "#/components/responses/ErrorDefault"
 
   /endereco:
     post:
@@ -301,45 +258,14 @@ paths:
               $ref: '#/components/schemas/Endereco'
       responses:
         '201':
-          description: Endereço cadastrado com sucesso!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message: 
-                    type: string
-                    example: "Endereço cadastrado com sucesso!"
+          $ref: "#/components/responses/Criado"
         '400':
-          description: Ocorreu algum erro nos dados enviados pelo cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error: 
-                    type: string
-                    example: "É necessário inserir uma rua"
+          $ref: "#/components/responses/Error400"
         '404':
-          description: Cliente não encontrado!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Cliente não encontrado!"
+          $ref: "#/components/responses/Error404"
         default:
-          description: Unexpected Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error: 
-                    type: string
-                    example: "Unexpected Error!"
+          $ref: "#/components/responses/ErrorDefault"
+  /endereco/:codigo: 
     get:
       summary: Buscar endereço pelo código
       description: Busca um endereço específico com base no seu código
@@ -358,34 +284,9 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
+                properties:  
                   result:
-                    type: object
-                    properties:
-                      codigoEndereco:
-                        type: string
-                        example: "Ebcglv163kci"
-                      cep:
-                        type: string
-                        example: "12970000"
-                      nomeRua:
-                        type: string
-                        example: "Rua 1"
-                      numeroCasa:
-                        type: string
-                        example: "11B"
-                      complemento:
-                        type: string
-                        example: "Apartamento 2B"
-                      bairro:
-                        type: string
-                        example: "Centro"
-                      cidade:
-                        type: string
-                        example: "São José dos Campos"
-                      estado:
-                        type: string
-                        example: "São Paulo"
+                    $ref: '#/components/schemas/Endereco'
 
             result:
               example:
@@ -396,15 +297,10 @@ paths:
                 emailCliente: "victor1@gmail.com"
                 createdAt: "2024-04-02T13:38:38.453Z"
         '404':
-          description: Endereço não encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Endereço não encontrado!"
+          $ref: "#/components/responses/Error404"
+        
+        default:
+          $ref: '#/components/responses/ErrorDefault'
 
   /enderecos/{codigo}:
     get:
@@ -430,26 +326,10 @@ paths:
                       items:
                         $ref: '#/components/schemas/Endereco'
           '404':
-            description: Dados não encontrados
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    error:
-                      type: string
-                      example: "Nenhum endereço encontrado!"
+            $ref: "#/components/responses/Error404"
           
           default:
-            description: Unexpected Error
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    error: 
-                      type: string
-                      example: "Unexpected Error!"
+            $ref: "#/components/responses/ErrorDefault"
 
     put:
       summary: Atualiza dados de endereço
@@ -466,73 +346,19 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                cep:
-                  type: string
-                  example: "12970000"
-                nomeRua:
-                  type: string
-                  example: "Rua 1"
-                numeroCasa:
-                  type: string
-                  example: "20"
-                complemento:
-                  type: string
-                  example: "Apartamento 1C"
-                bairro:
-                  type: string
-                  example: "Centro"
-                cidade:
-                  type: string
-                  example: "Piracaia"
-                estado:
-                  type: string
-                  example: "São Paulo"
+              $ref: '#/components/schemas/Endereco'
       responses:
         '200':
-          description: Dados alterados com sucesso!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Dados atualizados com sucesso!"
+          $ref: "#/components/responses/Sucesso"
         
         '400':
-          description: Erro em algum dos dados enviados pelo cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "O tamanho do cep precisa ser de 8 caracteres"
+          $ref: "#/components/responses/Error400"
         
         '404':
-          description: Erro informando que algo não foi encontrado
-          content:
-            application/json:
-              schema: 
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Endereço não encontrado!"
+          $ref: "#/components/responses/Error404"
         
         default:
-            description: Unexpected Error
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    error: 
-                      type: string
-                      example: "Unexpected Error!"
+          $ref: "#/components/responses/ErrorDefault"
 
     delete:
       summary: Deleta um endereço
@@ -546,37 +372,13 @@ paths:
           required: true
       responses:
         '200':
-          description: Endereço deletado com sucesso!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message: 
-                    type: string
-                    example: "Endereço deletado com sucesso!"
+          $ref: "#/components/responses/Sucesso"
         
         '404':
-          description: Endereço não encontrado!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Endereço não encontrado!"
+          $ref: "#/components/responses/Error404"
         
         default:
-            description: Unexpected Error
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    error: 
-                      type: string
-                      example: "Unexpected Error!"
+          $ref: "#/components/responses/ErrorDefault"
   
   /categoria/:
     post:
@@ -590,37 +392,13 @@ paths:
               $ref: '#/components/schemas/Categoria'
       responses:
         '201':
-          description: Categoria cadastrada com sucesso!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message: 
-                    type: string
-                    example: "Categoria cadastrada com sucesso!"
+          $ref: "#/components/responses/Criado"
         
         '400':
-          description: Erro nos dados enviados pelo cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Esta categoria já existe"
+          $ref: "#/components/responses/Error400"
         
         default:
-            description: Unexpected Error
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    error: 
-                      type: string
-                      example: "Unexpected Error!"
+          $ref: "#/components/responses/ErrorDefault"
     
   /categorias/:
     get:
@@ -640,26 +418,10 @@ paths:
                       $ref: '#/components/schemas/Categoria'
         
         '404':
-          description: Nenhuma categoria encontrada!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Nenhuma categoria encontrada!"
+          $ref: "#/components/responses/Error404"
 
-        '500':
-          description: Unexpected Error!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Unexpected Error!"
+        default:
+          $ref: "#/components/responses/ErrorDefault"
   
   /categorias/{filtro}:
     get:
@@ -686,22 +448,37 @@ paths:
                       $ref: '#/components/schemas/Categoria'
         
         '404':
-          description: Nenhuma categoria encontrada
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Nenhuma categoria encontrada!"
-        '500':
-          description: Unexpected Error!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Unexpected Error!"
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
+  /categoria/:codigo:
+    put:
+      summary: Editar dados de uma categoria pelo seu codigo
+      description: Recebe o código de uma categoria pelo parametro e altera seus valores pelos valores enviados no body
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo da categoria (12 digitos) para buscá-la no banco de dados
+          required: true
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+      responses:
+        '200':
+          $ref: "#/components/responses/Sucesso"
+        
+        '400':
+          $ref: "#/components/responses/Error400"
+
+        '404':
+          $ref: "#/components/responses/Error404"
+        
+        default:
+          $ref: "#/components/responses/ErrorDefault"
