@@ -7,4 +7,5 @@ export interface ICategoriasRepository {
     getByCodigo(codigoCategoria: string): Promise<Categoria>;
     save(categoria: Categoria): Promise<void>;
     update(categoria: Categoria): Promise<void>;
+    delete(codigoCategoria: string): Promise<void>;
 }

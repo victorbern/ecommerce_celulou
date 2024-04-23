@@ -58,4 +58,12 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
             data: categoria,
         })
     }
+
+    async delete(codigoCategoria: string): Promise<void> {
+        await this.prisma.categoria.delete({
+            where: {
+                codigoCategoria: codigoCategoria
+            }
+        });
+    }
 }

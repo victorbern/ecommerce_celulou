@@ -50,5 +50,13 @@ export class InMemoryCategoriasRepository implements ICategoriasRepository {
             }
         }
     }
+
+    async delete(codigoCategoria: string): Promise<void> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].codigoCategoria === codigoCategoria) {
+                this.items.splice(i, 1);
+            }
+        }
+    }
     
 }

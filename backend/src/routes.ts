@@ -11,6 +11,7 @@ import { deleteEnderecoController } from "./useCases/enderecos/DeleteEndereco";
 import { createCategoriaController } from "./useCases/categorias/CreateCategoria";
 import { findAllCategoriaController } from "./useCases/categorias/FindAllCategoria";
 import { updateCategoriaController } from "./useCases/categorias/UpdateCategoria";
+import { deleteCategoriaController } from "./useCases/categorias/DeleteCategoria";
 
 const router = Router();
 
@@ -77,6 +78,11 @@ router.get('/categorias/:filtro', async (request, response, next) => {
 // Alterar dados de uma categoria
 router.put('/categoria/:codigo', async(request, response, next) => {
     return updateCategoriaController.handle(request, response, next);
+})
+
+// Deleta uma categoria pelo código
+router.delete('/categoria/:codigo', async(request, response, next) => {
+    return deleteCategoriaController.handle(request, response, next);
 })
 
 export { router }
