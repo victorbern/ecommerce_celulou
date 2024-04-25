@@ -12,8 +12,14 @@ import { createCategoriaController } from "./useCases/categorias/CreateCategoria
 import { findAllCategoriaController } from "./useCases/categorias/FindAllCategoria";
 import { updateCategoriaController } from "./useCases/categorias/UpdateCategoria";
 import { deleteCategoriaController } from "./useCases/categorias/DeleteCategoria";
+import { loginController } from "./useCases/autenticacao/Login";
 
 const router = Router();
+
+// Rota temporária de login
+router.post('/login', async (request, response, next) => {
+    return loginController.handle(request, response, next);
+})
 
 // Inserir novo cliente
 router.post('/cliente', async (request, response, next) => {
