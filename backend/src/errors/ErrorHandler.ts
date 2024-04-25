@@ -15,7 +15,7 @@ export const errorHandlerMiddleware = (
             error: error.message
         });
     } else if (error instanceof ZodError) {
-        response.status(400).send({ errors: error.errors[0].message })
+        response.status(400).send({ error: error.errors[0].message })
     } else {
         response.status(500).send({ error: "Algo deu errado!" });
     }
