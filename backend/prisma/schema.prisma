@@ -24,11 +24,13 @@ model Produto {
   valor               Decimal             @db.Decimal(10,2)
   nomeProduto         String?             @db.VarChar(45)
   marca               String?             @db.VarChar(45)
-  descricaoProduto    String?             @db.VarChar(45)
+  descricaoProduto    String?
   imagensFolder       String?             @db.VarChar(45)
   nota                Decimal             @db.Decimal(3,2)
   peso                Float
-  medidasLAC          String
+  largura             Decimal             @db.Decimal(10,2)
+  altura              Decimal             @db.Decimal(10,2)
+  comprimento         Decimal             @db.Decimal(10,2)
   isDisponivelCompra  Boolean
   isVisivel           Boolean
   produtoHasCategoria ProdutoHasCategoria[]
