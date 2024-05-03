@@ -22,7 +22,7 @@ model Categoria {
 model Produto {
   codigoProduto       String              @id @db.VarChar(12)
   valor               Decimal             @db.Decimal(10,2)
-  nomeProduto         String?             @db.VarChar(45)
+  nomeProduto         String?             @unique
   marca               String?             @db.VarChar(45)
   descricaoProduto    String?
   imagensFolder       String?             @db.VarChar(45)
