@@ -26,11 +26,11 @@ model Produto {
   marca               String?             @db.VarChar(45)
   descricaoProduto    String?
   imagensFolder       String?             @db.VarChar(45)
-  nota                Decimal             @db.Decimal(3,2)
-  peso                Float
-  largura             Decimal             @db.Decimal(10,2)
-  altura              Decimal             @db.Decimal(10,2)
-  comprimento         Decimal             @db.Decimal(10,2)
+  nota                Decimal?            @db.Decimal(3,2)
+  pesoGramas          Float
+  larguraCM           Decimal             @db.Decimal(10,2)
+  alturaCM            Decimal             @db.Decimal(10,2)
+  comprimentoCM       Decimal             @db.Decimal(10,2)
   isDisponivelCompra  Boolean
   isVisivel           Boolean
   produtoHasCategoria ProdutoHasCategoria[]

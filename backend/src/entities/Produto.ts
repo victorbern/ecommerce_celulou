@@ -8,10 +8,12 @@ export class Produto {
     public descricaoProduto: string;
     public imagensFolder: string;
     public nota: number;
-    public peso: number;
-    public altura: number;
-    public largura: number;
-    public comprimento: number;
+    public pesoGramas: number;
+    public alturaCM: number;
+    public larguraCM: number;
+    public comprimentoCM: number;
+    public isDisponivelCompra: boolean = false;
+    public isVisivel: boolean = false;
 
     private static produtoSchema = z.object({
         codigoProduto: z.string({
@@ -55,7 +57,7 @@ export class Produto {
             invalid_type_error: "A imagensFolder precisa ser uma string"
         }).max(45, { message: "O imagensFolder não pode ter mais do que 45 caracteres" }),
         nota: z.number({
-            invalid_type_error: "A nota precisa ser um número"
+            
         }).min(0, { message: "A nota deve ser maior ou igual a zero"}).refine(valor => {
             const stringValue = valor.toString();
             const [parteInteira, parteDecimal] = stringValue.split(".");
@@ -74,8 +76,8 @@ export class Produto {
             return true;
         }, {
             message: "A nota deve possuir até 3 digitos, sendo 2 deles decimais"
-        }),
-        peso: z.number({
+        }).nullable(),
+        pesoGramas: z.number({
             invalid_type_error: "O peso deve ser um número"
         }).min(0, { message: "O peso deve ser maior ou igual a zero" }).refine(valor => {
             const stringValue = valor.toString();
@@ -96,7 +98,7 @@ export class Produto {
         }, {
             message: "O peso deve possuir até 6 digitos, sendo 2 deles decimais"
         }),
-        altura: z.number({
+        alturaCM: z.number({
             invalid_type_error: "A altura deve ser um número"
         }).min(0, { message: "A altura deve ser maior ou igual a zero" }).refine(valor => {
             const stringValue = valor.toString();
@@ -117,7 +119,7 @@ export class Produto {
         }, {
             message: "A altura deve possuir até 4 digitos, sendo 2 deles decimais"
         }),
-        largura: z.number({
+        larguraCM: z.number({
             invalid_type_error: "A largura deve ser um número"
         }).min(0, { message: "A largura deve ser maior ou igual a zero" }).refine(valor => {
             const stringValue = valor.toString();
@@ -138,7 +140,7 @@ export class Produto {
         }, {
             message: "A largura deve possuir até 4 digitos, sendo 2 deles decimais"
         }),
-        comprimento: z.number({
+        comprimentoCM: z.number({
             invalid_type_error: "O comprimento deve ser um número"
         }).min(0, { message: "O comprimento deve ser maior ou igual a zero" }).refine(valor => {
             const stringValue = valor.toString();
@@ -161,7 +163,7 @@ export class Produto {
         }),
     })
 
-    constructor(props: Produto) {
+    constructor(props: Omit<Produto, "isDisponivelCompra" | "isVisivel">, isDisponivelCompra?: boolean, isVisivel?: boolean) {
         Produto.produtoSchema.parse(props);
         Object.assign(this, props);
     }

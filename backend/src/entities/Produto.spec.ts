@@ -19,10 +19,10 @@ describe("Testando a entidade Produto", () => {
                 versions of Lorem Ipsum.`,
             imagensFolder: "PAABBBCCCDDD/",
             nota: 4.20,
-            peso: 300.00,
-            altura: 20.20,
-            largura: 30.10,
-            comprimento: 12.00
+            pesoGramas: 300.00,
+            alturaCM: 20.20,
+            larguraCM: 30.10,
+            comprimentoCM: 12.00
         })).satisfies
 
         // Testando pois deve ser possível criar com valor igual a zero
@@ -42,11 +42,34 @@ describe("Testando a entidade Produto", () => {
                 versions of Lorem Ipsum.`,
             imagensFolder: "PAABBBCCCDDD/",
             nota: 4.20,
-            peso: 300.00,
-            altura: 20.20,
-            largura: 30.10,
-            comprimento: 12.00
+            pesoGramas: 300.00,
+            alturaCM: 20.20,
+            larguraCM: 30.10,
+            comprimentoCM: 12.00
         }))
+
+        // Deve ser possível criar um produto com uma nota nula
+        expect(new Produto({
+            codigoProduto: "PAABBBCCCDDD",
+            valor: 10.45,
+            nomeProduto: "Redmi Note 12",
+            marca: "Xiaomi",
+            descricaoProduto:
+                `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a type 
+                specimen book. It has survived not only five centuries, but also the leap into 
+                electronic typesetting, remaining essentially unchanged. It was popularised in 
+                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+                and more recently with desktop publishing software like Aldus PageMaker including 
+                versions of Lorem Ipsum.`,
+            imagensFolder: "PAABBBCCCDDD/",
+            nota: null,
+            pesoGramas: 300.00,
+            alturaCM: 20.20,
+            larguraCM: 30.10,
+            comprimentoCM: 12.00
+        })).satisfies  
     });
 
     describe("Testando o código do produto", () => {
@@ -68,10 +91,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 });
             }).toThrow("O tamanho do código precisa ser de 12 caracteres");
     
@@ -92,10 +115,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O tamanho do código precisa ser de 12 caracteres")
         });
@@ -118,10 +141,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O código precisa ser uma string");
         });    
@@ -146,10 +169,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O valor precisa ser um numero");
         })
@@ -172,10 +195,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O valor precisa ser maior ou igual a zero")
         })
@@ -199,10 +222,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O valor deve possuir até 10 digitos, sendo 2 deles decimais")
         });
@@ -227,10 +250,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O valor deve possuir até 10 digitos, sendo 2 deles decimais")
         })
@@ -255,10 +278,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("É necessário inserir um nome para o produto")
         });
@@ -281,10 +304,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O nome do produto precisa ser uma string")
         });
@@ -307,10 +330,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O nome do produto não deve ter mais do que 45 caracteres")
         })
@@ -335,10 +358,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("É necessário inserir uma marca")
         });
@@ -361,10 +384,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A marca precisa ser uma string")
         })
@@ -387,10 +410,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A marca não deve possuir mais do que 45 caracteres")
         })
@@ -407,10 +430,10 @@ describe("Testando a entidade Produto", () => {
                     descricaoProduto: null,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A descrição precisa ser uma string")
         })
@@ -435,10 +458,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: null,
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A imagensFolder precisa ser uma string")
         })
@@ -461,42 +484,16 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/SAKSJDSKAJDHSAHDASHJAASKAJSASJKASAS",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O imagensFolder não pode ter mais do que 45 caracteres")
         })
     })
 
     describe("Testando a nota do produto", () => {
-        test("Não deve ser possível criar um objeto de Produto com uma nota com um tipo diferente de número", () => {
-            expect(() => {
-                new Produto({
-                    codigoProduto: "PAABBBCCCDDD",
-                    valor: 10.01,
-                    nomeProduto: "Redmi Note 12",
-                    marca: "Xiaomi",
-                    descricaoProduto:
-                        `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                        when an unknown printer took a galley of type and scrambled it to make a type 
-                        specimen book. It has survived not only five centuries, but also the leap into 
-                        electronic typesetting, remaining essentially unchanged. It was popularised in 
-                        the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                        and more recently with desktop publishing software like Aldus PageMaker including 
-                        versions of Lorem Ipsum.`,
-                    imagensFolder: "PAABBBCCCDDD/",
-                    nota: null,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
-                })
-            }).toThrow("A nota precisa ser um número")
-        });
-
         test("Não deve ser possível criar um objeto de Produto com uma nota abaixo de zero", () => {
             expect(() => {
                 new Produto({
@@ -515,10 +512,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: -2,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A nota deve ser maior ou igual a zero")
         })
@@ -541,10 +538,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 42.2,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A nota deve possuir até 3 digitos, sendo 2 deles decimais")
         })
@@ -567,10 +564,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.222,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A nota deve possuir até 3 digitos, sendo 2 deles decimais")
         })
@@ -595,10 +592,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: null,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: null,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O peso deve ser um número")
         })
@@ -621,10 +618,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: -2,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: -2,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O peso deve ser maior ou igual a zero")
         })
@@ -647,10 +644,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 30000.0,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 30000.0,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O peso deve possuir até 6 digitos, sendo 2 deles decimais")
         })
@@ -673,10 +670,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 30.002,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 30.002,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("O peso deve possuir até 6 digitos, sendo 2 deles decimais")
         })
@@ -701,10 +698,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: null,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: null,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A altura deve ser um número")
         })
@@ -727,10 +724,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: -20.20,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: -20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A altura deve ser maior ou igual a zero")
         })
@@ -753,10 +750,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 203.2,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 203.2,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A altura deve possuir até 4 digitos, sendo 2 deles decimais")
         })
@@ -779,10 +776,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 2.209,
-                    largura: 30.10,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 2.209,
+                    larguraCM: 30.10,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A altura deve possuir até 4 digitos, sendo 2 deles decimais")
         })
@@ -807,10 +804,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: null,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: null,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A largura deve ser um número")
         })
@@ -833,10 +830,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: -20.20,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: -20.20,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A largura deve ser maior ou igual a zero")
         })
@@ -859,10 +856,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 303.1,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 303.1,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A largura deve possuir até 4 digitos, sendo 2 deles decimais")
         })
@@ -885,10 +882,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 3.109,
-                    comprimento: 12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 3.109,
+                    comprimentoCM: 12.00
                 })
             }).toThrow("A largura deve possuir até 4 digitos, sendo 2 deles decimais")
         })
@@ -913,10 +910,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: null
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: null
                 })
             }).toThrow("O comprimento deve ser um número")
         })
@@ -939,10 +936,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: -12.00
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: -12.00
                 })
             }).toThrow("O comprimento deve ser maior ou igual a zero")
         })
@@ -965,10 +962,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 122.0
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 122.0
                 });
             }).toThrow("O comprimento deve possuir até 4 digitos, sendo 2 deles decimais");
         });
@@ -991,10 +988,10 @@ describe("Testando a entidade Produto", () => {
                         versions of Lorem Ipsum.`,
                     imagensFolder: "PAABBBCCCDDD/",
                     nota: 4.20,
-                    peso: 300.00,
-                    altura: 20.20,
-                    largura: 30.10,
-                    comprimento: 1.002
+                    pesoGramas: 300.00,
+                    alturaCM: 20.20,
+                    larguraCM: 30.10,
+                    comprimentoCM: 1.002
                 });
             }).toThrow("O comprimento deve possuir até 4 digitos, sendo 2 deles decimais")
         })
