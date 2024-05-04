@@ -14,6 +14,7 @@ import { updateCategoriaController } from "./useCases/categorias/UpdateCategoria
 import { deleteCategoriaController } from "./useCases/categorias/DeleteCategoria";
 import { loginController } from "./useCases/autenticacao/Login";
 import { createProdutoController } from "./useCases/produtos/CreateProduto";
+import { findProdutoController } from "./useCases/produtos/FindProduto";
 
 const router = Router();
 
@@ -92,8 +93,15 @@ router.delete('/categoria/:codigo', async(request, response, next) => {
     return deleteCategoriaController.handle(request, response, next);
 })
 
+// Rota para criação de um produto novo
 router.post('/produto/', async(request, response, next) => {
     return createProdutoController.handle(request, response, next);
+}, )
+
+// Rota para buscar um produto pelo código
+router.get('/produto/:codigo', async(request, response, next) => {
+    return findProdutoController.handle(request, response, next);
 })
+
 
 export { router }
