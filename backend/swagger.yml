@@ -89,6 +89,91 @@ components:
       required:
         - nomeCategoria
 
+    Produto:
+      type: object
+      properties:
+        codigoProduto:
+          type: string
+          example: "PAABBBCCCDDD"
+          readOnly: true
+        valor:
+          type: number
+          description: Valor do produto em Reais R$
+          minimum: 0
+          maximum: 99999999.99
+          example: 22222222.22
+        nomeProduto:
+          type: string
+          description: Nome do produto
+          minLength: 0
+          maxLength: 45
+          example: "Samsung Galaxy A54"
+        marca:
+          type: string
+          description: Nome da marca fabricante do produto
+          minLength: 0
+          maxLength: 45
+          example: "Samsung"
+        descricaoProduto:
+          type: string
+          description: Descrição detalhada do produto
+          example: "Smartphone Samsung Galaxy A54 5G 128GB Tela 6.4'' Dual Chip 8GB RAM Branco Câmera Tripla de até 50MP Selfie 32MP"
+        imagensFolder:
+          type: string
+          description: Endereço local onde as imagens do produto estão armazenadas
+          example: "/produtos/PAABBBCCCDDD"
+          readOnly: true
+        nota:
+          type: number
+          description: Nota geral do produto com base nas avaliações atribuidas a ele
+          nullable: true
+          minimum: 0
+          maximum: 5.00
+          example: 4.98
+          readOnly: true
+        pesoGramas:
+          type: number
+          description: Peso em gramas do produto completo no envio (dispositivo, caixa e acessórios)
+          minimum: 0
+          maximum: 9999.99
+          example: 2222.22
+        alturaCM:
+          type: number
+          description: Altura em centímetros do produto a ser enviado
+          minimum: 0
+          maximum: 99.99
+          example: 22.22
+        larguraCM:
+          type: number
+          description: Largura em centímetros do produto a ser enviado
+          minimum: 0
+          maximum: 99.99
+          example: 22.22
+        comprimentoCM:
+          type: number
+          description: Comprimento em centímetros do produto a ser enviado
+          minimum: 0
+          maximum: 99.99
+          example: 22.22
+        isDisponivelCompra:
+          type: boolean
+          description: Mostra se um determinado produto está disponível para compras
+          readOnly: true
+        isVisivel:
+          type: boolean
+          description: Mostra se um determinado produto está disponível para ser exibido para todos os usuários do sistema
+          readOnly: true
+
+      required:
+        - valor
+        - nomeProduto
+        - marca
+        - descricaoProduto
+        - pesoGramas
+        - alturaCM
+        - larguraCM
+        - comprimentoCM
+
   responses:
     Sucesso:
       description: Deu tudo certo!
@@ -482,3 +567,25 @@ paths:
         
         default:
           $ref: "#/components/responses/ErrorDefault"
+
+  /produto/:
+    post:
+      summary: Criar novo produto
+      description: Esta é uma rota para a criação de um novo produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+      responses:
+        '201':
+          $ref: "#/components/responses/Criado"
+
+        '400':
+          $ref: "#/components/responses/Error400"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
+    
