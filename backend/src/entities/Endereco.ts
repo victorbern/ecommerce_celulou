@@ -24,26 +24,26 @@ export class Endereco {
         nomeRua: z.string({
             required_error: "É necessário inserir uma rua",
             invalid_type_error: "O nome da rua precisa ser uma string"
-        }).min(1, { message: "É necessário inserir uma rua" }).max(30, { message: "O nome da rua não pode ter mais do que 30 caracteres" }),
+        }).min(1, { message: "É necessário inserir uma rua" }).max(60, { message: "O nome da rua não pode ter mais do que 60 caracteres" }),
         numeroCasa: z.string({
             required_error: "É necessário inserir um número",
             invalid_type_error: "O número deve ser uma string"
         }).min(1, { message: "É necessário inserir um número" }).max(10, { message: "O número da casa não pode ter mais do que 10 caracteres" }),
         complemento: z.string({
             invalid_type_error: "O complemento deve ser uma string"
-        }).max(30, { message: "O complemento não pode ter mais do que 30 caracteres" }),
+        }).max(60, { message: "O complemento não pode ter mais do que 60 caracteres" }),
         bairro: z.string({
             required_error: "É necessário inserir um bairro",
             invalid_type_error: "O bairro deve ser uma string"
-        }).min(1, { message: "É necessário inserir um bairro" }).max(30, { message: "O bairro não pode ter mais do que 30 caracteres" }),
+        }).min(1, { message: "É necessário inserir um bairro" }).max(60, { message: "O bairro não pode ter mais do que 60 caracteres" }),
         cidade: z.string({
             required_error: "É necessário inserir uma cidade",
             invalid_type_error: "A cidade deve ser uma string"
-        }).min(1, { message: "É necessário inserir uma cidade" }).max(30, { message: "A cidade não pode ter mais do que 30 caracteres" }),
+        }).min(1, { message: "É necessário inserir uma cidade" }).max(60, { message: "A cidade não pode ter mais do que 60 caracteres" }),
         estado: z.string({
             required_error: "É necessário inserir um estado",
             invalid_type_error: "O estado deve ser uma string"
-        }).min(1, { message: "É necessário inserir um estado" }).max(30, { message: "O estado não pode ter mais do que 30 caracteres" })
+        }).min(1, { message: "É necessário inserir um estado" }).max(60, { message: "O estado não pode ter mais do que 60 caracteres" })
     })
 
     constructor(props: Endereco) {

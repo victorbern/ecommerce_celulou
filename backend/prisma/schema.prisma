@@ -70,7 +70,7 @@ model AlteracoesEstoque {
 model Cliente {
   codigoCliente       String              @id @db.VarChar(12)
   cpfCliente          String              @unique
-  nomeCliente         String              @db.VarChar(45)
+  nomeCliente         String              @db.VarChar(60)
   celularCliente      String              @db.VarChar(12)
   emailCliente        String              @unique
   createdAt           DateTime?
@@ -83,12 +83,12 @@ model Cliente {
 model Endereco {
   codigoEndereco      String              @id @db.VarChar(12)
   cep                 String?             @db.VarChar(12)
-  nomeRua             String?             @db.VarChar(30)
+  nomeRua             String?             @db.VarChar(60)
   numeroCasa          String?             @db.VarChar(10)
-  complemento         String?             @db.VarChar(30)
-  bairro              String?             @db.VarChar(30)
-  cidade              String              @db.VarChar(30)
-  estado              String              @db.VarChar(30)
+  complemento         String?             @db.VarChar(60)
+  bairro              String?             @db.VarChar(60)
+  cidade              String              @db.VarChar(60)
+  estado              String              @db.VarChar(60)
   codigoCliente       String
   cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "endereco_ibfk_1")
   pedido              Pedido[]

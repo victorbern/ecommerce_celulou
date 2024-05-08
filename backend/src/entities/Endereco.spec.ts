@@ -141,12 +141,12 @@ describe("Testing the entity Endereco", () => {
             })
         }).toThrow("O nome da rua precisa ser uma string")
 
-        // Testando inserir uma rua com mais de 30 caracteres
+        // Testando inserir uma rua com mais de 60 caracteres
         expect(() => {
             new Endereco({
                 codigoEndereco: "E12123123123",
                 cep: "12970000",
-                nomeRua: "Rua 1 Lorem Ipsum is simply dummy text of the printing and",
+                nomeRua: "Rua 1 Lorem Ipsum is simply dummy text of the printing and Rua 1 Lorem Ipsum is simply dummy text of the printing and",
                 numeroCasa: "1A",
                 complemento: "",
                 bairro: "Jd. San Marino",
@@ -154,7 +154,7 @@ describe("Testing the entity Endereco", () => {
                 estado: "São Paulo",
                 codigoCliente: "C12QWEQWEQWE"
             })
-        }).toThrow("O nome da rua não pode ter mais do que 30 caracteres");
+        }).toThrow("O nome da rua não pode ter mais do que 60 caracteres");
 
         // Testando numeroCasa
         // Criar endereço com numeroCasa vazio
@@ -218,20 +218,20 @@ describe("Testing the entity Endereco", () => {
             })
         }).toThrow("O complemento deve ser uma string");
 
-        // Testando criar endereco com complemento maior do que 30 caracteres
+        // Testando criar endereco com complemento maior do que 60 caracteres
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
-                complemento: null,
+                complemento: "Lorem ipsum dolor sit amet. Ab unde quia eum temporibus magnam est voluptatibus quisquam. Et sunt illum ex laborum accusamus sed voluptatem voluptatum sit eveniet iure.",
                 bairro: "Jd. San Marino",
                 cidade: "Piracaia",
                 estado: "São Paulo",
                 codigoCliente: "C12QWEQWEQWE"
             })
-        }).toThrow("O complemento deve ser uma string")
+        }).toThrow("O complemento não pode ter mais do que 60 caracteres")
 
         // Testando bairro
         // Testando criar endereço com bairro vazio
@@ -264,7 +264,7 @@ describe("Testing the entity Endereco", () => {
             })
         }).toThrow("O bairro deve ser uma string");
 
-        // Testando criar endereço com bairro com tamanho maior do que 30 caracteres
+        // Testando criar endereço com bairro com tamanho maior do que 60 caracteres
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
@@ -272,12 +272,12 @@ describe("Testing the entity Endereco", () => {
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
                 complemento: "",
-                bairro: "Jardim San Marino dos Lorem Ipsum Dolor Sit Amet",
+                bairro: "Jardim San Marino dos Lorem Ipsum Dolor Sit Amet Jardim San Marino dos Lorem Ipsum Dolor Sit Amet",
                 cidade: "Piracaia",
                 estado: "São Paulo",
                 codigoCliente: "C12QWEQWEQWE"
             })
-        }).toThrow("O bairro não pode ter mais do que 30 caracteres");
+        }).toThrow("O bairro não pode ter mais do que 60 caracteres");
 
         // Testando cidade
         // Testando criar endereço com cidade vazia
@@ -310,7 +310,7 @@ describe("Testing the entity Endereco", () => {
             })
         }).toThrow("A cidade deve ser uma string");
 
-        // Testando criar endereço com cidade com tamanho maior do que 30 caracteres
+        // Testando criar endereço com cidade com tamanho maior do que 60 caracteres
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
@@ -319,11 +319,11 @@ describe("Testing the entity Endereco", () => {
                 numeroCasa: "1A",
                 complemento: "",
                 bairro: "Jd. San Marino",
-                cidade: "Piracaia dos Lorem Ipsum Dolor Sit Amet",
+                cidade: "Piracaia dos Lorem Ipsum Dolor Sit Amet Piracaia dos Lorem Ipsum Dolor Sit Amet",
                 estado: "São Paulo",
                 codigoCliente: "C12QWEQWEQWE"
             })
-        }).toThrow("A cidade não pode ter mais do que 30 caracteres");
+        }).toThrow("A cidade não pode ter mais do que 60 caracteres");
 
         // Testando estado
         // Testando criar endereço com estado vazio
@@ -356,7 +356,7 @@ describe("Testing the entity Endereco", () => {
             })
         }).toThrow("O estado deve ser uma string");
 
-        // Testando criar endereço com estado com tamanho maior do que 30 caracteres
+        // Testando criar endereço com estado com tamanho maior do que 60 caracteres
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
@@ -366,9 +366,9 @@ describe("Testing the entity Endereco", () => {
                 complemento: "",
                 bairro: "Jd. San Marino",
                 cidade: "Piracaia",
-                estado: "São Paulo dos Lorem Ipsum Dolor Sit Amet",
+                estado: "São Paulo dos Lorem Ipsum Dolor Sit Amet São Paulo dos Lorem Ipsum Dolor Sit Amet",
                 codigoCliente: "C12QWEQWEQWE"
             })
-        }).toThrow("O estado não pode ter mais do que 30 caracteres");
+        }).toThrow("O estado não pode ter mais do que 60 caracteres");
     })
 })

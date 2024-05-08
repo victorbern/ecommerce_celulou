@@ -90,17 +90,17 @@ describe("Testing the entity Cliente", () => {
             })
         }).toThrow("O nome precisa ser uma string");
 
-        // Tentando criar um objeto de cliente com nomeCliente com mais de 45 caracteres
+        // Tentando criar um objeto de cliente com nomeCliente com mais de 60 caracteres
         expect(() => {
             new Cliente({
                 codigoCliente: "C12345678911",
-                nomeCliente: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
+                nomeCliente: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
                 cpfCliente: "39302302932",
                 celularCliente: "11965636563",
                 emailCliente: "victor@gmail.com",
                 createdAt: new Date(Date.now()),
             })
-        }).toThrow("O nome não pode ter mais do que 45 caracteres")
+        }).toThrow("O nome não pode ter mais do que 60 caracteres")
 
         // Testando cpfCliente
         // Testando cpfCliente nulo

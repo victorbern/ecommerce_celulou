@@ -15,7 +15,7 @@ export class Cliente {
         nomeCliente: z.string({
             required_error: "É necessário inserir um nome",
             invalid_type_error: "O nome precisa ser uma string"
-        }).min(1, {message: "É necessário inserir um nome"}).max(45, { message: "O nome não pode ter mais do que 45 caracteres" }),
+        }).min(1, {message: "É necessário inserir um nome"}).max(60, { message: "O nome não pode ter mais do que 60 caracteres" }),
         cpfCliente: z.string({
             required_error: "É necessário inserir um CPF",
             invalid_type_error: "O CPF precisa ser uma string"
