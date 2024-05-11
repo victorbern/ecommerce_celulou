@@ -420,35 +420,6 @@ paths:
         default:
           $ref: '#/components/responses/ErrorDefault'
 
-  /enderecos/{codigo}:
-    get:
-      summary: Busca todos os endereços de um cliente
-      description: Essa rota é responsável por fazer a busca de todos os endereços cadastrados de um cliente em específico com base no seu codigo
-      parameters:
-        - in: path
-          name: codigo
-          schema:
-            type: string
-            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
-          required: true
-      responses:
-          '200':
-            description: Um array com vários endereços
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    result:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Endereco'
-          '404':
-            $ref: "#/components/responses/Error404"
-          
-          default:
-            $ref: "#/components/responses/ErrorDefault"
-
     put:
       summary: Atualiza dados de endereço
       description: Atualiza os dados de um endereço com base em seu código
@@ -497,6 +468,35 @@ paths:
         
         default:
           $ref: "#/components/responses/ErrorDefault"
+
+  /enderecos/{codigo}:
+    get:
+      summary: Busca todos os endereços de um cliente
+      description: Essa rota é responsável por fazer a busca de todos os endereços cadastrados de um cliente em específico com base no seu codigo
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
+          required: true
+      responses:
+          '200':
+            description: Um array com vários endereços
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    result:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Endereco'
+          '404':
+            $ref: "#/components/responses/Error404"
+          
+          default:
+            $ref: "#/components/responses/ErrorDefault"
   
   /categoria/:
     post:
@@ -595,6 +595,26 @@ paths:
         '400':
           $ref: "#/components/responses/Error400"
 
+        '404':
+          $ref: "#/components/responses/Error404"
+        
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
+    delete:
+      summary: Deleta uma categoria
+      description: Deleta uma categoria com base em seu código
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo da categoria (12 digitos) para buscá-la no banco de dados
+          required: true
+      responses:
+        '200':
+          $ref: "#/components/responses/Sucesso"
+        
         '404':
           $ref: "#/components/responses/Error404"
         
