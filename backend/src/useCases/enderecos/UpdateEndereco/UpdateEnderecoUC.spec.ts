@@ -8,6 +8,7 @@ describe("Testando a classe UpdateEnderecoUC", () => {
     inMemoryEnderecosRepository.items = [
         {
             codigoEndereco: "EQQWWWEEERRR",
+            nomeEndereco: "Casa",
             cep: "12970568",
             nomeRua: "Rua 2",
             numeroCasa: "11",
@@ -22,6 +23,7 @@ describe("Testando a classe UpdateEnderecoUC", () => {
     test("Deve ser possível atualizar os dados de um endereço", () => {
         expect(updateEnderecoUCTest.execute({
             codigoEndereco: "EQQWWWEEERRR",
+            nomeEndereco: "Empresa",
             cep: "12970000",
             nomeRua: "Rua 1",
             numeroCasa: "10",
@@ -31,6 +33,7 @@ describe("Testando a classe UpdateEnderecoUC", () => {
             estado: "São Paulo"
         }).then(() => {
             expect(inMemoryEnderecosRepository.items[0].codigoEndereco).toBe("EQQWWWEEERRR");
+            expect(inMemoryEnderecosRepository.items[0].nomeEndereco).toBe("Empresa");
             expect(inMemoryEnderecosRepository.items[0].cep).toBe("12970000");
             expect(inMemoryEnderecosRepository.items[0].nomeRua).toBe("Rua 1");
             expect(inMemoryEnderecosRepository.items[0].numeroCasa).toBe("10");
@@ -44,6 +47,7 @@ describe("Testando a classe UpdateEnderecoUC", () => {
     test("Não deve ser possivel atualizar os dados de um endereço porque o endereço não existe", () => {
         expect(updateEnderecoUCTest.execute({
             codigoEndereco: "ELLKKKJJJHHH",
+            nomeEndereco: "Casa",
             cep: "12970000",
             nomeRua: "Rua 1",
             numeroCasa: "10",
@@ -54,10 +58,38 @@ describe("Testando a classe UpdateEnderecoUC", () => {
         })).rejects.toThrow("Endereço não encontrado!");
     });
 
+    test("Não deve ser possível atualizar os dados de um endereço porque o novo nome do endereço já está em uso", () => {
+        inMemoryEnderecosRepository.items.push({
+            codigoEndereco: "EAAWWWEEERRR",
+            nomeEndereco: "Casa",
+            cep: "12970568",
+            nomeRua: "Rua 2",
+            numeroCasa: "11",
+            complemento: "",
+            bairro: "Jardim das Palmeiras",
+            cidade: "Paraty",
+            estado: "Rio de Janeiro",
+            codigoCliente: "CRRTTTQQQRRR",
+        })
+
+        expect(updateEnderecoUCTest.execute({
+            codigoEndereco: "EQQWWWEEERRR",
+            nomeEndereco: "Casa",
+            cep: "12970568",
+            nomeRua: "Rua 2",
+            numeroCasa: "11",
+            complemento: "",
+            bairro: "Jardim das Palmeiras",
+            cidade: "Paraty",
+            estado: "Rio de Janeiro",
+        })).rejects.toThrow("Não é possível alterar o nome do endereço para um nome em uso por outro endereço")
+    })
+
     test("Não deve ser possível atualizar os dados de um endereço porque algum dos dados enviado é inválido", () => {
         // Testando se o Zod está validando corretamente   
         expect(updateEnderecoUCTest.execute({
             codigoEndereco: "EQQWWWEEERRR",
+            nomeEndereco: "Casa 2",
             cep: "",
             nomeRua: "Rua 1",
             numeroCasa: "10",

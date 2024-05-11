@@ -6,6 +6,7 @@ export class InMemoryEnderecosRepository implements IEnderecosRepository {
     public items: Endereco[] = [
         {
             codigoEndereco: "EQQWWWEEERRR",
+            nomeEndereco: "Casa",
             cep: "12970000",
             nomeRua: "Rua 1",
             numeroCasa: "44B",

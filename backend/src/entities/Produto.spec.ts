@@ -312,12 +312,12 @@ describe("Testando a entidade Produto", () => {
             }).toThrow("O nome do produto precisa ser uma string")
         });
     
-        test("Não deve ser possível criar um objeto de Produto com um nome com mais de 45 caracteres", () => {
+        test("Não deve ser possível criar um objeto de Produto com um nome com mais de 60 caracteres", () => {
             expect(() => {
                 new Produto({
                     codigoProduto: "PAABBBCCCDDD",
                     valor: 10.01,
-                    nomeProduto: "Redmi Note 12 4GB RAM 64GB 4G - Smartphone Xioami 2023",
+                    nomeProduto: "Redmi Note 12 4GB RAM 64GB 4G - Smartphone Xioami 2023 Redmi Note 12 4GB RAM 64GB 4G - Smartphone Xioami 2023",
                     marca: "Xiaomi",
                     descricaoProduto:
                         `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -335,7 +335,7 @@ describe("Testando a entidade Produto", () => {
                     larguraCM: 30.10,
                     comprimentoCM: 12.00
                 })
-            }).toThrow("O nome do produto não deve ter mais do que 45 caracteres")
+            }).toThrow("O nome do produto não deve ter mais do que 60 caracteres")
         })
     })
 
@@ -415,7 +415,7 @@ describe("Testando a entidade Produto", () => {
                     larguraCM: 30.10,
                     comprimentoCM: 12.00
                 })
-            }).toThrow("A marca não deve possuir mais do que 45 caracteres")
+            }).toThrow("A marca não deve possuir mais do que 60 caracteres")
         })
     })
 

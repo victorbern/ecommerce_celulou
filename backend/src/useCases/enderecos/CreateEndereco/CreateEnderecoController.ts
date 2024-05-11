@@ -7,10 +7,10 @@ export class CreateEnderecoController {
     ) {}
 
     async handle(request: Request, response: Response, next: NextFunction): Promise<Response> {
-        const { cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente } = request.body;
+        const { nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente } = request.body;
         try {
             let result = await this.createEnderecoUC.execute({
-                cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente
+                nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente
             });
 
             return response.status(201).json({ message: result.message });

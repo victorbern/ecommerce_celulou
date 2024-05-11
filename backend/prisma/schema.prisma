@@ -23,7 +23,7 @@ model Produto {
   codigoProduto       String              @id @db.VarChar(12)
   valor               Decimal             @db.Decimal(10,2)
   nomeProduto         String?             @unique
-  marca               String?             @db.VarChar(45)
+  marca               String?             @db.VarChar(60)
   descricaoProduto    String?
   imagensFolder       String?             @db.VarChar(45)
   nota                Decimal?            @db.Decimal(3,2)
@@ -82,6 +82,7 @@ model Cliente {
 
 model Endereco {
   codigoEndereco      String              @id @db.VarChar(12)
+  nomeEndereco        String?             
   cep                 String?             @db.VarChar(12)
   nomeRua             String?             @db.VarChar(60)
   numeroCasa          String?             @db.VarChar(10)
@@ -97,7 +98,7 @@ model Endereco {
 
 model Avaliacao {
   codigoAvaliacao     String              @id @db.VarChar(12)
-  titulo              String?             @db.VarChar(30)
+  titulo              String?             @db.VarChar(60)
   descricao           String?             @db.VarChar(120)
   imagensFolder       String?             @db.VarChar(30)
   nota                Decimal             @db.Decimal(3,2)

@@ -19,6 +19,7 @@ export class FindEnderecoUC {
         if (endereco) {
             return {
                 codigoEndereco: endereco.codigoEndereco,
+                nomeEndereco: endereco.nomeEndereco,
                 cep: endereco.cep,
                 nomeRua: endereco.nomeRua,
                 numeroCasa: endereco.numeroCasa,

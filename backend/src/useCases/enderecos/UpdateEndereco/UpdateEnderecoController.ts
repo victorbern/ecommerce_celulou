@@ -8,10 +8,10 @@ export class UpdateEnderecoController {
 
     async handle (request: Request, response: Response, next: NextFunction) {
         const codigo = request.params.codigo;
-        const { cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado } = request.body;
+        const { cep, nomeEndereco, nomeRua, numeroCasa, complemento, bairro, cidade, estado } = request.body;
         try {
             let result = await this.updateEnderecoUC.execute({
-                codigoEndereco: codigo, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado
+                codigoEndereco: codigo, nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado
             });
 
             return response.status(200).json({ message: result.message });

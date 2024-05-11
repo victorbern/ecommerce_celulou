@@ -4,6 +4,7 @@ export interface IFindEnderecoRequestDTO {
 
 export interface IFindEnderecoResponseDTO {
     codigoEndereco: string;
+    nomeEndereco: string,
     cep: string;
     nomeRua: string;
     numeroCasa: string;

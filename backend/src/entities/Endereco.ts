@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export class Endereco {
     public codigoEndereco: string;
+    public nomeEndereco: string;
     public cep: string;
     public nomeRua: string;
     public numeroCasa: string;
@@ -17,6 +18,10 @@ export class Endereco {
             required_error: "É necessário inserir um código",
             invalid_type_error: "O código precisa ser uma string"
         }).length(12, { message: "O tamanho do código precisa ser de 12 caracteres" }),
+        nomeEndereco: z.string({
+            required_error: "É necessário inserir um nome para o endereço",
+            invalid_type_error: "O nome do endereço precisa ser uma string"
+        }).min(1, { message: "É necessário inserir um nome para o endereço" }).max(60, { message: "O nome do endereço não pode ter mais do que 60 caracteres" }),
         cep: z.string({
             required_error: "É necessário inserir um cep",
             invalid_type_error: "O cep precisa ser uma string"

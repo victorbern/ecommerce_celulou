@@ -45,11 +45,11 @@ export class Produto {
         nomeProduto: z.string({
             required_error: "É necessário inserir um nome para o produto",
             invalid_type_error: "O nome do produto precisa ser uma string"
-        }).min(1, { message: "É necessário inserir um nome para o produto" }).max(45, { message: "O nome do produto não deve ter mais do que 45 caracteres" }),
+        }).min(1, { message: "É necessário inserir um nome para o produto" }).max(60, { message: "O nome do produto não deve ter mais do que 60 caracteres" }),
         marca: z.string({
             required_error: "É necessário inserir uma marca",
             invalid_type_error: "A marca precisa ser uma string",
-        }).min(1, { message: "É necessário inserir uma marca"}).max(45, { message: "A marca não deve possuir mais do que 45 caracteres" }),
+        }).min(1, { message: "É necessário inserir uma marca"}).max(60, { message: "A marca não deve possuir mais do que 60 caracteres" }),
         descricaoProduto: z.string({
             invalid_type_error: "A descrição precisa ser uma string"
         }),

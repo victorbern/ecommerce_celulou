@@ -30,6 +30,7 @@ describe("Testando a classe FindEnderecoByClienteUC", () => {
     inMemoryEnderecosRepository.items = [
         {
             codigoEndereco: "EQQWWWEEERRR",
+            nomeEndereco: "Casa",
             cep: "12970000",
             nomeRua: "Rua 1",
             numeroCasa: "44B",
@@ -41,6 +42,7 @@ describe("Testando a classe FindEnderecoByClienteUC", () => {
         },
         {
             codigoEndereco: "ELLLKKKKJJJJ",
+            nomeEndereco: "Empresa",
             cep: "12945654",
             nomeRua: "Rua 2",
             numeroCasa: "11",
@@ -58,6 +60,7 @@ describe("Testando a classe FindEnderecoByClienteUC", () => {
         })).resolves.toStrictEqual([
             {
                 codigoEndereco: "EQQWWWEEERRR",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "44B",
@@ -69,6 +72,7 @@ describe("Testando a classe FindEnderecoByClienteUC", () => {
             },
             {
                 codigoEndereco: "ELLLKKKKJJJJ",
+                nomeEndereco: "Empresa",
                 cep: "12945654",
                 nomeRua: "Rua 2",
                 numeroCasa: "11",

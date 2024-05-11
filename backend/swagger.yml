@@ -18,6 +18,8 @@ components:
           readOnly: true
         nomeCliente: 
           type: string
+          minLength: 1
+          maxLength: 60
           example: "Victor Oliveira"
         cpfCliente:
           type: string
@@ -25,6 +27,8 @@ components:
           description: CPF do cliente (pode ser inserido com ou sem pontos e traços)
         celularCliente:
           type: string
+          minLength: 10
+          maxLength: 12
           example: "11956365632"
           description: Celular do cliente (somente números, sem pontos e traços) e deve conter de 10 a 12 caracteres
         emailCliente:
@@ -46,26 +50,47 @@ components:
     Endereco:
       type: object
       properties:
+        codigoEndereco:
+          type: string
+          example: "EAABBBCCCDDD"
+          readOnly: true
+        nomeEndereco:
+          type: string
+          minLength: 1
+          maxLength: 60
+          example: "Casa"
         cep:
           type: string
           example: "12970-000"
+          description: O CEP pode ser inserido com ou sem traço
         nomeRua:
           type: string
+          minLength: 1
+          maxLength: 60
           example: "Rua 1"
         numeroCasa:
           type: string
+          minLength: 1
+          maxLength: 10
           example: "11C"
         complemento:
           type: string
+          maxLength: 60
           example: "Apartamento 14A"
         bairro:
           type: string
+          minLength: 1
+          maxLength: 60
           example: "Centro"
         cidade:
           type: string
+          minLength: 1
+          maxLength: 60
           example: "São José dos Campos"
         estado:
           type: string
+          minLength: 1
+          maxLength: 60
           example: "São Paulo"
         codigoCliente:
           type: string
@@ -83,8 +108,13 @@ components:
     Categoria:
       type: object
       properties:
+        codigoCategoria:
+          type: string
+          example: "TAABBBCCCDDD"
+          readOnly: true
         nomeCategoria:
           type: string
+          minLength: 1
           example: "Basicos"
       required:
         - nomeCategoria
@@ -105,14 +135,14 @@ components:
         nomeProduto:
           type: string
           description: Nome do produto
-          minLength: 0
-          maxLength: 45
+          minLength: 1
+          maxLength: 60
           example: "Samsung Galaxy A54"
         marca:
           type: string
           description: Nome da marca fabricante do produto
-          minLength: 0
-          maxLength: 45
+          minLength: 1
+          maxLength: 60
           example: "Samsung"
         descricaoProduto:
           type: string
@@ -280,6 +310,9 @@ paths:
                   createdAt: "2024-04-02T13:38:38.453Z"
         '404':
           $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
     
     put:
       summary: Altera dados de um cliente

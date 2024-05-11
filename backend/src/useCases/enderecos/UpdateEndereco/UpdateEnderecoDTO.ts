@@ -1,5 +1,6 @@
 export interface IUpdateEnderecoRequestDTO {
     codigoEndereco: string;
+    nomeEndereco: string;
     cep: string;
     nomeRua: string;
     numeroCasa: string;

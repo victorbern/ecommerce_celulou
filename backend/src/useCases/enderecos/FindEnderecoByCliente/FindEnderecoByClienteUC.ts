@@ -24,6 +24,7 @@ export class FindEnderecoByClienteUC {
         for (let i in enderecos) {
             result.push({
                 codigoEndereco: enderecos[i].codigoEndereco,
+                nomeEndereco: enderecos[i].nomeEndereco,
                 cep: enderecos[i].cep,
                 nomeRua: enderecos[i].nomeRua,
                 numeroCasa: enderecos[i].numeroCasa,

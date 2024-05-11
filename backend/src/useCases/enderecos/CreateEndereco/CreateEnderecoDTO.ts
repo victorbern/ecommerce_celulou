@@ -1,4 +1,5 @@
 export interface ICreateEnderecoRequestDTO {
+    nomeEndereco: string;
     cep: string;
     nomeRua: string;
     numeroCasa: string;

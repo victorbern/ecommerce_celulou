@@ -6,6 +6,7 @@ describe("Testing the entity Endereco", () => {
     test("Should be able to create a Endereco object", () => {
         expect(new Endereco({
             codigoEndereco: "E12123123123",
+            nomeEndereco: "Casa",
             cep: "12970000",
             nomeRua: "Rua 1",
             numeroCasa: "1A",
@@ -23,6 +24,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "",
+                nomeEndereco: "casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -38,6 +40,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: null,
+                nomeEndereco: "casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -53,6 +56,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "E1212312313",
+                nomeEndereco: "casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -64,11 +68,62 @@ describe("Testing the entity Endereco", () => {
             })
         }).toThrow("O tamanho do código precisa ser de 12 caracteres");
 
+        // Testando nomeEndereco
+        // Tentando criar um endereço com nomeEndereco vazio
+        expect(() => {
+            new Endereco({
+                codigoEndereco: "E12123123123",
+                nomeEndereco: "",
+                cep: "12970000",
+                nomeRua: "Rua 1",
+                numeroCasa: "1A",
+                complemento: "",
+                bairro: "Jd. San Marino",
+                cidade: "Piracaia",
+                estado: "São Paulo",
+                codigoCliente: "C12QWEQWEQWE"
+            })
+        }).toThrow("É necessário inserir um nome para o endereço")
+
+        // Tentando criar um endereço com nomeEndereco diferente de string
+        expect(() => {
+            new Endereco({
+                codigoEndereco: "E1212312313",
+                nomeEndereco: null,
+                cep: "12970000",
+                nomeRua: "Rua 1",
+                numeroCasa: "1A",
+                complemento: "",
+                bairro: "Jd. San Marino",
+                cidade: "Piracaia",
+                estado: "São Paulo",
+                codigoCliente: "C12QWEQWEQWE"
+            })
+        }).toThrow("O nome do endereço precisa ser uma string")
+
+        // Tentando criar um endereço com nomeEndereco com mais de 60 caracteres
+        expect(() => {
+            new Endereco({
+                codigoEndereco: "E1212312313",
+                nomeEndereco: "Lorem ipsum dolor sit amet. Ab unde quia eum temporibus magnam est voluptatibus quisquam. Et sunt illum ex laborum accusamus sed voluptatem voluptatum sit eveniet iure.",
+                cep: "12970000",
+                nomeRua: "Rua 1",
+                numeroCasa: "1A",
+                complemento: "",
+                bairro: "Jd. San Marino",
+                cidade: "Piracaia",
+                estado: "São Paulo",
+                codigoCliente: "C12QWEQWEQWE"
+            })
+        }).toThrow("O nome do endereço não pode ter mais do que 60 caracteres")
+
+
         // Testando cep
         // Tentando criar um endereço com cep vazio
         expect(() => {
             new Endereco({
                 codigoEndereco: "E12123123123",
+                nomeEndereco: "Casa",
                 cep: "",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -84,6 +139,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "E12123123123",
+                nomeEndereco: "Casa",
                 cep: null,
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -99,6 +155,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "E12123123123",
+                nomeEndereco: "Casa",
                 cep: "1297000011",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -115,6 +172,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "E12123123123",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "",
                 numeroCasa: "1A",
@@ -130,6 +188,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "E12123123123",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: null,
                 numeroCasa: "1A",
@@ -145,6 +204,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "E12123123123",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1 Lorem Ipsum is simply dummy text of the printing and Rua 1 Lorem Ipsum is simply dummy text of the printing and",
                 numeroCasa: "1A",
@@ -161,6 +221,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "",
@@ -176,6 +237,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: null,
@@ -191,6 +253,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "12345678901",
@@ -207,6 +270,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -222,6 +286,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -238,6 +303,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -253,6 +319,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -268,6 +335,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -284,6 +352,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -299,6 +368,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -314,6 +384,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -330,6 +401,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -345,6 +417,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
@@ -360,6 +433,7 @@ describe("Testing the entity Endereco", () => {
         expect(() => {
             new Endereco({
                 codigoEndereco: "123456789012",
+                nomeEndereco: "Casa",
                 cep: "12970000",
                 nomeRua: "Rua 1",
                 numeroCasa: "1A",
