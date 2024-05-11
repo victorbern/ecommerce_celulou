@@ -15,6 +15,9 @@ import { deleteCategoriaController } from "./useCases/categorias/DeleteCategoria
 import { loginController } from "./useCases/autenticacao/Login";
 import { createProdutoController } from "./useCases/produtos/CreateProduto";
 import { findProdutoController } from "./useCases/produtos/FindProduto";
+import { uploadMiddleware } from "./useCases/produtos/imagens/UploadImages/UploadMulterMiddleware";
+import { deleteFolder } from "./useCases/produtos/imagens/DeleteImages/DeleteFolder";
+import { produtoExistsMiddleware } from "./middlewares/ProdutoExistsMiddleware";
 
 const router = Router();
 
@@ -102,6 +105,11 @@ router.post('/produto/', async(request, response, next) => {
 router.get('/produto/:codigo', async(request, response, next) => {
     return findProdutoController.handle(request, response, next);
 })
+
+// Rota para fazer o upload das imagens do produto
+router.post('/produto-images/:codigo', produtoExistsMiddleware, deleteFolder, uploadMiddleware, (request, response, next) => {
+    response.status(200).json({ message: "Imagens salvas com sucesso!" })
+});
 
 
 export { router }
