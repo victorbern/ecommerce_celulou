@@ -4,10 +4,19 @@ import fs from "fs-extra"
 import path from "path"
 
 const pathDestino = "./src/uploads/produtos/"
+
 // Configuração do Multer
 const storage = multer.diskStorage({
   destination: function (request, file, cb) {
     let codigo = request.params.codigo;
+
+    if (!fs.existsSync(pathDestino)) {
+      fs.mkdir(pathDestino, (error) => {
+        if (error) {
+          throw error;
+        }
+      })
+    }
     if (!fs.existsSync(pathDestino + codigo)) {
       fs.mkdir(pathDestino + codigo, (error) => {
         if (error) {
