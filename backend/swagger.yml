@@ -383,7 +383,7 @@ paths:
           $ref: "#/components/responses/Error404"
         default:
           $ref: "#/components/responses/ErrorDefault"
-  /endereco/:codigo: 
+  /endereco/{codigo}: 
     get:
       summary: Buscar endereço pelo código
       description: Busca um endereço específico com base no seu código
@@ -571,7 +571,7 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /categoria/:codigo:
+  /categoria/{codigo}:
     put:
       summary: Editar dados de uma categoria pelo seu codigo
       description: Recebe o código de uma categoria pelo parametro e altera seus valores pelos valores enviados no body
@@ -641,4 +641,96 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-    
+  /produto/{codigo}:
+    get:
+      summary: Buscar um produto pelo código
+      description: Esta rota recebe um código nos parâmetros da requisição e busca o produto que possui este código
+      parameters:
+        - in: path
+          name: codigo
+          description: O código é uma string de 12 caracteres
+          schema:
+            type: string
+            description: Codigo do produt (12 digitos) para buscá-lo no banco de dados
+          required: true
+      responses:
+        '200':
+          description: Um objeto de produto
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:  
+                  result:
+                    $ref: '#/components/schemas/Produto'
+
+            result: 
+              example:
+                codigoProduto: "Pc2klw50xy54"
+                valor: 22222222.22
+                nomeProduto: "Samsung Galaxy A54"
+                marca: "Samsung"
+                descricaoProduto: "Preto"
+                imagensFolder: "/produtos/Pc2klw50xy54/"
+                nota: null
+                pesoGramas: 200
+                alturaCM: 2.7
+                larguraCM: 7
+                comprimentoCM: 15.8
+                isDisponivelCompra: false
+                isVisivel: false
+
+  /produto/images/{codigo}:
+    post:
+      summary: Fazer upload das imagens do produto
+      description: Esta rota é a responsavel por receber até 4 imagens que serão exibidas na tela do produto
+      parameters:
+        - in: path
+          name: codigo
+          required: true
+          schema:
+            type: string
+          description: Código do produto que receberá as imagens
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                foto-1:
+                  type: string
+                  format: binary
+                  description: Primeira imagem (formato PNG, JPG ou JPEG)
+                foto-2:
+                  type: string
+                  format: binary
+                  description: Segunda imagem (formado PNG, JPG ou JPEG)
+                foto-3:
+                  type: string
+                  format: binary
+                  description: Terceira imagem (formato PNG, JPG ou JPEG)
+                foto-4:
+                  type: string
+                  format: binary
+                  description: Quarta imagem (formato PNG, JPG ou JPEG)
+      responses:
+        '200':
+          description: Imagens salvas com sucesso!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:  
+                  message:
+                    type: string
+                    example: Imagens salvas com sucesso!
+                    
+        '400':
+          $ref: "#/components/responses/Error400"
+        
+        '404':
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
