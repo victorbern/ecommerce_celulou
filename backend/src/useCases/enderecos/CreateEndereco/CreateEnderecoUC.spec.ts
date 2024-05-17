@@ -28,7 +28,7 @@ describe("Testando a classe CreateEnderecoUC", () => {
             cidade: "Piracaia",
             estado: "São Paulo",
             codigoCliente: "Cksjskslsksls"
-        }).then(() => {
+        }).then((result) => {
             expect(inMemoryEnderecosRepository.items[0].codigoEndereco).toHaveLength(12)
             expect(inMemoryEnderecosRepository.items[0].nomeEndereco).toBe("Casa")
             expect(inMemoryEnderecosRepository.items[0].cep).toBe("12970000");
@@ -38,6 +38,8 @@ describe("Testando a classe CreateEnderecoUC", () => {
             expect(inMemoryEnderecosRepository.items[0].cidade).toBe("Piracaia");
             expect(inMemoryEnderecosRepository.items[0].estado).toBe("São Paulo");
             expect(inMemoryEnderecosRepository.items[0].codigoCliente).toBe("Cksjskslsksls");
+
+            expect(inMemoryEnderecosRepository.items[0].codigoEndereco).toBe(result.codigoEndereco)
         })).resolves
 
         // Tentando cadastrar um endereço com caracteres especiais no cep
