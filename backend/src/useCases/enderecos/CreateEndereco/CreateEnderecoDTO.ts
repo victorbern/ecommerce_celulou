@@ -13,4 +13,5 @@ export interface ICreateEnderecoRequestDTO {
 
 export interface ICreateEnderecoResponseDTO {
     message: string;
+    codigoEndereco: string;
 }
