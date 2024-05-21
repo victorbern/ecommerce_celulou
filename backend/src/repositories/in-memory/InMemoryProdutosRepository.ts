@@ -41,4 +41,21 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
     async save(produto: Produto): Promise<void> {
         this.items.push(produto);
     }
+
+    async update(produto: Produto): Promise<void> {
+        for (let i in this.items) {
+            if (this.items[i].codigoProduto === produto.codigoProduto) {
+                this.items[i].valor = produto.valor;
+                this.items[i].nomeProduto = produto.nomeProduto;
+                this.items[i].marca = produto.marca;
+                this.items[i].descricaoProduto = produto.descricaoProduto;
+                this.items[i].imagensFolder = produto.imagensFolder;
+                this.items[i].nota = produto.nota;
+                this.items[i].pesoGramas = produto.pesoGramas;
+                this.items[i].alturaCM = produto.alturaCM;
+                this.items[i].larguraCM = produto.larguraCM;
+                this.items[i].comprimentoCM = produto.comprimentoCM;
+            }
+        }
+    }
 }
