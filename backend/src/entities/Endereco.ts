@@ -35,8 +35,8 @@ export class Endereco {
             invalid_type_error: "O número deve ser uma string"
         }).min(1, { message: "É necessário inserir um número" }).max(10, { message: "O número da casa não pode ter mais do que 10 caracteres" }),
         complemento: z.string({
-            invalid_type_error: "O complemento deve ser uma string"
-        }).max(60, { message: "O complemento não pode ter mais do que 60 caracteres" }),
+            invalid_type_error: "O complemento deve ser uma string",
+        }).max(60, { message: "O complemento não pode ter mais do que 60 caracteres" }).optional(),
         bairro: z.string({
             required_error: "É necessário inserir um bairro",
             invalid_type_error: "O bairro deve ser uma string"
