@@ -683,7 +683,7 @@ paths:
   /produto/images/{codigo}:
     post:
       summary: Fazer upload das imagens do produto
-      description: Esta rota é a responsavel por receber até 4 imagens que serão exibidas na tela do produto
+      description: Esta rota é a responsavel por receber até 4 imagens que serão exibidas na tela do produto. Esta rota pode ser usada para atualizar as imagens também.
       parameters:
         - in: path
           name: codigo
@@ -725,7 +725,7 @@ paths:
                   message:
                     type: string
                     example: Imagens salvas com sucesso!
-                    
+
         '400':
           $ref: "#/components/responses/Error400"
         
