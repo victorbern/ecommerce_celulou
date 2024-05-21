@@ -13,7 +13,7 @@ export class CreateEnderecoController {
                 nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente
             });
 
-            return response.status(201).json({ message: result.message });
+            return response.status(201).json({ message: result.message, codigoEndereco: result.codigoEndereco });
         } catch (error) {
             next(error);
         }

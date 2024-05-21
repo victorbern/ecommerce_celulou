@@ -46,6 +46,6 @@ export class CreateEnderecoUC {
 
         await this.enderecosRepository.save(endereco);
 
-        return { message: "Endereço cadastrado com sucesso!" }
+        return { message: "Endereço cadastrado com sucesso!", codigoEndereco: codigoEndereco }
     }
 }
