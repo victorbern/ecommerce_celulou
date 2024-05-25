@@ -205,7 +205,7 @@ components:
         - comprimentoCM
 
   responses:
-    Sucesso:
+    SucessoAlterar:
       description: Deu tudo certo!
       content:
         application/json:
@@ -215,6 +215,17 @@ components:
               message: 
                 type: string
                 example: "Dados alterados com sucesso!"
+    
+    SucessoDeletar:
+      description: Deu tudo certo!
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Objeto deletado com sucesso!"
 
     Criado:
       description: Objeto criado com sucesso!
@@ -333,7 +344,7 @@ paths:
               
       responses:
         '200':
-          $ref: '#/components/responses/Sucesso'
+          $ref: '#/components/responses/SucessoAlterar'
 
         '400':
           $ref: "#/components/responses/Error400"
@@ -356,7 +367,7 @@ paths:
           required: true
       responses:
         '200':
-          $ref: "#/components/responses/Sucesso"
+          $ref: "#/components/responses/SucessoDeletar"
 
         '404':
           $ref: "#/components/responses/Error404"
@@ -406,14 +417,6 @@ paths:
                   result:
                     $ref: '#/components/schemas/Endereco'
 
-            result:
-              example:
-                codigoCliente: "Cdtoluifd7u7"
-                nomeCliente: "Victor"
-                cpfCliente: "15466379077"
-                celularCliente: "11965049540"
-                emailCliente: "victor1@gmail.com"
-                createdAt: "2024-04-02T13:38:38.453Z"
         '404':
           $ref: "#/components/responses/Error404"
         
@@ -438,7 +441,7 @@ paths:
               $ref: '#/components/schemas/Endereco'
       responses:
         '200':
-          $ref: "#/components/responses/Sucesso"
+          $ref: "#/components/responses/SucessoAlterar"
         
         '400':
           $ref: "#/components/responses/Error400"
@@ -461,7 +464,7 @@ paths:
           required: true
       responses:
         '200':
-          $ref: "#/components/responses/Sucesso"
+          $ref: "#/components/responses/SucessoDeletar"
         
         '404':
           $ref: "#/components/responses/Error404"
@@ -492,6 +495,34 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/Endereco'
+                example:
+                      result: [
+                        {
+                          "codigoEndereco": "Efw8lwgot8ql",
+                          "nomeEndereco": "Casa 2",
+                          "cep": "12970000",
+                          "nomeRua": "Rua 2",
+                          "numeroCasa": "34A",
+                          "complemento": null,
+                          "bairro": "Centro",
+                          "cidade": "São Paulo",
+                          "estado": "São Paulo",
+                          "codigoCliente": "C87olwgom5yp"
+                        },
+                        {
+                            "codigoEndereco": "E87olwgon4d2",
+                            "nomeEndereco": "Casa",
+                            "cep": "12970000",
+                            "nomeRua": "Rua 2",
+                            "numeroCasa": "34A",
+                            "complemento": "",
+                            "bairro": "Centro",
+                            "cidade": "São Paulo",
+                            "estado": "São Paulo",
+                            "codigoCliente": "C87olwgom5yp"
+                        }
+                      ]
+              
           '404':
             $ref: "#/components/responses/Error404"
           
@@ -590,7 +621,7 @@ paths:
               $ref: '#/components/schemas/Categoria'
       responses:
         '200':
-          $ref: "#/components/responses/Sucesso"
+          $ref: "#/components/responses/SucessoAlterar"
         
         '400':
           $ref: "#/components/responses/Error400"
@@ -613,7 +644,7 @@ paths:
           required: true
       responses:
         '200':
-          $ref: "#/components/responses/Sucesso"
+          $ref: "#/components/responses/SucessoDeletar"
         
         '404':
           $ref: "#/components/responses/Error404"
@@ -698,7 +729,7 @@ paths:
               $ref: "#/components/schemas/Produto"
       responses:
         '200':
-          $ref: "#/components/responses/Sucesso"
+          $ref: "#/components/responses/SucessoAlterar"
         
         '400':
           $ref: "#/components/responses/Error400"
@@ -756,7 +787,15 @@ paths:
                     example: Imagens salvas com sucesso!
 
         '400':
-          $ref: "#/components/responses/Error400"
+          description: Algum dos dados é inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Erro durante upload: campo inexperado!"
         
         '404':
           $ref: "#/components/responses/Error404"
