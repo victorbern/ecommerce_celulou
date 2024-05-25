@@ -8,23 +8,22 @@ const pathDestino = "./src/uploads/produtos/"
 // Configuração do Multer
 const storage = multer.diskStorage({
   destination: function (request, file, cb) {
-    let codigo = request.params.codigo;
+    try {
+      const codigo = request.params.codigo;
+      const dirPath = path.join(pathDestino, codigo)
+      
+      fs.ensureDirSync(pathDestino);
+      fs.ensureDirSync(dirPath);
 
-    if (!fs.existsSync(pathDestino)) {
-      fs.mkdir(pathDestino, (error) => {
-        if (error) {
-          throw error;
-        }
-      })
+      cb(null, dirPath);
+    } catch (error) {
+      if (error instanceof Error) {
+      cb(error, null)
+      } else {
+        cb(new Error("Erro desconhecido ao criar diretório"), null);
+      }
     }
-    if (!fs.existsSync(pathDestino + codigo)) {
-      fs.mkdir(pathDestino + codigo, (error) => {
-        if (error) {
-          throw error;
-        }
-      })
-    }
-    cb(null, pathDestino + codigo); // Defina o caminho para a sua pasta de destino
+    // Defina o caminho para a sua pasta de destino
   },
   filename: function (request, file, cb) {
     const ext = path.extname(file.originalname)
