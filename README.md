@@ -1,6 +1,9 @@
 ﻿# Ecommerce Celulou
 Sistema de ecommerce criado por mim para fins de estudo.
 
+# Documentação da API:
+https://victorbern.github.io/ecommerce_celulou/
+
 # Requisitos:
 - Node versão 20.11 ou superior OU Docker instalado na máquina  
 Há duas formas diferentes de rodar a aplicação: com o node de sua máquina ou usando docker.  
