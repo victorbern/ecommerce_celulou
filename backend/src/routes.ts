@@ -19,6 +19,7 @@ import { uploadMiddleware } from "./useCases/produtos/imagens/UploadImages/Uploa
 import { deleteFolder } from "./useCases/produtos/imagens/DeleteImages/DeleteFolder";
 import { produtoExistsMiddleware } from "./middlewares/ProdutoExistsMiddleware";
 import { updateProdutoController } from "./useCases/produtos/UpdateProduto";
+import { updateIsVisibleProdutoController } from "./useCases/produtos/UpdateIsVisibleProduto";
 
 const router = Router();
 
@@ -117,5 +118,9 @@ router.put('/produto/:codigo', async (request, response, next) => {
     return updateProdutoController.handle(request, response, next);
 });
 
+// Rota para alterar o valor do isVisible de produto
+router.put('/produto/visibilidade/:codigo', async (request, response, next) => {
+    return updateIsVisibleProdutoController.handle(request, response, next);
+})
 
 export { router }

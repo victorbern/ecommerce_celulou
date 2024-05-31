@@ -58,4 +58,12 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
             }
         }
     }
+
+    async updateIsVisible(codigoProduto: string, isVisible: boolean): Promise<void> {
+        for (let i in this.items) {
+            if (this.items[i].codigoProduto === codigoProduto) {
+                this.items[i].isVisivel = isVisible;
+            }
+        }
+    }
 }

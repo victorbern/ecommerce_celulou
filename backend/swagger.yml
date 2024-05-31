@@ -739,6 +739,53 @@ paths:
         
         default:
           $ref: "#/components/responses/ErrorDefault"
+      
+  /produto/visibilidade/{codigo}:
+    put:
+      summary: Altera a visibilidade de um produto
+      description: Esta rota recebe um codigo e um valor de visibilidade para alterar a visibilidade do produto
+      parameters:
+        - in: path
+          name: codigo
+          description: O código é uma string de 12 caracteres
+          schema:
+            type: string
+            description: Código do produto (12 digitos) para buscá-lo no banco de dados
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isVisible:
+                  type: boolean
+                  example: true
+
+      responses:
+        '200':
+          $ref: "#/components/responses/SucessoAlterar"
+        
+        '204':
+          description: A visibilidade não foi alterada porque o produto já tem a visibilidade desejada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:  
+                  message:
+                    type: string
+                    example: "O produto já possui esta visibilidade."
+
+        '400':
+          $ref: "#/components/responses/Error400"
+
+        '404':
+          $ref: "#/components/responses/Error404"
+
+        '500':
+          $ref: "#/components/responses/ErrorDefault"
 
   /produto/images/{codigo}:
     post:
