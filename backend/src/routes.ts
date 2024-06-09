@@ -20,6 +20,7 @@ import { deleteFolder } from "./useCases/produtos/imagens/DeleteImages/DeleteFol
 import { produtoExistsMiddleware } from "./middlewares/ProdutoExistsMiddleware";
 import { updateProdutoController } from "./useCases/produtos/UpdateProduto";
 import { updateIsVisibleProdutoController } from "./useCases/produtos/UpdateIsVisibleProduto";
+import { updateIsDisponivelProdutoController } from "./useCases/produtos/UpdateIsDisponivelProduto";
 
 const router = Router();
 
@@ -121,6 +122,11 @@ router.put('/produto/:codigo', async (request, response, next) => {
 // Rota para alterar o valor do isVisible de produto
 router.put('/produto/visibilidade/:codigo', async (request, response, next) => {
     return updateIsVisibleProdutoController.handle(request, response, next);
+})
+
+// Rota para alterar o valor do isDisponivelCompra de produto
+router.put('/produto/disponibilidade/:codigo', async (request, response, next) => {
+    return updateIsDisponivelProdutoController.handle(request, response, next);
 })
 
 export { router }

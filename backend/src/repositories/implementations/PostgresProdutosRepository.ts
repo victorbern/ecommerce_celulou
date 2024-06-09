@@ -64,6 +64,17 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         });
     }
 
+    async updateIsDisponivelCompra(codigoProduto: string, isDisponivelCompra: boolean): Promise<void> {
+        await this.prisma.produto.update({
+            where: {
+                codigoProduto: codigoProduto,
+            },
+            data: {
+                isDisponivelCompra: isDisponivelCompra,
+            }
+        });
+    }
+
     convertToEntity(produto: ProdutoPrisma): Produto {
         let result: Produto = {
             codigoProduto: produto.codigoProduto,

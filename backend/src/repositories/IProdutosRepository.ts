@@ -6,4 +6,5 @@ export interface IProdutosRepository {
     save(produto: Produto): Promise<void>;
     update(produto: Produto): Promise<void>;
     updateIsVisible(codigoProduto: string, isVisible: boolean): Promise<void>;
+    updateIsDisponivelCompra(codigoProduto: string, isDisponivelCompra: boolean): Promise<void>;
 }

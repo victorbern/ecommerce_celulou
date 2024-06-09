@@ -16,7 +16,7 @@ components:
           type: string
           example: "CAABBBCCCDDD"
           readOnly: true
-        nomeCliente: 
+        nomeCliente:
           type: string
           minLength: 1
           maxLength: 60
@@ -104,7 +104,7 @@ components:
         - cidade
         - estado
         - codigoCliente
-    
+
     Categoria:
       type: object
       properties:
@@ -212,10 +212,10 @@ components:
           schema:
             type: object
             properties:
-              message: 
+              message:
                 type: string
                 example: "Dados alterados com sucesso!"
-    
+
     SucessoDeletar:
       description: Deu tudo certo!
       content:
@@ -278,17 +278,17 @@ paths:
       description: Essa rota é a responsável pela criação de um novo cliente.
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Cliente'
+              $ref: "#/components/schemas/Cliente"
       responses:
-        '201':
-          $ref: '#/components/responses/Criado'
-        '400':
-          $ref: '#/components/responses/Error400'
+        "201":
+          $ref: "#/components/responses/Criado"
+        "400":
+          $ref: "#/components/responses/Error400"
         default:
-          $ref: '#/components/responses/ErrorDefault'
+          $ref: "#/components/responses/ErrorDefault"
 
   /cliente/{codigo}:
     get:
@@ -302,7 +302,7 @@ paths:
             description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
           required: true
       responses:
-        '200':
+        "200":
           description: Um objeto de cliente
           content:
             application/json:
@@ -310,7 +310,7 @@ paths:
                 type: object
                 properties:
                   result:
-                    $ref: '#/components/schemas/Cliente'
+                    $ref: "#/components/schemas/Cliente"
               example:
                 result:
                   codigoCliente: "Cdtoluifd7u7"
@@ -319,12 +319,12 @@ paths:
                   celularCliente: "11965049540"
                   emailCliente: "victor1@gmail.com"
                   createdAt: "2024-04-02T13:38:38.453Z"
-        '404':
+        "404":
           $ref: "#/components/responses/Error404"
 
         default:
           $ref: "#/components/responses/ErrorDefault"
-    
+
     put:
       summary: Altera dados de um cliente
       description: Altera os dados de um cliente com base no código passado pela url
@@ -337,24 +337,24 @@ paths:
           required: true
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Cliente'
-              
-      responses:
-        '200':
-          $ref: '#/components/responses/SucessoAlterar'
+              $ref: "#/components/schemas/Cliente"
 
-        '400':
+      responses:
+        "200":
+          $ref: "#/components/responses/SucessoAlterar"
+
+        "400":
           $ref: "#/components/responses/Error400"
 
-        '404':
+        "404":
           $ref: "#/components/responses/Error404"
 
         default:
           $ref: "#/components/responses/ErrorDefault"
-    
+
     delete:
       summary: Deleta um cliente
       description: Deleta um cliente do banco com base em seu código
@@ -366,10 +366,10 @@ paths:
             description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados
           required: true
       responses:
-        '200':
+        "200":
           $ref: "#/components/responses/SucessoDeletar"
 
-        '404':
+        "404":
           $ref: "#/components/responses/Error404"
 
         default:
@@ -384,17 +384,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Endereco'
+              $ref: "#/components/schemas/Endereco"
       responses:
-        '201':
+        "201":
           $ref: "#/components/responses/Criado"
-        '400':
+        "400":
           $ref: "#/components/responses/Error400"
-        '404':
+        "404":
           $ref: "#/components/responses/Error404"
         default:
           $ref: "#/components/responses/ErrorDefault"
-  /endereco/{codigo}: 
+  /endereco/{codigo}:
     get:
       summary: Buscar endereço pelo código
       description: Busca um endereço específico com base no seu código
@@ -407,21 +407,21 @@ paths:
           required: true
 
       responses:
-        '200':
+        "200":
           description: Um objeto de endereço
           content:
             application/json:
               schema:
                 type: object
-                properties:  
+                properties:
                   result:
-                    $ref: '#/components/schemas/Endereco'
+                    $ref: "#/components/schemas/Endereco"
 
-        '404':
+        "404":
           $ref: "#/components/responses/Error404"
-        
+
         default:
-          $ref: '#/components/responses/ErrorDefault'
+          $ref: "#/components/responses/ErrorDefault"
 
     put:
       summary: Atualiza dados de endereço
@@ -435,20 +435,20 @@ paths:
           required: true
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Endereco'
+              $ref: "#/components/schemas/Endereco"
       responses:
-        '200':
+        "200":
           $ref: "#/components/responses/SucessoAlterar"
-        
-        '400':
+
+        "400":
           $ref: "#/components/responses/Error400"
-        
-        '404':
+
+        "404":
           $ref: "#/components/responses/Error404"
-        
+
         default:
           $ref: "#/components/responses/ErrorDefault"
 
@@ -463,12 +463,12 @@ paths:
             description: Codigo do endereço (12 digitos) para buscá-lo no banco de dados
           required: true
       responses:
-        '200':
+        "200":
           $ref: "#/components/responses/SucessoDeletar"
-        
-        '404':
+
+        "404":
           $ref: "#/components/responses/Error404"
-        
+
         default:
           $ref: "#/components/responses/ErrorDefault"
 
@@ -484,51 +484,52 @@ paths:
             description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
           required: true
       responses:
-          '200':
-            description: Um array com vários endereços
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    result:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Endereco'
-                example:
-                      result: [
-                        {
-                          "codigoEndereco": "Efw8lwgot8ql",
-                          "nomeEndereco": "Casa 2",
-                          "cep": "12970000",
-                          "nomeRua": "Rua 2",
-                          "numeroCasa": "34A",
-                          "complemento": null,
-                          "bairro": "Centro",
-                          "cidade": "São Paulo",
-                          "estado": "São Paulo",
-                          "codigoCliente": "C87olwgom5yp"
-                        },
-                        {
-                            "codigoEndereco": "E87olwgon4d2",
-                            "nomeEndereco": "Casa",
-                            "cep": "12970000",
-                            "nomeRua": "Rua 2",
-                            "numeroCasa": "34A",
-                            "complemento": "",
-                            "bairro": "Centro",
-                            "cidade": "São Paulo",
-                            "estado": "São Paulo",
-                            "codigoCliente": "C87olwgom5yp"
-                        }
-                      ]
-              
-          '404':
-            $ref: "#/components/responses/Error404"
-          
-          default:
-            $ref: "#/components/responses/ErrorDefault"
-  
+        "200":
+          description: Um array com vários endereços
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Endereco"
+              example:
+                result:
+                  [
+                    {
+                      "codigoEndereco": "Efw8lwgot8ql",
+                      "nomeEndereco": "Casa 2",
+                      "cep": "12970000",
+                      "nomeRua": "Rua 2",
+                      "numeroCasa": "34A",
+                      "complemento": null,
+                      "bairro": "Centro",
+                      "cidade": "São Paulo",
+                      "estado": "São Paulo",
+                      "codigoCliente": "C87olwgom5yp",
+                    },
+                    {
+                      "codigoEndereco": "E87olwgon4d2",
+                      "nomeEndereco": "Casa",
+                      "cep": "12970000",
+                      "nomeRua": "Rua 2",
+                      "numeroCasa": "34A",
+                      "complemento": "",
+                      "bairro": "Centro",
+                      "cidade": "São Paulo",
+                      "estado": "São Paulo",
+                      "codigoCliente": "C87olwgom5yp",
+                    },
+                  ]
+
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
   /categoria/:
     post:
       summary: Criar nova categoria
@@ -538,23 +539,23 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Categoria'
+              $ref: "#/components/schemas/Categoria"
       responses:
-        '201':
+        "201":
           $ref: "#/components/responses/Criado"
-        
-        '400':
+
+        "400":
           $ref: "#/components/responses/Error400"
-        
+
         default:
           $ref: "#/components/responses/ErrorDefault"
-    
+
   /categorias/:
     get:
       summary: Buscar todas as categorias
       description: Faz a busca de todas as categorias presentes no banco de dados
       responses:
-        '200':
+        "200":
           description: Um array com várias categorias
           content:
             application/json:
@@ -564,14 +565,14 @@ paths:
                   result:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Categoria'
-        
-        '404':
+                      $ref: "#/components/schemas/Categoria"
+
+        "404":
           $ref: "#/components/responses/Error404"
 
         default:
           $ref: "#/components/responses/ErrorDefault"
-  
+
   /categorias/{filtro}:
     get:
       summary: Buscar todos as categorias com base no filtro
@@ -584,7 +585,7 @@ paths:
             description: Palavra ou parte de palavra para buscar as categorias
           required: true
       responses:
-        '200':
+        "200":
           description: Devolve um array com as categorias encontradas
           content:
             application/json:
@@ -594,9 +595,9 @@ paths:
                   result:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Categoria'
-        
-        '404':
+                      $ref: "#/components/schemas/Categoria"
+
+        "404":
           $ref: "#/components/responses/Error404"
 
         default:
@@ -615,20 +616,20 @@ paths:
           required: true
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Categoria'
+              $ref: "#/components/schemas/Categoria"
       responses:
-        '200':
+        "200":
           $ref: "#/components/responses/SucessoAlterar"
-        
-        '400':
+
+        "400":
           $ref: "#/components/responses/Error400"
 
-        '404':
+        "404":
           $ref: "#/components/responses/Error404"
-        
+
         default:
           $ref: "#/components/responses/ErrorDefault"
 
@@ -643,12 +644,12 @@ paths:
             description: Codigo da categoria (12 digitos) para buscá-la no banco de dados
           required: true
       responses:
-        '200':
+        "200":
           $ref: "#/components/responses/SucessoDeletar"
-        
-        '404':
+
+        "404":
           $ref: "#/components/responses/Error404"
-        
+
         default:
           $ref: "#/components/responses/ErrorDefault"
 
@@ -661,12 +662,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Produto'
+              $ref: "#/components/schemas/Produto"
       responses:
-        '201':
+        "201":
           $ref: "#/components/responses/Criado"
 
-        '400':
+        "400":
           $ref: "#/components/responses/Error400"
 
         default:
@@ -685,17 +686,17 @@ paths:
             description: Codigo do produto (12 digitos) para buscá-lo no banco de dados
           required: true
       responses:
-        '200':
+        "200":
           description: Um objeto de produto
           content:
             application/json:
               schema:
                 type: object
-                properties:  
+                properties:
                   result:
-                    $ref: '#/components/schemas/Produto'
+                    $ref: "#/components/schemas/Produto"
 
-            result: 
+            result:
               example:
                 codigoProduto: "Pc2klw50xy54"
                 valor: 22222222.22
@@ -728,18 +729,18 @@ paths:
             schema:
               $ref: "#/components/schemas/Produto"
       responses:
-        '200':
+        "200":
           $ref: "#/components/responses/SucessoAlterar"
-        
-        '400':
+
+        "400":
           $ref: "#/components/responses/Error400"
-        
-        '404':
+
+        "404":
           $ref: "#/components/responses/Error404"
-        
+
         default:
           $ref: "#/components/responses/ErrorDefault"
-      
+
   /produto/visibilidade/{codigo}:
     put:
       summary: Altera a visibilidade de um produto
@@ -764,27 +765,57 @@ paths:
                   example: true
 
       responses:
-        '200':
+        "200":
           $ref: "#/components/responses/SucessoAlterar"
-        
-        '204':
-          description: A visibilidade não foi alterada porque o produto já tem a visibilidade desejada
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:  
-                  message:
-                    type: string
-                    example: "O produto já possui esta visibilidade."
 
-        '400':
+        "204":
+          description: A visibilidade não foi alterada porque o produto já tem a visibilidade desejada
+
+        "400":
           $ref: "#/components/responses/Error400"
 
-        '404':
+        "404":
           $ref: "#/components/responses/Error404"
 
-        '500':
+        "500":
+          $ref: "#/components/responses/ErrorDefault"
+
+  /produto/disponibilidade/{codigo}:
+    put:
+      summary: Altera a disponibilidade de um produto
+      description: Esta rota recebe um boolean que determina se o produto está ou não disponível para compra
+      parameters:
+        - in: path
+          name: codigo
+          description: O código é uma string de 12 caracteres
+          schema:
+            type: string
+            description: Código do produto (12 digitos) para buscá-lo no banco de dados
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isDisponivelCompra:
+                  type: boolean
+                  example: true
+      responses:
+        "200":
+          $ref: "#/components/responses/SucessoAlterar"
+
+        "204":
+          description: A disponibilidade do produto não foi alterada porque o produto já tem a disponibilidade desejada
+
+        "400":
+          $ref: "#/components/responses/Error400"
+
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        "500":
           $ref: "#/components/responses/ErrorDefault"
 
   /produto/images/{codigo}:
@@ -822,18 +853,18 @@ paths:
                   format: binary
                   description: Quarta imagem (formato PNG, JPG ou JPEG)
       responses:
-        '200':
+        "200":
           description: Imagens salvas com sucesso!
           content:
             application/json:
               schema:
                 type: object
-                properties:  
+                properties:
                   message:
                     type: string
                     example: Imagens salvas com sucesso!
 
-        '400':
+        "400":
           description: Algum dos dados é inválido
           content:
             application/json:
@@ -843,8 +874,8 @@ paths:
                   error:
                     type: string
                     example: "Erro durante upload: campo inexperado!"
-        
-        '404':
+
+        "404":
           $ref: "#/components/responses/Error404"
 
         default:
