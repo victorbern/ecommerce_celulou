@@ -21,7 +21,7 @@ export class UpdateIsVisibleProdutoUC {
         }
 
         if (produtoExists.isVisivel === isVisible) {
-            return { message: "O produto já possui esta visibilidade."}
+            return null;
         }
 
         await this.produtosRepository.updateIsVisible(codigoProduto, isVisible);

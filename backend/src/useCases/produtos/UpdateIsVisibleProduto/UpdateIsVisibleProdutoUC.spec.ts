@@ -52,9 +52,7 @@ describe("Testes para a classe UpdateIsVisbleProdutoUC", () => {
     test("Não deve ser possível alterar a visibilidade de um produto porque o produto já tem a visibilidade desejada", () => {
         expect(updateIsVisibleProdutoUCTest.execute({
             codigoProduto: "PCCAAABBBDDD", isVisible: true
-        }).then((result) => {
-            return result.message;
-        })).resolves.toBe("O produto já possui esta visibilidade.")
+        })).resolves.toBeNull();
     });
 
     test("Não deve ser possível alterar a visibilidade de um produto porque o produto não existe", () => {

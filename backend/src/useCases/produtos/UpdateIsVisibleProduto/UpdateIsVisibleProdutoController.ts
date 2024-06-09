@@ -14,8 +14,8 @@ export class UpdateIsVisibleProdutoController {
                 codigoProduto: codigo, isVisible
             });
 
-            if (result.message === "O produto já possui esta visibilidade.") {
-                return response.status(204).json({ message: result.message });
+            if (!result) {
+                return response.status(204).json();
             }
 
             return response.status(200).json({ message: result.message });
