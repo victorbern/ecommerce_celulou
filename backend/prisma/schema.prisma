@@ -75,8 +75,6 @@ model Cliente {
   emailCliente        String              @unique
   createdAt           DateTime?
   endereco            Endereco[]
-  avaliacao           Avaliacao[]
-  pedido              Pedido[]
   clienteHasProdutoFavorito ClienteHasProdutoFavorito[]
 }
 
@@ -92,7 +90,6 @@ model Endereco {
   estado              String              @db.VarChar(60)
   codigoCliente       String
   cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "endereco_ibfk_1")
-  pedido              Pedido[]
   @@index([codigoCliente], map: "codigoCliente")
 }
 
@@ -102,10 +99,11 @@ model Avaliacao {
   descricao           String?             @db.VarChar(120)
   imagensFolder       String?             @db.VarChar(30)
   nota                Decimal             @db.Decimal(3,2)
-  codigoProduto       String
-  codigoCliente       String              
+  nomeCliente         String              @db.VarChar(60)
+  cpfCliente          String
+  dataAvaliacao       DateTime
+  codigoProduto       String            
   produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "avaliacao_ibfk_1")
-  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "avaliacao_ibfk_2")
 }
 
 model Pedido {
@@ -120,10 +118,10 @@ model Pedido {
   valorFrete          Decimal?            @db.Decimal(10,2)
   descontoCupom       Decimal?            @db.Decimal(10,2)
   total               Decimal             @db.Decimal(10,2)
-  codigoCliente       String
-  codigoEndereco      String
-  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "codigoCliente")
-  endereco            Endereco            @relation(fields: [codigoEndereco], references: [codigoEndereco], onUpdate: Restrict, map: "codigoEndereco")
+  nomeCliente         String              
+  cpfCliente          String
+  cep                 String
+  dadosEndereco       String
   pedidoHasProduto    PedidoHasProduto[]
 }
 
