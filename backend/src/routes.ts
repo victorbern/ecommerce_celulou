@@ -21,6 +21,7 @@ import { produtoExistsMiddleware } from "./middlewares/ProdutoExistsMiddleware";
 import { updateProdutoController } from "./useCases/produtos/UpdateProduto";
 import { updateIsVisibleProdutoController } from "./useCases/produtos/UpdateIsVisibleProduto";
 import { updateIsDisponivelProdutoController } from "./useCases/produtos/UpdateIsDisponivelProduto";
+import { findCategoriaController } from "./useCases/categorias/FindCategoria";
 
 const router = Router();
 
@@ -87,6 +88,11 @@ router.get('/categorias/', async (request, response, next) => {
 // Buscar todas as categorias (com filtro)
 router.get('/categorias/:filtro', async (request, response, next) => {
     return findAllCategoriaController.handle(request, response, next);
+})
+
+// Buscar uma categoria com base no código
+router.get('/categoria/:codigo', async (request, response, next) => {
+    return findCategoriaController.handle(request, response, next);
 })
 
 // Alterar dados de uma categoria
