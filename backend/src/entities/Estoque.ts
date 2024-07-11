@@ -17,7 +17,7 @@ export class Estoque {
         quantidade: z.number({
             required_error: "É necessário inserir um valor para a quantidade do estoque",
             invalid_type_error: "A quantidade do estoque deve ser um número inteiro",
-        }).int()
+        }).int().min(0, { message: "A quantidade não pode ser menor do que zero"} )
     })
 
     constructor(props: Estoque) {
