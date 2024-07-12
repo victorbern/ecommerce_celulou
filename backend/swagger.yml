@@ -604,6 +604,37 @@ paths:
           $ref: "#/components/responses/ErrorDefault"
 
   /categoria/{codigo}:
+    get:
+      summary: Busca uma categoria pelo codigo
+      description: Busca uma categoria que possua um codigo identico ao da url
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo da categoria (12 digitos) para buscá-la no banco de dados
+          required: true
+      responses:
+        "200":
+          description: Um objeto de categoria
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: "#/components/schemas/Categoria"
+              example:
+                result:
+                  codigoCategoria: "T3r4lyhxia6k"
+                  nomeCategoria: "Intermediario Premium II"
+        
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
     put:
       summary: Editar dados de uma categoria pelo seu codigo
       description: Recebe o código de uma categoria pelo parametro e altera seus valores pelos valores enviados no body
