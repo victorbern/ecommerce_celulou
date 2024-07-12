@@ -1,3 +1,4 @@
+import { ProdutoHasCategoria } from "@prisma/client";
 import { Categoria } from "../../entities/Categoria";
 import { ICategoriasRepository } from "../ICategoriasRepository";
 
@@ -8,6 +9,12 @@ export class InMemoryCategoriasRepository implements ICategoriasRepository {
             nomeCategoria: "Intermediario"
         }
     ]
+
+    private produtoHasCategoriaBanco: ProdutoHasCategoria[] = []
+
+    setProdutoHasCategoriaBanco(produtoHasCategoriaList: ProdutoHasCategoria[]) {
+        this.produtoHasCategoriaBanco = produtoHasCategoriaList;
+    }
 
     async getByName(nomeCategoria: string): Promise<Categoria> {
         for (let i in this.items) {
@@ -23,6 +30,29 @@ export class InMemoryCategoriasRepository implements ICategoriasRepository {
                 return this.items[i];
             }
         }
+    }
+
+    async getByCodigoProduto(codigoProduto: string): Promise<Categoria[]> {
+        const produtoHasCategoriaList: ProdutoHasCategoria[] = [];
+
+        for (let i in this.produtoHasCategoriaBanco) {
+            if (this.produtoHasCategoriaBanco[i].codigoProduto === codigoProduto) {
+                produtoHasCategoriaList.push(this.produtoHasCategoriaBanco[i])
+            }
+        }
+
+        const categorias: Categoria[] = [];
+
+        for (let i in produtoHasCategoriaList) {
+            for (let j in this.items) {
+                if (this.items[j].codigoCategoria == produtoHasCategoriaList[i].codigoCategoria) {
+                    return this.items[i];
+                }
+            }
+            categorias.push(categoria);
+        }
+        
+        return categorias;
     }
 
     async save(categoria: Categoria): Promise<void> {
