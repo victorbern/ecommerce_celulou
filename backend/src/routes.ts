@@ -22,6 +22,7 @@ import { updateProdutoController } from "./useCases/produtos/UpdateProduto";
 import { updateIsVisibleProdutoController } from "./useCases/produtos/UpdateIsVisibleProduto";
 import { updateIsDisponivelProdutoController } from "./useCases/produtos/UpdateIsDisponivelProduto";
 import { findCategoriaController } from "./useCases/categorias/FindCategoria";
+import { findCategoriasByProdutoController } from "./useCases/categorias/FindCategoriasByProduto";
 
 const router = Router();
 
@@ -113,6 +114,11 @@ router.post('/produtos/', async(request, response, next) => {
 // Rota para buscar um produto pelo código
 router.get('/produtos/:codigo', async(request, response, next) => {
     return findProdutoController.handle(request, response, next);
+})
+
+// Buscar todas as categorias de um produto
+router.get('/produtos/:codigo/categorias/', async(request, response, next) => {
+    return findCategoriasByProdutoController.handle(request, response, next);
 })
 
 // Rota para fazer o upload das imagens do produto

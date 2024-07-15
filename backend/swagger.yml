@@ -578,6 +578,21 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/Categoria"
+              example: 
+                result: [
+                  {
+                    "codigoCategoria": "T54slyn337ex",
+                    "nomeCategoria": "Intermediario Premium II"
+                  },
+                  {
+                    "codigoCategoria": "T54slyn33b3t",
+                    "nomeCategoria": "Memoria"
+                  },
+                  {
+                    "codigoCategoria": "T54slyn33ece",
+                    "nomeCategoria": "Camera"
+                  }
+                ]
 
         "404":
           $ref: "#/components/responses/Error404"
@@ -608,6 +623,17 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/Categoria"
+              example:
+                result: [
+                  {
+                    "codigoCategoria": "T54slyn337ex",
+                    "nomeCategoria": "Intermediario Premium II"
+                  },
+                  {
+                    "codigoCategoria": "T8e8lyn3mwbb",
+                    "nomeCategoria": "Intermediario"
+                  }
+                ]
 
         "404":
           $ref: "#/components/responses/Error404"
@@ -708,21 +734,21 @@ paths:
                   result:
                     $ref: "#/components/schemas/Produto"
 
-            result:
               example:
-                codigoProduto: "Pc2klw50xy54"
-                valor: 22222222.22
-                nomeProduto: "Samsung Galaxy A54"
-                marca: "Samsung"
-                descricaoProduto: "Preto"
-                imagensFolder: "/produtos/Pc2klw50xy54/"
-                nota: null
-                pesoGramas: 200
-                alturaCM: 2.7
-                larguraCM: 7
-                comprimentoCM: 15.8
-                isDisponivelCompra: false
-                isVisivel: false
+                result:
+                  codigoProduto: "Pc2klw50xy54"
+                  valor: 22222222.22
+                  nomeProduto: "Samsung Galaxy A54"
+                  marca: "Samsung"
+                  descricaoProduto: "Preto"
+                  imagensFolder: "/produtos/Pc2klw50xy54/"
+                  nota: null
+                  pesoGramas: 200
+                  alturaCM: 2.7
+                  larguraCM: 7
+                  comprimentoCM: 15.8
+                  isDisponivelCompra: false
+                  isVisivel: false
     put:
       summary: Atualizar dados de um produto
       description: Esta rota recebe um codigo e os dados do produto a ser atualizado
@@ -751,6 +777,50 @@ paths:
           $ref: "#/components/responses/Error404"
 
         default:
+          $ref: "#/components/responses/ErrorDefault"
+
+  /produtos/{codigo}/categorias:
+    get:
+      summary: Busca todas as categorias de um produto
+      description: Esta rota recebe o código de um produto e busca no banco todas as categorias relacionadas ao produto
+      parameters:
+        - in: path
+          name: codigo
+          description: O código é uma string de 12 caracteres
+          schema:
+            type: string
+            description: Código do produto (12 digitos) para buscá-lo no banco de dados
+          required: true
+      responses:
+        "200":
+          description: Um array de categorias
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Categoria"
+              example:
+                result: [
+                  {
+                    "codigoCategoria": "T54slyn33ece",
+                    "nomeCategoria": "Camera"
+                  },
+                  {
+                    "codigoCategoria": "T54slyn33b3t",
+                    "nomeCategoria": "Memoria"
+                  }
+                ]
+        "400":
+          $ref: "#/components/responses/Error400"
+
+        "404":
+          $ref: "#/components/responses/Error404"
+        
+        default: 
           $ref: "#/components/responses/ErrorDefault"
 
   /produtos/{codigo}/visibilidade:
