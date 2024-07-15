@@ -11,7 +11,7 @@ export class FindAllCategoriaController {
         try {
             let result = await this.findAllCategoriaUC.execute({ filtro: filtro })
 
-            if (result) {
+            if (result.length > 0) {
                 return response.status(200).json({ result: result });
             }
 

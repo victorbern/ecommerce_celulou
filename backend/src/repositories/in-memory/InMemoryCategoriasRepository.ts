@@ -45,11 +45,10 @@ export class InMemoryCategoriasRepository implements ICategoriasRepository {
 
         for (let i in produtoHasCategoriaList) {
             for (let j in this.items) {
-                if (this.items[j].codigoCategoria == produtoHasCategoriaList[i].codigoCategoria) {
-                    return this.items[i];
+                if (produtoHasCategoriaList[i].codigoCategoria == this.items[j].codigoCategoria) {
+                    categorias.push(this.items[j]);
                 }
             }
-            categorias.push(categoria);
         }
         
         return categorias;
@@ -82,6 +81,12 @@ export class InMemoryCategoriasRepository implements ICategoriasRepository {
     }
 
     async delete(codigoCategoria: string): Promise<void> {
+        for (let i = 0; i < this.produtoHasCategoriaBanco.length; i++) {
+            if (this.produtoHasCategoriaBanco[i].codigoCategoria === codigoCategoria) {
+                this.produtoHasCategoriaBanco.splice(i, 1);
+            }
+        }
+
         for (let i = 0; i < this.items.length; i++) {
             if (this.items[i].codigoCategoria === codigoCategoria) {
                 this.items.splice(i, 1);
