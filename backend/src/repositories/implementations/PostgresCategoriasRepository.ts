@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, ProdutoHasCategoria } from "@prisma/client";
 import { Categoria } from "../../entities/Categoria";
 import { ICategoriasRepository } from "../ICategoriasRepository";
 
@@ -23,6 +23,27 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
         });
 
         return categoria;
+    }
+
+    async getByCodigoProduto(codigoProduto: string): Promise<Categoria[]> {
+        const produtoHasCategoriaList: ProdutoHasCategoria[] = await this.prisma.produtoHasCategoria.findMany({
+            where: {
+                codigoProduto: codigoProduto,
+            }
+        })
+
+        const categorias: Categoria[] = [];
+        for (let i in produtoHasCategoriaList) {
+            const categoria: Categoria = await this.prisma.categoria.findUnique({
+                where: {
+                    codigoCategoria: produtoHasCategoriaList[i].codigoCategoria,
+                }
+            })
+
+            categorias.push(categoria);
+        }
+
+        return categorias;
     }
 
     async save(categoria: Categoria): Promise<void> {
