@@ -11,7 +11,7 @@ export class CreateCategoriaController {
         try {
             let result = await this.createCategoriaUC.execute({nomeCategoria});
 
-            return response.status(201).json({ message: result.message });
+            return response.status(201).json({ message: result.message, codigoCategoria: result.codigoCategoria });
             
         } catch (error) {
             next(error);

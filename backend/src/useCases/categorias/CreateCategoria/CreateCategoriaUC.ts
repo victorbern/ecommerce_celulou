@@ -28,6 +28,9 @@ export class CreateCategoriaUC {
 
         await this.categoriasRepository.save(categoria);
 
-        return { message: "Categoria cadastrada com sucesso!" }
+        return { 
+            message: "Categoria cadastrada com sucesso!",
+            codigoCategoria: codigoCategoria
+        }
     }
 }

@@ -3,5 +3,6 @@ export interface ICreateCategoriaRequestDTO {
 }
 
 export interface ICreateCategoriaResponseDTO {
+    codigoCategoria: string;
     message: string;
 }
