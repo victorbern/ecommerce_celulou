@@ -17,7 +17,10 @@ export class CreateClienteController {
             nomeCliente, cpfCliente, celularCliente, emailCliente
         });
 
-        return response.status(201).json({ message: result.message })
+        return response.status(201).json({ 
+            message: result.message,
+            codigoCliente: result.codigoCliente 
+        })
 
         } catch(error) {
             next(error);

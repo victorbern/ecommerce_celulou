@@ -8,9 +8,10 @@ export class FindEnderecoController {
 
     async handle(request: Request, response: Response, next: NextFunction): Promise<Response> {
         const codigo = request.params.codigo;
+        
         try {
             let result = await this.findEnderecoUC.execute({
-                codigoEndereco: codigo
+                codigoEndereco: codigo,
             });
 
             if (result) {

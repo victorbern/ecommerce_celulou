@@ -272,7 +272,7 @@ components:
                 example: Unexpected Error!
 
 paths:
-  /cliente:
+  /clientes:
     post:
       summary: Cria um novo cliente.
       description: Essa rota é a responsável pela criação de um novo cliente.
@@ -284,13 +284,28 @@ paths:
               $ref: "#/components/schemas/Cliente"
       responses:
         "201":
-          $ref: "#/components/responses/Criado"
+          description: Cadastra um novo cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Cliente cadastrado com sucesso!"
+                  codigoCliente:
+                    type: string
+                    example: "CAABBBCCCDDD"
+              example:
+                result:
+                  message: "Cliente cadastrado com sucesso!"
+                  codigoCliente: "Cd88lyitqgsr"
         "400":
           $ref: "#/components/responses/Error400"
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /cliente/{codigo}:
+  /clientes/{codigo}:
     get:
       summary: Busca um cliente pelo codigo
       description: Busca um cliente que possua um codigo identico ao da url
@@ -375,7 +390,7 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /endereco:
+  /clientes/{codigo}/enderecos/:
     post:
       summary: Cria um novo endereço
       description: Essa rota é a responsável pela criação de um novo endereço, atrelado a um cliente existente
@@ -394,7 +409,63 @@ paths:
           $ref: "#/components/responses/Error404"
         default:
           $ref: "#/components/responses/ErrorDefault"
-  /endereco/{codigo}:
+    get:
+      summary: Busca todos os endereços de um cliente
+      description: Essa rota é responsável por fazer a busca de todos os endereços cadastrados de um cliente em específico com base no seu codigo
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
+          required: true
+      responses:
+        "200":
+          description: Um array com vários endereços
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Endereco"
+              example:
+                result:
+                  [
+                    {
+                      "codigoEndereco": "Efw8lwgot8ql",
+                      "nomeEndereco": "Casa 2",
+                      "cep": "12970000",
+                      "nomeRua": "Rua 2",
+                      "numeroCasa": "34A",
+                      "complemento": null,
+                      "bairro": "Centro",
+                      "cidade": "São Paulo",
+                      "estado": "São Paulo",
+                      "codigoCliente": "C87olwgom5yp",
+                    },
+                    {
+                      "codigoEndereco": "E87olwgon4d2",
+                      "nomeEndereco": "Casa",
+                      "cep": "12970000",
+                      "nomeRua": "Rua 2",
+                      "numeroCasa": "34A",
+                      "complemento": "",
+                      "bairro": "Centro",
+                      "cidade": "São Paulo",
+                      "estado": "São Paulo",
+                      "codigoCliente": "C87olwgom5yp",
+                    },
+                  ]
+
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+  /enderecos/{codigo}:
     get:
       summary: Buscar endereço pelo código
       description: Busca um endereço específico com base no seu código
@@ -472,65 +543,7 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /enderecos/{codigo}:
-    get:
-      summary: Busca todos os endereços de um cliente
-      description: Essa rota é responsável por fazer a busca de todos os endereços cadastrados de um cliente em específico com base no seu codigo
-      parameters:
-        - in: path
-          name: codigo
-          schema:
-            type: string
-            description: Codigo do cliente (12 digitos) para buscá-lo no banco de dados e buscar os seus endereços
-          required: true
-      responses:
-        "200":
-          description: Um array com vários endereços
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Endereco"
-              example:
-                result:
-                  [
-                    {
-                      "codigoEndereco": "Efw8lwgot8ql",
-                      "nomeEndereco": "Casa 2",
-                      "cep": "12970000",
-                      "nomeRua": "Rua 2",
-                      "numeroCasa": "34A",
-                      "complemento": null,
-                      "bairro": "Centro",
-                      "cidade": "São Paulo",
-                      "estado": "São Paulo",
-                      "codigoCliente": "C87olwgom5yp",
-                    },
-                    {
-                      "codigoEndereco": "E87olwgon4d2",
-                      "nomeEndereco": "Casa",
-                      "cep": "12970000",
-                      "nomeRua": "Rua 2",
-                      "numeroCasa": "34A",
-                      "complemento": "",
-                      "bairro": "Centro",
-                      "cidade": "São Paulo",
-                      "estado": "São Paulo",
-                      "codigoCliente": "C87olwgom5yp",
-                    },
-                  ]
-
-        "404":
-          $ref: "#/components/responses/Error404"
-
-        default:
-          $ref: "#/components/responses/ErrorDefault"
-
-  /categoria/:
+  /categorias/:
     post:
       summary: Criar nova categoria
       description: Esta é uma rota para a criação de uma nova categoria
@@ -550,7 +563,6 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /categorias/:
     get:
       summary: Buscar todas as categorias
       description: Faz a busca de todas as categorias presentes no banco de dados
@@ -603,7 +615,7 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /categoria/{codigo}:
+  /categorias/{codigo}:
     put:
       summary: Editar dados de uma categoria pelo seu codigo
       description: Recebe o código de uma categoria pelo parametro e altera seus valores pelos valores enviados no body
@@ -653,7 +665,7 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /produto/:
+  /produtos/:
     post:
       summary: Criar novo produto
       description: Esta é uma rota para a criação de um novo produto
@@ -673,7 +685,7 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /produto/{codigo}:
+  /produtos/{codigo}:
     get:
       summary: Buscar um produto pelo código
       description: Esta rota recebe um código nos parâmetros da requisição e busca o produto que possui este código
@@ -741,7 +753,7 @@ paths:
         default:
           $ref: "#/components/responses/ErrorDefault"
 
-  /produto/visibilidade/{codigo}:
+  /produtos/{codigo}/visibilidade:
     put:
       summary: Altera a visibilidade de um produto
       description: Esta rota recebe um codigo e um valor de visibilidade para alterar a visibilidade do produto
@@ -780,7 +792,7 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorDefault"
 
-  /produto/disponibilidade/{codigo}:
+  /produtos/{codigo}/disponibilidade/:
     put:
       summary: Altera a disponibilidade de um produto
       description: Esta rota recebe um boolean que determina se o produto está ou não disponível para compra
@@ -818,7 +830,7 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorDefault"
 
-  /produto/images/{codigo}:
+  /produtos/{codigo}/upload:
     post:
       summary: Fazer upload das imagens do produto
       description: Esta rota é a responsavel por receber até 4 imagens que serão exibidas na tela do produto. Esta rota pode ser usada para atualizar as imagens também.

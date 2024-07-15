@@ -30,52 +30,52 @@ router.post('/login', async (request, response, next) => {
 })
 
 // Inserir novo cliente
-router.post('/cliente', async (request, response, next) => {
+router.post('/clientes', async (request, response, next) => {
     return createClienteController.handle(request, response, next);
 })
 
 // Busca um cliente pelo seu código
-router.get('/cliente/:codigo', async (request, response, next) => {
+router.get('/clientes/:codigo', async (request, response, next) => {
     return findClienteController.handle(request, response, next);
 });
 
 // Editar dados de um cliente pelo código
-router.put('/cliente/:codigo', async (request, response, next) => {
+router.put('/clientes/:codigo', async (request, response, next) => {
     return updateClienteController.handle(request, response, next);
 })
 
 // Deletar um cliente pelo código
-router.delete('/cliente/:codigo', async (request, response, next) => {
+router.delete('/clientes/:codigo', async (request, response, next) => {
     return delClienteController.handle(request, response, next);
 })
 
 // Inserir novo endereço
-router.post('/endereco', async (request, response, next) => {
+router.post('/clientes/:codigo/enderecos/', async (request, response, next) => {
     return createEnderecoController.handle(request, response, next);
 })
 
 // Buscar endereço pelo codigo do cliente
-router.get('/enderecos/:codigo', async (request, response, next) => {
+router.get('/clientes/:codigo/enderecos/', async (request, response, next) => {
     return findEnderecoByClienteController.handle(request, response, next);
 })
 
 // Buscar endereço pelo codigo do endereço
-router.get('/endereco/:codigo', async (request, response, next) => {
+router.get('/enderecos/:codigo', async (request, response, next) => {
     return findEnderecoController.handle(request, response, next);
 })
 
 // Editar dados de um endereço pelo código
-router.put('/endereco/:codigo', async (request, response, next) => {
+router.put('/enderecos/:codigo', async (request, response, next) => {
     return updateEnderecoController.handle(request, response, next);
 })
 
 // Deleta um endereço pelo código
-router.delete('/endereco/:codigo', async (request, response, next) => {
+router.delete('/enderecos/:codigo', async (request, response, next) => {
     return deleteEnderecoController.handle(request, response, next);
 })
 
 // Inserir nova categoria
-router.post('/categoria/', async (request, response, next) => {
+router.post('/categorias/', async (request, response, next) => {
     return createCategoriaController.handle(request, response, next);
 })
 
@@ -90,42 +90,42 @@ router.get('/categorias/:filtro', async (request, response, next) => {
 })
 
 // Alterar dados de uma categoria
-router.put('/categoria/:codigo', async(request, response, next) => {
+router.put('/categorias/:codigo', async(request, response, next) => {
     return updateCategoriaController.handle(request, response, next);
 })
 
 // Deleta uma categoria pelo código
-router.delete('/categoria/:codigo', async(request, response, next) => {
+router.delete('/categorias/:codigo', async(request, response, next) => {
     return deleteCategoriaController.handle(request, response, next);
 })
 
 // Rota para criação de um produto novo
-router.post('/produto/', async(request, response, next) => {
+router.post('/produtos/', async(request, response, next) => {
     return createProdutoController.handle(request, response, next);
 }, )
 
 // Rota para buscar um produto pelo código
-router.get('/produto/:codigo', async(request, response, next) => {
+router.get('/produtos/:codigo', async(request, response, next) => {
     return findProdutoController.handle(request, response, next);
 })
 
 // Rota para fazer o upload das imagens do produto
-router.post('/produto-images/:codigo', produtoExistsMiddleware, deleteFolder, uploadMiddleware, (request, response, next) => {
+router.post('/produtos/:codigo/upload', produtoExistsMiddleware, deleteFolder, uploadMiddleware, (request, response, next) => {
     response.status(200).json({ message: "Imagens salvas com sucesso!" })
 });
 
 // Rota para alterar os dados de um produto
-router.put('/produto/:codigo', async (request, response, next) => {
+router.put('/produtos/:codigo', async (request, response, next) => {
     return updateProdutoController.handle(request, response, next);
 });
 
 // Rota para alterar o valor do isVisible de produto
-router.put('/produto/visibilidade/:codigo', async (request, response, next) => {
+router.patch('/produtos/:codigo/visibilidade/', async (request, response, next) => {
     return updateIsVisibleProdutoController.handle(request, response, next);
 })
 
 // Rota para alterar o valor do isDisponivelCompra de produto
-router.put('/produto/disponibilidade/:codigo', async (request, response, next) => {
+router.patch('/produtos/:codigo/disponibilidade/', async (request, response, next) => {
     return updateIsDisponivelProdutoController.handle(request, response, next);
 })
 

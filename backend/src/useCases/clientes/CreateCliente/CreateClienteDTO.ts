@@ -7,4 +7,5 @@ export interface ICreateClienteRequestDTO {
 
 export interface ICreateClienteResponseDTO {
     message: string;
+    codigoCliente: string;
 }

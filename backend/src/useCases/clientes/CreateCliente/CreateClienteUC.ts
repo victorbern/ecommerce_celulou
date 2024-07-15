@@ -45,7 +45,10 @@ export class CreateClienteUC {
 
         await this.clientesRepository.save(cliente);
 
-        return { message: "Cliente cadastrado com sucesso!" }
+        return { 
+            message: "Cliente cadastrado com sucesso!",
+            codigoCliente: codigoCliente 
+        }
 
     }
 
