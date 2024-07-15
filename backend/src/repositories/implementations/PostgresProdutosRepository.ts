@@ -44,6 +44,26 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         })
     }
 
+    async addCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
+        await this.prisma.produtoHasCategoria.create({
+            data: {
+                codigoCategoria: codigoCategoria,
+                codigoProduto: codigoProduto
+            }
+        })
+    }
+
+    async removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
+        await this.prisma.produtoHasCategoria.delete({
+            where: {
+                codigoProduto_codigoCategoria: {
+                    codigoCategoria: codigoCategoria,
+                    codigoProduto: codigoProduto
+                }
+            }
+        })
+    }
+
     async update(produto: Produto): Promise<void> {
         await this.prisma.produto.update({
             where: {

@@ -1,3 +1,4 @@
+import { ProdutoHasCategoria } from "@prisma/client";
 import { Produto } from "../../entities/Produto";
 import { IProdutosRepository } from "../IProdutosRepository";
 
@@ -20,6 +21,12 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
         }
     ]
 
+    private produtoHasCategoriaBanco: ProdutoHasCategoria[] = []
+
+    setProdutoHasCategoriaBanco(produtoHasCategoriaList: ProdutoHasCategoria[]) {
+        this.produtoHasCategoriaBanco = produtoHasCategoriaList;
+    }
+
     async getByNome(nomeProduto: string): Promise<Produto> {
         for (let i in this.items) {
             if (this.items[i].nomeProduto === nomeProduto) {
@@ -40,6 +47,23 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
 
     async save(produto: Produto): Promise<void> {
         this.items.push(produto);
+    }
+
+    async addCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
+        this.produtoHasCategoriaBanco.push(
+            {
+                codigoCategoria: codigoCategoria, 
+                codigoProduto: codigoProduto
+            }
+        )
+    }
+
+    async removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
+        for (let i = 0; i < this.produtoHasCategoriaBanco.length; i++) {
+            if (this.produtoHasCategoriaBanco[i].codigoCategoria === codigoCategoria && this.produtoHasCategoriaBanco[i].codigoProduto === codigoProduto) {
+                this.produtoHasCategoriaBanco.splice(i, 1);
+            }
+        }
     }
 
     async update(produto: Produto): Promise<void> {
