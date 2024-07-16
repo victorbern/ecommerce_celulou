@@ -18,8 +18,27 @@ export class CreateEstoqueUC {
             quantidade = 0;
         }
 
+        if (quantidade < 0) {
+            throw new AppError("Quantidade inválida!", 400);
+        }
+
         if (!codigoProduto) {
             throw new AppError("Código de produto inválido", 400);
+        }
+
+        const produtoExists = await this.findProduto.execute({ codigoProduto: codigoProduto });
+
+        if (!produtoExists) {
+            throw new AppError("Produto não encontrado!", 400)
+        }
+
+        const estoqueExists = await this.estoquesRepository.getByProduto(codigoProduto);
+
+        if (estoqueExists) {
+            return {
+                message: "Este produto já possui estoque",
+                codigoEstoque: estoqueExists.codigoEstoque
+            }
         }
 
         let codigoEstoque, codigoExists = null;

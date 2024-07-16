@@ -20,5 +20,14 @@ export class PostgresEstoquesRepository implements IEstoquesRepository {
         
         return estoque;
     }
-    
+
+    async getByProduto(codigoProduto: string): Promise<Estoque> {
+        const estoque: Estoque = await this.prisma.estoque.findUnique({
+            where: {
+                codigoProduto: codigoProduto
+            }
+        });
+
+        return estoque;
+    }
 }

@@ -22,5 +22,14 @@ export class InMemoryEstoquesRepository implements IEstoquesRepository {
         }
         return null;
     }
-    
+
+    async getByProduto(codigoProduto: string): Promise<Estoque> {
+        for (let i in this.items) {
+            if (this.items[i].codigoProduto === codigoProduto) {
+                return this.items[i];
+            }
+        }
+
+        return null;
+    }
 }
