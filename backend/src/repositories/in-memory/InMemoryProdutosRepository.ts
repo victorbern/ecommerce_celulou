@@ -1,4 +1,4 @@
-import { ProdutoHasCategoria } from "@prisma/client";
+import { Estoque, ProdutoHasCategoria } from "@prisma/client";
 import { Produto } from "../../entities/Produto";
 import { IProdutosRepository } from "../IProdutosRepository";
 
@@ -14,17 +14,22 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
             nota: 4.8,
             pesoGramas: 230.00,
             alturaCM: 2.8,
-            larguraCM: 15.00, 
+            larguraCM: 15.00,
             comprimentoCM: 6.9,
             isVisivel: false,
             isDisponivelCompra: false
         }
     ]
 
-    private produtoHasCategoriaBanco: ProdutoHasCategoria[] = []
+    public produtoHasCategoriaBanco: ProdutoHasCategoria[] = []
+    public estoques: Estoque[] = [];
 
     setProdutoHasCategoriaBanco(produtoHasCategoriaList: ProdutoHasCategoria[]) {
         this.produtoHasCategoriaBanco = produtoHasCategoriaList;
+    }
+
+    setEstoqueBanco(estoques: Estoque[]) {
+        this.estoques = estoques;
     }
 
     async getByNome(nomeProduto: string): Promise<Produto> {
@@ -52,18 +57,10 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
     async addCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
         this.produtoHasCategoriaBanco.push(
             {
-                codigoCategoria: codigoCategoria, 
+                codigoCategoria: codigoCategoria,
                 codigoProduto: codigoProduto
             }
         )
-    }
-
-    async removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
-        for (let i = 0; i < this.produtoHasCategoriaBanco.length; i++) {
-            if (this.produtoHasCategoriaBanco[i].codigoCategoria === codigoCategoria && this.produtoHasCategoriaBanco[i].codigoProduto === codigoProduto) {
-                this.produtoHasCategoriaBanco.splice(i, 1);
-            }
-        }
     }
 
     async update(produto: Produto): Promise<void> {
@@ -95,6 +92,38 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
         for (let i in this.items) {
             if (this.items[i].codigoProduto === codigoProduto) {
                 this.items[i].isDisponivelCompra = isDisponivelCompra;
+            }
+        }
+    }
+
+    async removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
+        for (let i = 0; i < this.produtoHasCategoriaBanco.length; i++) {
+            if (this.produtoHasCategoriaBanco[i].codigoCategoria === codigoCategoria && this.produtoHasCategoriaBanco[i].codigoProduto === codigoProduto) {
+                this.produtoHasCategoriaBanco.splice(i, 1);
+            }
+        }
+    }
+
+    async removeAllCategorias(codigoProduto: string): Promise<void> {
+        for (let i = 0; i < this.produtoHasCategoriaBanco.length; i++) {
+            if (this.produtoHasCategoriaBanco[i].codigoProduto === codigoProduto) {
+                this.produtoHasCategoriaBanco.splice(i, 1)
+            }
+        }
+    }
+
+    async deleteEstoque(codigoProduto: string): Promise<void> {
+        for (let i = 0; i < this.estoques.length; i++) {
+            if (this.estoques[i].codigoProduto === codigoProduto) {
+                this.estoques.splice(i, 1);
+            }
+        }
+    }
+
+    async delete(codigoProduto: string): Promise<void> {
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].codigoProduto === codigoProduto) {
+                this.items.splice(i, 1);
             }
         }
     }

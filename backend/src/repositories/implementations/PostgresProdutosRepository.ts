@@ -5,22 +5,6 @@ import { Produto as ProdutoPrisma } from "@prisma/client";
 
 export class PostgresProdutosRepository implements IProdutosRepository {
     private prisma = new PrismaClient();
-    
-    async getByNome(nomeProduto: string): Promise<Produto> {
-        const result = await this.prisma.produto.findUnique({
-            where: {
-                nomeProduto: nomeProduto,
-            }
-        });
-
-        if (!result) {
-            return null;
-        }
-
-        let produto = this.convertToEntity(result);
-
-        return produto;
-    }
 
     async getByCodigo(codigoProduto: string): Promise<Produto> {
         const result = await this.prisma.produto.findUnique({
@@ -49,17 +33,6 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             data: {
                 codigoCategoria: codigoCategoria,
                 codigoProduto: codigoProduto
-            }
-        })
-    }
-
-    async removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
-        await this.prisma.produtoHasCategoria.delete({
-            where: {
-                codigoProduto_codigoCategoria: {
-                    codigoCategoria: codigoCategoria,
-                    codigoProduto: codigoProduto
-                }
             }
         })
     }
@@ -93,6 +66,41 @@ export class PostgresProdutosRepository implements IProdutosRepository {
                 isDisponivelCompra: isDisponivelCompra,
             }
         });
+    }
+
+    async removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
+        await this.prisma.produtoHasCategoria.delete({
+            where: {
+                codigoProduto_codigoCategoria: {
+                    codigoCategoria: codigoCategoria,
+                    codigoProduto: codigoProduto
+                }
+            }
+        })
+    }
+
+    async removeAllCategorias(codigoProduto: string): Promise<void> {
+        await this.prisma.produtoHasCategoria.deleteMany({
+            where: {
+                codigoProduto: codigoProduto
+            }
+        })
+    }
+
+    async deleteEstoque(codigoProduto: string): Promise<void> {
+        await this.prisma.estoque.deleteMany({
+            where: {
+                codigoProduto: codigoProduto,
+            }
+        })
+    }
+
+    async delete(codigoProduto: string): Promise<void> {
+        await this.prisma.produto.deleteMany({
+            where: {
+                codigoProduto: codigoProduto
+            },
+        })
     }
 
     convertToEntity(produto: ProdutoPrisma): Produto {
