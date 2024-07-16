@@ -3,7 +3,6 @@ import { AppError } from "../../../errors/AppError";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
 import { FindCategoriaUC } from "../../categorias/FindCategoria/FindCategoriaUC";
 import { CreateEstoqueUC } from "../../estoques/CreateEstoque/CreateEstoqueUC";
-import { DeleteEstoqueByProdutoUC } from "../../estoques/DeleteEstoqueByProduto/DeleteEstoqueByProdutoUC";
 import { ICreateProdutoRequestDTO, ICreateProdutoResponseDTO } from "./CreateProdutoDTO";
 import uniqid from "uniqid";
 
