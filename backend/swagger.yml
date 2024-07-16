@@ -203,6 +203,21 @@ components:
         - alturaCM
         - larguraCM
         - comprimentoCM
+    
+    Estoque:
+      type: object
+      properties:
+        codigoEstoque:
+          type: string
+          example: "PAABBBCCCDDD"
+          readOnly: true
+        quantidade:
+          type: number
+          minimum: 0
+          example: 50
+        codigoProduto:
+          type: string
+          example: "PAABBBCCCDDD"
 
   responses:
     SucessoAlterar:
@@ -1035,6 +1050,43 @@ paths:
                   error:
                     type: string
                     example: "Erro durante upload: campo inexperado!"
+
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+  /estoques/{codigo}:
+    get:
+      summary: Buscar estoque pelo código
+      description: Esta rota recebe o código do estoque e o busca no banco de dados
+      parameters:
+        - in: path
+          name: codigo
+          description: O código é uma string de 12 caracteres
+          schema:
+            type: string
+            description: Codigo do estoque (12 digitos) para buscá-lo no banco de dados
+          required: true
+      responses:
+        "200":
+          description: Um objeto de estoque
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: "#/components/schemas/Estoque"
+              example:
+                "result": {
+                  "codigoEstoque": "Fejslyonbbv0",
+                  "codigoProduto": "Pejslyonbbtg",
+                  "quantidade": 2
+                }
+        
+        "400":
+          $ref: "#/components/responses/Error400"
 
         "404":
           $ref: "#/components/responses/Error404"

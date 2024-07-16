@@ -23,6 +23,7 @@ import { updateIsVisibleProdutoController } from "./useCases/produtos/UpdateIsVi
 import { updateIsDisponivelProdutoController } from "./useCases/produtos/UpdateIsDisponivelProduto";
 import { findCategoriaController } from "./useCases/categorias/FindCategoria";
 import { findCategoriasByProdutoController } from "./useCases/categorias/FindCategoriasByProduto";
+import { findEstoqueController } from "./useCases/estoques/FindEstoque";
 
 const router = Router();
 
@@ -139,6 +140,11 @@ router.patch('/produtos/:codigo/visibilidade/', async (request, response, next) 
 // Rota para alterar o valor do isDisponivelCompra de produto
 router.patch('/produtos/:codigo/disponibilidade/', async (request, response, next) => {
     return updateIsDisponivelProdutoController.handle(request, response, next);
+})
+
+// Rota para buscar um estoque com base no código
+router.get('/estoques/:codigo', async (request, response, next) => {
+    return findEstoqueController.handle(request, response, next);
 })
 
 export { router }
