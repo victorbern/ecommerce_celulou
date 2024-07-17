@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { Endereco } from "../../entities/Endereco";
 import { IEnderecosRepository } from "../IEnderecosRepository";
+import prisma from "./prisma";
 
 export class PostgresEnderecosRepository implements IEnderecosRepository {
-    private prisma = new PrismaClient();
 
     async getByCodigoEndereco(codigoEndereco: string): Promise<Endereco> {
-        const endereco: Endereco = await this.prisma.endereco.findUnique({
+        const endereco: Endereco = await prisma.endereco.findUnique({
             where: {
                 codigoEndereco: codigoEndereco,
             }
@@ -16,7 +16,7 @@ export class PostgresEnderecosRepository implements IEnderecosRepository {
     }
 
     async getByCodigoCliente(codigoCliente: string): Promise<Endereco[]> {
-        const enderecos: Endereco[] = await this.prisma.endereco.findMany({
+        const enderecos: Endereco[] = await prisma.endereco.findMany({
             where: {
                 codigoCliente: codigoCliente,
             }
@@ -26,13 +26,13 @@ export class PostgresEnderecosRepository implements IEnderecosRepository {
     }
 
     async save(endereco: Endereco): Promise<void> {
-        await this.prisma.endereco.create({
+        await prisma.endereco.create({
             data: endereco,
         });
     }
 
     async update(endereco: Endereco): Promise<void> {
-        await this.prisma.endereco.update({
+        await prisma.endereco.update({
             where: {
                 codigoEndereco: endereco.codigoEndereco,
             },
@@ -41,7 +41,7 @@ export class PostgresEnderecosRepository implements IEnderecosRepository {
     }
 
     async delete(codigoEndereco: string): Promise<void> {
-        await this.prisma.endereco.delete({
+        await prisma.endereco.delete({
             where: {
                 codigoEndereco: codigoEndereco,
             }

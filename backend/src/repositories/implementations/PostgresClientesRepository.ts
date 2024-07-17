@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { IClientesRepository } from "../IClientesRepository";
 import { Cliente } from "../../entities/Cliente";
+import prisma from "./prisma";
 
 export class PostgresClientesRepository implements IClientesRepository {
-    private prisma = new PrismaClient();
 
     async getByCpfCliente(cpfCliente: string): Promise<Cliente> {
-        const cliente: Cliente = await this.prisma.cliente.findUnique({
+        const cliente: Cliente = await prisma.cliente.findUnique({
             where: {
                 cpfCliente: cpfCliente,
             }
@@ -15,7 +15,7 @@ export class PostgresClientesRepository implements IClientesRepository {
         return cliente;
     }
     async getByEmailCliente(emailCliente: string): Promise<Cliente> {
-        const cliente: Cliente = await this.prisma.cliente.findUnique({
+        const cliente: Cliente = await prisma.cliente.findUnique({
             where: {
                 emailCliente: emailCliente,
             },
@@ -25,7 +25,7 @@ export class PostgresClientesRepository implements IClientesRepository {
     }
     
     async getByCodigoCliente(codigoCliente: string): Promise<Cliente> {
-        const cliente: Cliente = await this.prisma.cliente.findUnique({
+        const cliente: Cliente = await prisma.cliente.findUnique({
             where: {
                 codigoCliente: codigoCliente,
             },
@@ -35,13 +35,13 @@ export class PostgresClientesRepository implements IClientesRepository {
     }
     
     async save(cliente: Cliente): Promise<void> {
-        await this.prisma.cliente.create({
+        await prisma.cliente.create({
             data: cliente,
         });
     }
     
     async update(cliente: Cliente): Promise<void> {
-        await this.prisma.cliente.update({
+        await prisma.cliente.update({
             where: {
                 codigoCliente: cliente.codigoCliente,
             },
@@ -50,7 +50,7 @@ export class PostgresClientesRepository implements IClientesRepository {
     }
 
     async delete(codigoCliente: string): Promise<void> {
-        await this.prisma.cliente.delete({
+        await prisma.cliente.delete({
             where: {
                 codigoCliente: codigoCliente,
             }
