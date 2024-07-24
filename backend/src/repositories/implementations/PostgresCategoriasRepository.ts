@@ -1,12 +1,12 @@
-import { PrismaClient, ProdutoHasCategoria } from "@prisma/client";
+import { ProdutoHasCategoria } from "@prisma/client";
 import { Categoria } from "../../entities/Categoria";
 import { ICategoriasRepository } from "../ICategoriasRepository";
+import prisma from "./prisma";
 
 export class PostgresCategoriasRepository implements ICategoriasRepository {
-    private prisma = new PrismaClient();
 
     async getByName(nomeCategoria: string): Promise<Categoria> {
-        const categoria: Categoria = await this.prisma.categoria.findUnique({
+        const categoria: Categoria = await prisma.categoria.findUnique({
             where: {
                 nomeCategoria: nomeCategoria
             }
@@ -16,7 +16,7 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
     }
 
     async getByCodigo(codigoCategoria: string): Promise<Categoria> {
-        const categoria: Categoria = await this.prisma.categoria.findUnique({
+        const categoria: Categoria = await prisma.categoria.findUnique({
             where: {
                 codigoCategoria: codigoCategoria,
             }
@@ -26,7 +26,7 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
     }
 
     async getByCodigoProduto(codigoProduto: string): Promise<Categoria[]> {
-        const produtoHasCategoriaList: ProdutoHasCategoria[] = await this.prisma.produtoHasCategoria.findMany({
+        const produtoHasCategoriaList: ProdutoHasCategoria[] = await prisma.produtoHasCategoria.findMany({
             where: {
                 codigoProduto: codigoProduto,
             }
@@ -34,7 +34,7 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
 
         const categorias: Categoria[] = [];
         for (let i in produtoHasCategoriaList) {
-            const categoria: Categoria = await this.prisma.categoria.findUnique({
+            const categoria: Categoria = await prisma.categoria.findUnique({
                 where: {
                     codigoCategoria: produtoHasCategoriaList[i].codigoCategoria,
                 }
@@ -47,19 +47,19 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
     }
 
     async save(categoria: Categoria): Promise<void> {
-        await this.prisma.categoria.create({
+        await prisma.categoria.create({
             data: categoria,
         });
     }
 
     async getAll(): Promise<Categoria[]> {
-        let categorias: Categoria[] = await this.prisma.categoria.findMany();
+        let categorias: Categoria[] = await prisma.categoria.findMany();
 
         return categorias;
     }
 
     async getAllWithFilter(filtro: string): Promise<Categoria[]> {
-        let categorias: Categoria[] = await this.prisma.categoria.findMany({
+        let categorias: Categoria[] = await prisma.categoria.findMany({
             where: {
                 nomeCategoria: {
                     contains: filtro,
@@ -72,7 +72,7 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
     }
     
     async update(categoria: Categoria): Promise<void> {
-        await this.prisma.categoria.update({
+        await prisma.categoria.update({
             where: {
                 codigoCategoria: categoria.codigoCategoria
             },
@@ -81,13 +81,13 @@ export class PostgresCategoriasRepository implements ICategoriasRepository {
     }
 
     async delete(codigoCategoria: string): Promise<void> {
-        await this.prisma.produtoHasCategoria.deleteMany({
+        await prisma.produtoHasCategoria.deleteMany({
             where: {
                 codigoCategoria: codigoCategoria,
             }
         })
 
-        await this.prisma.categoria.delete({
+        await prisma.categoria.delete({
             where: {
                 codigoCategoria: codigoCategoria
             }

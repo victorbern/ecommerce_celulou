@@ -2,12 +2,12 @@ import { PrismaClient } from "@prisma/client";
 import { IProdutosRepository } from "../IProdutosRepository";
 import { Produto } from "../../entities/Produto";
 import { Produto as ProdutoPrisma } from "@prisma/client";
+import prisma from "./prisma";
 
 export class PostgresProdutosRepository implements IProdutosRepository {
-    private prisma = new PrismaClient();
 
     async getByCodigo(codigoProduto: string): Promise<Produto> {
-        const result = await this.prisma.produto.findUnique({
+        const result = await prisma.produto.findUnique({
             where: {
                 codigoProduto: codigoProduto
             }
@@ -23,13 +23,13 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async save(produto: Produto): Promise<void> {
-        await this.prisma.produto.create({
+        await prisma.produto.create({
             data: produto
         })
     }
 
     async addCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
-        await this.prisma.produtoHasCategoria.create({
+        await prisma.produtoHasCategoria.create({
             data: {
                 codigoCategoria: codigoCategoria,
                 codigoProduto: codigoProduto
@@ -38,7 +38,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async update(produto: Produto): Promise<void> {
-        await this.prisma.produto.update({
+        await prisma.produto.update({
             where: {
                 codigoProduto: produto.codigoProduto,
             },
@@ -47,7 +47,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async updateIsVisible(codigoProduto: string, isVisible: boolean) {
-        await this.prisma.produto.update({
+        await prisma.produto.update({
             where: {
                 codigoProduto: codigoProduto,
             },
@@ -58,7 +58,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async updateIsDisponivelCompra(codigoProduto: string, isDisponivelCompra: boolean): Promise<void> {
-        await this.prisma.produto.update({
+        await prisma.produto.update({
             where: {
                 codigoProduto: codigoProduto,
             },
@@ -69,7 +69,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void> {
-        await this.prisma.produtoHasCategoria.delete({
+        await prisma.produtoHasCategoria.delete({
             where: {
                 codigoProduto_codigoCategoria: {
                     codigoCategoria: codigoCategoria,
@@ -80,7 +80,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async removeAllCategorias(codigoProduto: string): Promise<void> {
-        await this.prisma.produtoHasCategoria.deleteMany({
+        await prisma.produtoHasCategoria.deleteMany({
             where: {
                 codigoProduto: codigoProduto
             }
@@ -88,7 +88,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async deleteEstoque(codigoProduto: string): Promise<void> {
-        await this.prisma.estoque.deleteMany({
+        await prisma.estoque.deleteMany({
             where: {
                 codigoProduto: codigoProduto,
             }
@@ -96,7 +96,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
     }
 
     async delete(codigoProduto: string): Promise<void> {
-        await this.prisma.produto.deleteMany({
+        await prisma.produto.deleteMany({
             where: {
                 codigoProduto: codigoProduto
             },
