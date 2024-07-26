@@ -1,5 +1,3 @@
-import { AlteracaoEstoque } from "../../../entities/AlteracaoEstoque";
-import { Estoque } from "../../../entities/Estoque";
 import { AppError } from "../../../errors/AppError";
 import { IEstoquesRepository } from "../../../repositories/IEstoquesRepository";
 import { CreateAlteracaoEstoqueUC } from "../../alteracao_estoque/CreateAlteracaoEstoque/CreateAlteracaoEstoqueUC";

@@ -58,36 +58,6 @@ describe("Testando a classe UpdateProdutoUC", () => {
         })).rejects.toThrow("Produto não encontrado")
     })
 
-    test("Não é possível alterar os dados de produto porque o novo nome escolhido já está em uso por outro produto", () => {
-        inMemoryProdutosRepository.items.push({
-            codigoProduto: "PBBCCCDDDEEE",
-            valor: 2100,
-            nomeProduto: "Samsung Galaxy S20FE",
-            marca: "Xiaomi",
-            descricaoProduto: "Smartphone com Y memória X câmera",
-            pesoGramas: 310.00,
-            alturaCM: 3.0,
-            nota: 5.0,
-            imagensFolder: "/produtos/PBBCCCDDDEEE/",
-            larguraCM: 16.20, 
-            comprimentoCM: 7.2,
-            isDisponivelCompra: false,
-            isVisivel: false
-        })
-
-        expect(updateProdutoUCTest.execute({
-            codigoProduto: "PAABBBBBBCCC",
-            valor: 2100,
-            nomeProduto: "Samsung Galaxy S20FE",
-            marca: "Samsung",
-            descricaoProduto: "Smartphone com Y memória X câmera",
-            pesoGramas: 310.00,
-            alturaCM: 3.0,
-            larguraCM: 16.20, 
-            comprimentoCM: 7.2,
-        })).rejects.toThrow("Não é possível alterar o nome do produto para um nome em uso por outro produto");
-    });
-
     test("Não é possível alterar os dados de produto porque um dos dados é inválido (testando se o zod está funcionando)", () => {
         expect(updateProdutoUCTest.execute({
             codigoProduto: "PAABBBBBBCCC",

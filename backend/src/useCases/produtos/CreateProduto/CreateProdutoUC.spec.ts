@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { inMemoryCategoriasRepository, inMemoryEnderecosRepository, inMemoryEstoquesRepository, inMemoryProdutosRepository } from "../../../repositories/in-memory";
+import { inMemoryCategoriasRepository, inMemoryEstoquesRepository, inMemoryProdutosRepository } from "../../../repositories/in-memory";
 import { createProdutoUCTest } from ".";
 
 describe("Testando a classe CreateProdutoUC", () => {

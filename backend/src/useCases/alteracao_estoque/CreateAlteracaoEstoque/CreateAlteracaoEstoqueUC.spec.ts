@@ -2,7 +2,6 @@ import { describe, expect, test, vi } from "vitest";
 import { inMemoryAlteracaoEstoqueRepository, inMemoryEstoquesRepository } from "../../../repositories/in-memory";
 import { createAlteracaoEstoqueUCTest } from ".";
 import { InMemoryAlteracaoEstoqueRepository } from "../../../repositories/in-memory/InMemoryAlteracaoEstoqueRepository";
-import { AlteracaoEstoque } from "../../../entities/AlteracaoEstoque";
 import { CreateAlteracaoEstoqueUC } from "./CreateAlteracaoEstoqueUC";
 import { findEstoqueUCTest } from "../../estoques/FindEstoque";
 

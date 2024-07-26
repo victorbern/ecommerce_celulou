@@ -1,4 +1,3 @@
-import { ZodError } from "zod";
 import { IFindClienteRequestDTO, IFindClienteResponseDTO } from "./FindClienteDTO";
 import { AppError } from "../../../errors/AppError";
 import { IClientesRepository } from "../../../repositories/IClientesRepository";

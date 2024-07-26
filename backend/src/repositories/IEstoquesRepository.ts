@@ -1,4 +1,3 @@
-import { AlteracaoEstoque } from "../entities/AlteracaoEstoque";
 import { Estoque } from "../entities/Estoque";
 
 export interface IEstoquesRepository {

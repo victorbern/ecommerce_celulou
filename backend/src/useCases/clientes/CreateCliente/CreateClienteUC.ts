@@ -4,7 +4,6 @@ import { IClientesRepository } from "../../../repositories/IClientesRepository";
 import { ICreateClienteRequestDTO, ICreateClienteResponseDTO } from "./CreateClienteDTO";
 import uniqid from "uniqid";
 import { cpf } from "cpf-cnpj-validator";
-import { ZodError } from "zod";
 
 export class CreateClienteUC {
     constructor(

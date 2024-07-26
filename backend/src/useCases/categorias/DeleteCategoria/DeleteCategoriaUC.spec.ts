@@ -1,8 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { inMemoryCategoriasRepository } from "../../../repositories/in-memory";
 import { deleteCategoriaUCTest } from ".";
-import { InMemoryCategoriasRepository } from "../../../repositories/in-memory/InMemoryCategoriasRepository";
-import { DeleteCategoriaUC } from "./DeleteCategoriaUC";
 
 describe("Testando a classe DeleteCategoriaUC", () => {
     inMemoryCategoriasRepository.items = [];

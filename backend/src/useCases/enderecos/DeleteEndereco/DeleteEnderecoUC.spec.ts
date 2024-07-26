@@ -8,6 +8,7 @@ describe("Testando a classe DeleteEnderecoUC", () => {
     inMemoryEnderecosRepository.items = [
         {
             codigoEndereco: "EQQWWWEEERRR",
+            nomeEndereco: "Casa",
             cep: "12970000",
             nomeRua: "Rua 1",
             numeroCasa: "44B",
@@ -19,6 +20,7 @@ describe("Testando a classe DeleteEnderecoUC", () => {
         },
         {
             codigoEndereco: "EAQWWWEEERRR",
+            nomeEndereco: "Trabalho",
             cep: "12970000",
             nomeRua: "Rua 1",
             numeroCasa: "44B",
