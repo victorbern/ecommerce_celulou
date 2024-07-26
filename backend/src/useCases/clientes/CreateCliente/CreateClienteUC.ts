@@ -12,8 +12,8 @@ export class CreateClienteUC {
 
     async execute(data: ICreateClienteRequestDTO): Promise<ICreateClienteResponseDTO> {
         let { nomeCliente, cpfCliente, celularCliente, emailCliente } = data;
-        if (!nomeCliente || !cpfCliente || !celularCliente || !emailCliente) {
-            throw new AppError("Dados Inválidos", 400);
+        if (!cpfCliente) {
+            throw new AppError("É necessário inserir um cpf!", 400);
         }
         cpfCliente = cpfCliente.replace(/[.-]/g, '');
         if (!cpf.isValid(cpfCliente)) {
