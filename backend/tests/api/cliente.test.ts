@@ -119,7 +119,7 @@ describe("POST /clientes", () => {
 
         expect(status).toBe(400);
         expect(body).haveOwnProperty("error")
-        expect(body.error).toBe("Dados Inválidos")
+        expect(body.error).toBe("É necessário inserir um cpf!")
     })
 
 });
