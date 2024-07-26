@@ -32,4 +32,13 @@ export class InMemoryEstoquesRepository implements IEstoquesRepository {
 
         return null;
     }
+
+    async alterarEstoque(codigoEstoque: string, quantidade: number): Promise<void> {
+        for (let i in this.items) {
+            if (this.items[i].codigoEstoque === codigoEstoque) {
+                this.items[i].quantidade = quantidade;
+            }
+        }
+    }
+
 }

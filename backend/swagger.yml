@@ -1056,6 +1056,68 @@ paths:
 
         default:
           $ref: "#/components/responses/ErrorDefault"
+
+  /produtos/{codigo}/estoques:
+    patch:
+      summary: Altera o estoque de um produto
+      description: Esta rota recebe o codigo de um produto e um valor de alteração, podendo ser negativo (retiradas) ou positivo (adições)
+      parameters:
+        - in: path
+          name: codigo
+          required: true
+          schema:
+            type: string
+          description: Código do produto que terá o estoque alterado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                valorAlteracao:
+                  type: number
+                  not:
+                    enum: [0]
+                  example: -5
+                  description: O valor de alteração pode ser positivo ou negativo, mas não zero
+      responses:
+        "200":
+          description: Devolve uma mensagem de sucesso e os dados do estoque alterado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Estoque alterado com sucesso!"
+                      codigoEstoque:
+                        type: string
+                        example: "FAABBBCCCDDD"
+                      codigoProduto:
+                        type: string
+                        example: "PAABBBCCCDDD"
+              example:
+                "result": {
+                  "message": "Estoque alterado com sucesso!",
+                  "codigoEstoque": "Fejslyonbbv0",
+                  "codigoProduto": "Pejslyonbbtg",
+                  "quantidade": 10
+                }
+
+        "400":
+          $ref: "#/components/responses/Error400"
+
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
   /estoques/{codigo}:
     get:
       summary: Buscar estoque pelo código
