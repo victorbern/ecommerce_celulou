@@ -14,7 +14,7 @@ afterAll(async () => {
 })
 
 
-describe("/clientes", () => {
+describe("POST /clientes", () => {
     beforeEach(async() => {
         await prisma.$transaction([
             prisma.cliente.deleteMany(),
