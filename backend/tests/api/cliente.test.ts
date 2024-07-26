@@ -117,9 +117,9 @@ describe("POST /clientes", () => {
 
         const {status, body}  = await request(app).post("/clientes").send(clientJson)
 
-        expect(status).toBe(500);
+        expect(status).toBe(400);
         expect(body).haveOwnProperty("error")
-        expect(body.error).toBe("Nome do cliente não pode ser vazio")
+        expect(body.error).toBe("Dados Inválidos")
     })
 
 });
