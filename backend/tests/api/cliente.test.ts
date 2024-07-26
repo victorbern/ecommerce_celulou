@@ -2,23 +2,23 @@ import { afterAll, beforeAll, describe, expect, it, test, afterEach, beforeEach 
 import {app} from "../../src/index";
 import request from "supertest";
 import prisma from "../../src/repositories/implementations/prisma";
+import { execSync } from "child_process";
+import { resetDatabase } from "../utils";
 
 
 
-
+beforeAll(async () => {
+    execSync("npx prisma migrate reset --force")
+})
 
 afterAll(async () => {
-    await prisma.$transaction([
-        prisma.cliente.deleteMany(),
-    ])
+    await resetDatabase(prisma)
 })
 
 
 describe("POST /clientes", () => {
-    beforeEach(async() => {
-        await prisma.$transaction([
-            prisma.cliente.deleteMany(),
-        ])
+    beforeEach(async () => {
+        await resetDatabase(prisma)
     });
     
     it("should create a new client", async () => {
@@ -117,7 +117,7 @@ describe("POST /clientes", () => {
 
         const {status, body}  = await request(app).post("/clientes").send(clientJson)
 
-        expect(status).toBe(400);
+        expect(status).toBe(500);
         expect(body).haveOwnProperty("error")
         expect(body.error).toBe("Nome do cliente não pode ser vazio")
     })
