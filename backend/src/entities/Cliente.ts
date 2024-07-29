@@ -21,8 +21,9 @@ export class Cliente {
             invalid_type_error: "O CPF precisa ser uma string"
         }).length(11, { message: "O CPF deve ter 11 dígitos" }),
         celularCliente: z.string({
+            required_error: "É necessário inserir um número de celular",
             invalid_type_error: "O número de celular deve ser uma string"
-        }).min(10, {message: "O tamanho mínimo para número de celualar deve ser de 10 caracteres"}).max(12, { message: "O tamanho máximo para número de celular deve ser de 12 caracteres" }),
+        }).min(10, {message: "O tamanho mínimo para número de celular deve ser de 10 caracteres"}).max(12, { message: "O tamanho máximo para número de celular deve ser de 12 caracteres" }),
         emailCliente: z.string({
             required_error: "É necessário inserir um e-mail",
             invalid_type_error: "O e-mail deve ser uma string"
