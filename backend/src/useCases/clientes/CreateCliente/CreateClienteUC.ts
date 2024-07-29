@@ -16,7 +16,7 @@ export class CreateClienteUC {
         if (!cpfCliente) {
             throw new AppError("É necessário inserir um cpf!", 400);
         }
-
+        
         cpfCliente = cpfCliente.replace(/[.-]/g, '');
 
         if (!cpf.isValid(cpfCliente)) {

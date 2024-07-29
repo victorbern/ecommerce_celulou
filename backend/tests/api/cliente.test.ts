@@ -2,23 +2,23 @@ import { afterAll, beforeAll, describe, expect, it, test, afterEach, beforeEach 
 import {app} from "../../src/index";
 import request from "supertest";
 import prisma from "../../src/repositories/implementations/prisma";
+import { execSync } from "child_process";
+import { resetDatabase } from "../utils";
 
 
 
-
+beforeAll(async () => {
+    execSync("npx prisma migrate reset --force")
+})
 
 afterAll(async () => {
-    await prisma.$transaction([
-        prisma.cliente.deleteMany(),
-    ])
+    await resetDatabase(prisma)
 })
 
 
-describe("/clientes", () => {
-    beforeEach(async() => {
-        await prisma.$transaction([
-            prisma.cliente.deleteMany(),
-        ])
+describe("POST /clientes", () => {
+    beforeEach(async () => {
+        await resetDatabase(prisma)
     });
     
     it("should create a new client", async () => {
@@ -119,7 +119,7 @@ describe("/clientes", () => {
 
         expect(status).toBe(400);
         expect(body).haveOwnProperty("error")
-        expect(body.error).toBe("Nome do cliente não pode ser vazio")
+        expect(body.error).toBe("É necessário inserir um cpf!")
     })
 
 });
