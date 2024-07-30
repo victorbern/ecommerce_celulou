@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { CreateClienteUC } from "./CreateClienteUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class CreateClienteController {
     constructor(
@@ -15,7 +16,7 @@ export class CreateClienteController {
                 nomeCliente, cpfCliente, celularCliente, emailCliente
             });
 
-            return response.status(201).json({
+            return response.status(HTTPStatusCode.Created).json({
                 message: result.message,
                 codigoCliente: result.codigoCliente
             })

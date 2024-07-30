@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { Produto } from "../../../entities/Produto";
 import { AppError } from "../../../errors/AppError";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
@@ -22,14 +23,13 @@ export class CreateProdutoUC {
 
         try {
             const { valor, nomeProduto, marca, descricaoProduto, pesoGramas, alturaCM, larguraCM, comprimentoCM, categorias, quantidadeEstoque } = data;
-            console.log(quantidadeEstoque)
             for (let i in categorias) {
                 const categoriaExists = await this.findCategoriaUC.execute({
                     codigoCategoria: categorias[i].codigoCategoria
                 })
 
                 if (!categoriaExists) {
-                    throw new AppError("A categoria '" + categorias[i].nomeCategoria + "' não existe", 404)
+                    throw new AppError("A categoria '" + categorias[i].nomeCategoria + "' não existe", HTTPStatusCode.NotFound)
                 }
             }
 

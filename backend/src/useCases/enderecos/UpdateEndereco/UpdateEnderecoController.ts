@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UpdateEnderecoUC } from "./UpdateEnderecoUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class UpdateEnderecoController {
     constructor(
@@ -14,7 +15,7 @@ export class UpdateEnderecoController {
                 codigoEndereco: codigo, nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado
             });
 
-            return response.status(200).json({ message: result.message });
+            return response.status(HTTPStatusCode.OK).json({ message: result.message });
             
         } catch (error) {
             next(error);

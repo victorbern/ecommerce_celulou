@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { CreateCategoriaUC } from "./CreateCategoriaUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class CreateCategoriaController {
     constructor(
@@ -11,7 +12,7 @@ export class CreateCategoriaController {
         try {
             let result = await this.createCategoriaUC.execute({nomeCategoria});
 
-            return response.status(201).json({ message: result.message, codigoCategoria: result.codigoCategoria });
+            return response.status(HTTPStatusCode.Created).json({ message: result.message, codigoCategoria: result.codigoCategoria });
             
         } catch (error) {
             next(error);

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { FindClienteUC } from "./FindClienteUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class FindClienteController {
     constructor(
@@ -15,10 +16,10 @@ export class FindClienteController {
             });
 
             if (result) {
-                return response.status(200).json({ result: result })
+                return response.status(HTTPStatusCode.OK).json({ result: result })
             }
 
-            return response.status(404).json({ error: "Cliente não encontrado "})
+            return response.status(HTTPStatusCode.NotFound).json({ error: "Cliente não encontrado "})
         } catch (error) {
             next(error);
         }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UpdateProdutoUC } from "./UpdateProdutoUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class UpdateProdutoController {
     constructor(
@@ -14,7 +15,7 @@ export class UpdateProdutoController {
                 codigoProduto: codigo, valor, nomeProduto, marca, descricaoProduto, pesoGramas, alturaCM, larguraCM, comprimentoCM
             });
 
-            return response.status(200).json({ message: result.message });
+            return response.status(HTTPStatusCode.OK).json({ message: result.message });
         } catch (error) {
             next(error);
         }

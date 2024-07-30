@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { Estoque } from "../../../entities/Estoque";
 import { AppError } from "../../../errors/AppError";
 import { IEstoquesRepository } from "../../../repositories/IEstoquesRepository";
@@ -19,17 +20,17 @@ export class CreateEstoqueUC {
         }
 
         if (quantidade < 0) {
-            throw new AppError("Quantidade inválida!", 400);
+            throw new AppError("Quantidade inválida!", HTTPStatusCode.BadRequest);
         }
 
         if (!codigoProduto) {
-            throw new AppError("Código de produto inválido", 400);
+            throw new AppError("Código de produto inválido", HTTPStatusCode.BadRequest);
         }
 
         const produtoExists = await this.findProduto.execute({ codigoProduto: codigoProduto });
 
         if (!produtoExists) {
-            throw new AppError("Produto não encontrado!", 400)
+            throw new AppError("Produto não encontrado!", HTTPStatusCode.NotFound)
         }
 
         const estoqueExists = await this.estoquesRepository.getByProduto(codigoProduto);

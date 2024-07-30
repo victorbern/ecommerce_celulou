@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AlteracaoEstoque } from "../../../entities/AlteracaoEstoque";
 import { AppError } from "../../../errors/AppError";
 import { IAlteracaoEstoqueRepository } from "../../../repositories/IAlteracaoEstoqueRepository";
@@ -21,13 +22,13 @@ export class CreateAlteracaoEstoqueUC {
         } while (codigoExists != null);
 
         if (!codigoEstoque) {
-            throw new AppError("Código do estoque inválido!", 400);
+            throw new AppError("Código do estoque inválido!", HTTPStatusCode.BadRequest);
         }
 
         const estoqueExists = await this.findEstoqueUC.execute({ codigoEstoque })
 
         if (!estoqueExists) {
-            throw new AppError("Estoque não encontrado!", 404);
+            throw new AppError("Estoque não encontrado!", HTTPStatusCode.NotFound);
         }
 
         const dataAlteracao = new Date(Date.now());

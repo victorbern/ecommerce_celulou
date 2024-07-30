@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IClientesRepository } from "../../../repositories/IClientesRepository";
 import { deleteEnderecoUC } from "../../enderecos/DeleteEndereco";
@@ -19,7 +20,7 @@ export class DelClienteUC {
         const clienteExists = await this.clientesRepository.getByCodigoCliente(codigoCliente);
 
         if (!clienteExists) {
-            throw new AppError("Cliente não encontrado!", 404);
+            throw new AppError("Cliente não encontrado!", HTTPStatusCode.NotFound);
         }
 
         // Deleta os endereços do cliente

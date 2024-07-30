@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IEnderecosRepository } from "../../../repositories/IEnderecosRepository";
 import { IDeleteEnderecoRequestDTO, IDeleteEnderecoResponseDTO } from "./DeleteEnderecoDTO";
@@ -13,7 +14,7 @@ export class DeleteEnderecoUC {
         const enderecoExists = await this.enderecosRepository.getByCodigoEndereco(codigoEndereco);
 
         if (!enderecoExists) {
-            throw new AppError("Endereço não encontrado!", 404);
+            throw new AppError("Endereço não encontrado!", HTTPStatusCode.NotFound);
         }
 
         await this.enderecosRepository.delete(codigoEndereco);

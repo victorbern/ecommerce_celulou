@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { ICategoriasRepository } from "../../../repositories/ICategoriasRepository";
 import { IDeleteCategoriaRequestDTO, IDeleteCategoriaResponseDTO } from "./DeleteCategoriaDTO";
@@ -13,7 +14,7 @@ export class DeleteCategoriaUC {
         const categoriaExists = await this.categoriasRepository.getByCodigo(codigoCategoria);
 
         if(!categoriaExists) {
-            throw new AppError("Categoria não encontrada!", 404);
+            throw new AppError("Categoria não encontrada!", HTTPStatusCode.NotFound);
         }
 
         await this.categoriasRepository.delete(codigoCategoria);

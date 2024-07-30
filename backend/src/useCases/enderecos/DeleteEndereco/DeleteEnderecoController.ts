@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { DeleteEnderecoUC } from "./DeleteEnderecoUC"
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class DeleteEnderecoController {
     constructor(
@@ -13,7 +14,7 @@ export class DeleteEnderecoController {
                 codigoEndereco: codigo
             });
 
-            return response.status(200).json({ message: result.message });
+            return response.status(HTTPStatusCode.OK).json({ message: result.message });
         } catch (error) {
             next(error);
         }

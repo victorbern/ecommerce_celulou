@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
 import { IUpdateIsVisibleProdutoRequestDTO, IUpdateIsVisibleProdutoResponseDTO } from "./UpdateIsVisibleProdutoDTO";
@@ -13,11 +14,11 @@ export class UpdateIsVisibleProdutoUC {
         const produtoExists = await this.produtosRepository.getByCodigo(codigoProduto);
 
         if (isVisible == null) {
-            throw new AppError("Dados inválidos", 400)
+            throw new AppError("Dados inválidos", HTTPStatusCode.BadRequest)
         }
 
         if (!produtoExists) {
-            throw new AppError("Produto não encontrado", 404);
+            throw new AppError("Produto não encontrado", HTTPStatusCode.NotFound);
         }
 
         if (produtoExists.isVisivel === isVisible) {

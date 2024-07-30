@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { FindCategoriasByProdutoUC } from "./FindCategoriasByProdutoUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class FindCategoriasByProdutoController {
     constructor(
@@ -15,10 +16,10 @@ export class FindCategoriasByProdutoController {
             })
 
             if (result.length > 0) {
-                return response.status(200).json({ result: result })
+                return response.status(HTTPStatusCode.OK).json({ result: result })
             }
 
-            return response.status(404).json({ error: "Nenhuma categoria encontrada!" })
+            return response.status(HTTPStatusCode.NotFound).json({ error: "Nenhuma categoria encontrada!" })
 
         } catch (error) {
             next(error);

@@ -1,6 +1,7 @@
 import { IFindClienteRequestDTO, IFindClienteResponseDTO } from "./FindClienteDTO";
 import { AppError } from "../../../errors/AppError";
 import { IClientesRepository } from "../../../repositories/IClientesRepository";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class FindClienteUC {
     constructor(
@@ -11,7 +12,7 @@ export class FindClienteUC {
         const { codigoCliente } = data;
 
         if (codigoCliente == null) {
-            throw new AppError("Código inválido", 400);
+            throw new AppError("Código inválido", HTTPStatusCode.BadRequest);
         }
 
         let cliente: IFindClienteResponseDTO = await this.clientesRepository.getByCodigoCliente(codigoCliente);

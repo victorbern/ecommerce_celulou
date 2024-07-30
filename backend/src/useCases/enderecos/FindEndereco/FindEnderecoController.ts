@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { FindEnderecoUC } from "./FindEnderecoUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class FindEnderecoController {
     constructor(
@@ -15,10 +16,10 @@ export class FindEnderecoController {
             });
 
             if (result) {
-                return response.status(200).json({ result: result })
+                return response.status(HTTPStatusCode.OK).json({ result: result })
             }
 
-            return response.status(404).json({ error: "Endereço não encontrado!" })
+            return response.status(HTTPStatusCode.NotFound).json({ error: "Endereço não encontrado!" })
         } catch (error) {
             next(error);
         }

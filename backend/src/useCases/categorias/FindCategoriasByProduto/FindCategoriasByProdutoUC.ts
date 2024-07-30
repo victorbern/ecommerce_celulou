@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { ICategoriasRepository } from "../../../repositories/ICategoriasRepository";
 import { FindProdutoUC } from "../../produtos/FindProduto/FindProdutoUC";
@@ -13,13 +14,13 @@ export class FindCategoriasByProdutoUC {
         const { codigoProduto } = data;
 
         if (codigoProduto === null) {
-            throw new AppError("Código inválido!", 404)
+            throw new AppError("Código inválido!", HTTPStatusCode.BadRequest)
         }
 
         const produtoExists = await this.findProdutoUC.execute({ codigoProduto: codigoProduto })
 
         if (!produtoExists) {
-            throw new AppError("Produto não encontrado!", 404)
+            throw new AppError("Produto não encontrado!", HTTPStatusCode.NotFound)
         }
 
         const categorias = await this.categoriasRepository.getByCodigoProduto(codigoProduto);

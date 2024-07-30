@@ -4,6 +4,7 @@ import { ICreateEnderecoRequestDTO, ICreateEnderecoResponseDTO } from "./CreateE
 import { IEnderecosRepository } from "../../../repositories/IEnderecosRepository";
 import { Endereco } from "../../../entities/Endereco";
 import { FindClienteUC } from "../../clientes/FindCliente/FindClienteUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class CreateEnderecoUC {
     constructor(
@@ -20,18 +21,18 @@ export class CreateEnderecoUC {
         const clienteExists = await this.findClienteUC.execute({codigoCliente});
 
         if (!clienteExists) {
-            throw new AppError("Cliente não encontrado!", 404);
+            throw new AppError("Cliente não encontrado!", HTTPStatusCode.NotFound);
         }
         
         const limiteEnderecos = await this.enderecosRepository.getByCodigoCliente(codigoCliente) 
 
         if (limiteEnderecos.length >= 3) {
-            throw new AppError("Cada cliente só pode ter até 3 endereços cadastrados", 400);
+            throw new AppError("Cada cliente só pode ter até 3 endereços cadastrados", HTTPStatusCode.BadRequest);
         }
 
         for (let i in limiteEnderecos) {
             if (limiteEnderecos[i].nomeEndereco === nomeEndereco) {
-                throw new AppError("O nome do endereço já está cadastrado", 400)
+                throw new AppError("O nome do endereço já está cadastrado", HTTPStatusCode.Conflict)
             }
         }
 

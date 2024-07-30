@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { ICategoriasRepository } from "../../../repositories/ICategoriasRepository";
 import { IFindCategoriaRequestDTO, IFindCategoriaResponseDTO } from "./FindCategoriaDTO";
@@ -11,7 +12,7 @@ export class FindCategoriaUC {
         const { codigoCategoria } = data;
 
         if (codigoCategoria == null) {
-            throw new AppError("Código inválido!", 400)
+            throw new AppError("Código inválido!", HTTPStatusCode.BadRequest)
         }
 
         let categoria: IFindCategoriaResponseDTO = await this.categoriasRepository.getByCodigo(codigoCategoria);

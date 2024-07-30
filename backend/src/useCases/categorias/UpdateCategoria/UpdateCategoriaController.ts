@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UpdateCategoriaUC } from "./UpdateCategoriaUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class UpdateCategoriaController {
     constructor(
@@ -14,7 +15,7 @@ export class UpdateCategoriaController {
                 codigoCategoria: codigo, nomeCategoria
             });
 
-            return response.status(200).json({ message: result.message })
+            return response.status(HTTPStatusCode.OK).json({ message: result.message })
         } catch (error) {
             next(error);
         }

@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IClientesRepository } from "../../../repositories/IClientesRepository";
 import { ILoginRequestDTO, ILoginResponseDTO } from "./LoginDTO";
@@ -13,7 +14,7 @@ export class LoginUC {
         const cliente = await this.clientesRepository.getByEmailCliente(emailCliente);
 
         if (!cliente) {
-            throw new AppError("Cliente não encontrado", 404);
+            throw new AppError("Cliente não encontrado", HTTPStatusCode.NotFound);
         }
 
         return cliente;

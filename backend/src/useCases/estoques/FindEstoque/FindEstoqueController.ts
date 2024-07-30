@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { FindEstoqueUC } from "./FindEstoqueUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class FindEstoqueController {
     constructor(
@@ -14,10 +15,10 @@ export class FindEstoqueController {
             });
 
             if (result) {
-                return response.status(200).json({ result: result })
+                return response.status(HTTPStatusCode.OK).json({ result: result })
             }
 
-            return response.status(404).json({ error: "Nenhum estoque encontrado!" })
+            return response.status(HTTPStatusCode.NotFound).json({ error: "Nenhum estoque encontrado!" })
         } catch (error) {
             next(error);
         }

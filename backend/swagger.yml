@@ -275,6 +275,17 @@ components:
                 type: string
                 example: "O item não foi encontrado!"
 
+    Error409:
+      description: Algum dos dados apresentou conflito com o Servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "O item já está cadastrado!"
+
     ErrorDefault:
       description: Erro inesperado!
       content:
@@ -299,7 +310,7 @@ paths:
               $ref: "#/components/schemas/Cliente"
       responses:
         "201":
-          description: Cadastra um novo cliente
+          description: Cliente cadastrado com sucesso
           content:
             application/json:
               schema:
@@ -317,6 +328,10 @@ paths:
                   codigoCliente: "Cd88lyitqgsr"
         "400":
           $ref: "#/components/responses/Error400"
+
+        "409":
+          $ref: "#/components/responses/Error409"
+
         default:
           $ref: "#/components/responses/ErrorDefault"
 
@@ -349,6 +364,10 @@ paths:
                   celularCliente: "11965049540"
                   emailCliente: "victor1@gmail.com"
                   createdAt: "2024-04-02T13:38:38.453Z"
+
+        "400":
+          $ref: "#/components/responses/Error400"
+
         "404":
           $ref: "#/components/responses/Error404"
 
@@ -381,6 +400,9 @@ paths:
 
         "404":
           $ref: "#/components/responses/Error404"
+
+        "409":
+          $ref: "#/components/responses/Error409"
 
         default:
           $ref: "#/components/responses/ErrorDefault"
@@ -422,6 +444,8 @@ paths:
           $ref: "#/components/responses/Error400"
         "404":
           $ref: "#/components/responses/Error404"
+        "409":
+          $ref: "#/components/responses/Error409"
         default:
           $ref: "#/components/responses/ErrorDefault"
     get:
@@ -503,6 +527,9 @@ paths:
                   result:
                     $ref: "#/components/schemas/Endereco"
 
+        "400":
+          $ref: "#/components/responses/Error400"
+
         "404":
           $ref: "#/components/responses/Error404"
 
@@ -534,6 +561,9 @@ paths:
 
         "404":
           $ref: "#/components/responses/Error404"
+
+        "409":
+          $ref: "#/components/responses/Error409"
 
         default:
           $ref: "#/components/responses/ErrorDefault"
@@ -574,6 +604,9 @@ paths:
 
         "400":
           $ref: "#/components/responses/Error400"
+
+        "409":
+          $ref: "#/components/responses/Error409"
 
         default:
           $ref: "#/components/responses/ErrorDefault"
@@ -649,6 +682,42 @@ paths:
                     "nomeCategoria": "Intermediario"
                   }
                 ]
+
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
+  /categorias/busca/{codigo}:
+    get:
+      summary: Busca uma categoria pelo codigo
+      description: Recebe um codigo e busca a categoria correspondente no banco
+      parameters:
+        - in: path
+          name: codigo
+          schema:
+            type: string
+            description: Codigo da categoria (12 digitos) para buscá-la no banco de dadoss
+          required: true
+      responses:
+        "200":
+          description: Um objeto de categoria
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: "#/components/schemas/Categoria"
+              example:
+                "result": {
+                  "codigoCategoria": "Teuwlyoj2xr0",
+                  "nomeCategoria": "Intermediario"
+                }
+        
+        "400":
+          $ref: "#/components/responses/Error400"
 
         "404":
           $ref: "#/components/responses/Error404"
@@ -802,6 +871,9 @@ paths:
         "400":
           $ref: "#/components/responses/Error400"
 
+        "404":
+          $ref: "#/components/responses/Error404"
+
         default:
           $ref: "#/components/responses/ErrorDefault"
 
@@ -843,6 +915,13 @@ paths:
                   comprimentoCM: 15.8
                   isDisponivelCompra: false
                   isVisivel: false
+        
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+          
     put:
       summary: Atualizar dados de um produto
       description: Esta rota recebe um codigo e os dados do produto a ser atualizado

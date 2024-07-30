@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { UpdateClienteUC } from "./UpdateClienteUC";
 import { Request, Response, NextFunction } from "express";
 
@@ -14,7 +15,7 @@ export class UpdateClienteController {
                 codigoCliente: codigo, nomeCliente, cpfCliente, celularCliente, emailCliente
             });
 
-            return response.status(200).json({ message: result.message })
+            return response.status(HTTPStatusCode.OK).json({ message: result.message })
 
         } catch (error) {
             next(error);

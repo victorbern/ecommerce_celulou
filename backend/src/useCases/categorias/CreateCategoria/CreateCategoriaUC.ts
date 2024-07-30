@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { Categoria } from "../../../entities/Categoria";
 import { AppError } from "../../../errors/AppError";
 import { ICategoriasRepository } from "../../../repositories/ICategoriasRepository";
@@ -15,7 +16,7 @@ export class CreateCategoriaUC {
         const categoriaExists = await this.categoriasRepository.getByName(nomeCategoria);
 
         if (categoriaExists) {
-            throw new AppError("Esta categoria já existe", 400);
+            throw new AppError("Esta categoria já existe", HTTPStatusCode.Conflict);
         }
 
         let codigoCategoria, codigoExists = null;

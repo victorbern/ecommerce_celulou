@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { DeleteCategoriaUC } from "./DeleteCategoriaUC"
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class DeleteCategoriaController {
     constructor(
@@ -13,7 +14,7 @@ export class DeleteCategoriaController {
                 codigoCategoria: codigo
             });
 
-            return response.status(200).json({ message: result.message });
+            return response.status(HTTPStatusCode.OK).json({ message: result.message });
         } catch (error) {
             next(error);
         }

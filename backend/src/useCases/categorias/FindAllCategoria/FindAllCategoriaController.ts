@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { FindAllCategoriaUC } from "./FindAllCategoriaUC";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class FindAllCategoriaController {
     constructor(
@@ -12,10 +13,10 @@ export class FindAllCategoriaController {
             let result = await this.findAllCategoriaUC.execute({ filtro: filtro })
 
             if (result.length > 0) {
-                return response.status(200).json({ result: result });
+                return response.status(HTTPStatusCode.OK).json({ result: result });
             }
 
-            return response.status(404).json({ error: "Nenhuma categoria encontrada!" });
+            return response.status(HTTPStatusCode.NotFound).json({ error: "Nenhuma categoria encontrada!" });
             
         } catch (error) {
             next(error);

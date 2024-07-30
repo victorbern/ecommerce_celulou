@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { Endereco } from "../../../entities/Endereco";
 import { AppError } from "../../../errors/AppError";
 import { IEnderecosRepository } from "../../../repositories/IEnderecosRepository";
@@ -14,14 +15,14 @@ export class UpdateEnderecoUC {
         const enderecoExists = await this.enderecosRepository.getByCodigoEndereco(codigoEndereco);
 
         if (!enderecoExists) {
-            throw new AppError("Endereço não encontrado!", 404);
+            throw new AppError("Endereço não encontrado!", HTTPStatusCode.NotFound);
         }
 
         if (enderecoExists.nomeEndereco !== nomeEndereco) {
             const enderecosCliente = await this.enderecosRepository.getByCodigoCliente(enderecoExists.codigoCliente);
             for (let i in enderecosCliente) {
                 if (enderecosCliente[i].nomeEndereco === nomeEndereco && enderecosCliente[i].codigoEndereco !== codigoEndereco) {
-                    throw new AppError("Não é possível alterar o nome do endereço para um nome em uso por outro endereço", 400);
+                    throw new AppError("Não é possível alterar o nome do endereço para um nome em uso por outro endereço", HTTPStatusCode.Conflict);
                 }
             }
         }

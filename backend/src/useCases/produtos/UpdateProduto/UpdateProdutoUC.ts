@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { Produto } from "../../../entities/Produto";
 import { AppError } from "../../../errors/AppError";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
@@ -14,7 +15,7 @@ export class UpdateProdutoUC {
         const produtoExists = await this.produtosRepository.getByCodigo(codigoProduto);
 
         if (!produtoExists) {
-            throw new AppError("Produto não encontrado", 404);
+            throw new AppError("Produto não encontrado", HTTPStatusCode.NotFound);
         }
         
         const produto = new Produto({codigoProduto, valor, nomeProduto, marca, descricaoProduto, imagensFolder: produtoExists.imagensFolder, nota: produtoExists.nota, pesoGramas, alturaCM, larguraCM, comprimentoCM });

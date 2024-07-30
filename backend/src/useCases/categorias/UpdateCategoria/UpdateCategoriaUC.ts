@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { Categoria } from "../../../entities/Categoria";
 import { AppError } from "../../../errors/AppError";
 import { ICategoriasRepository } from "../../../repositories/ICategoriasRepository";
@@ -14,7 +15,7 @@ export class UpdateCategoriaUC {
         const categoriaExists = await this.categoriasRepository.getByCodigo(codigoCategoria);
 
         if (!categoriaExists) {
-            throw new AppError("Categoria não encontrada!", 404);
+            throw new AppError("Categoria não encontrada!", HTTPStatusCode.NotFound);
         }
 
         const categoria = new Categoria({codigoCategoria, nomeCategoria});

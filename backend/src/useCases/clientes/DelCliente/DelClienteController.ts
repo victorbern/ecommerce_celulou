@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { DelClienteUC } from "./DelClienteUC";
 import { NextFunction, Request, Response } from "express";
 
@@ -13,7 +14,7 @@ export class DelClienteController {
                 codigoCliente: codigo,
             });
 
-            return response.status(200).json({ message: result.message })
+            return response.status(HTTPStatusCode.OK).json({ message: result.message })
         } catch (error) {
             next(error);
         }

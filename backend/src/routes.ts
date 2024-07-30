@@ -94,7 +94,7 @@ router.get('/categorias/:filtro', async (request, response, next) => {
 })
 
 // Buscar uma categoria com base no código
-router.get('/categoria/:codigo', async (request, response, next) => {
+router.get('/categorias/busca/:codigo', async (request, response, next) => {
     return findCategoriaController.handle(request, response, next);
 })
 

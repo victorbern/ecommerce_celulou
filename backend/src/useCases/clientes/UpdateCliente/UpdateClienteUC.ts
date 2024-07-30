@@ -3,6 +3,7 @@ import { AppError } from "../../../errors/AppError";
 import { IUpdateClienteRequestDTO, IUpdateClienteResponseDTO } from "./UpdateClienteDTO";
 import { cpf } from "cpf-cnpj-validator";
 import { Cliente } from "../../../entities/Cliente";
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
 export class UpdateClienteUC {
     constructor(
@@ -14,13 +15,13 @@ export class UpdateClienteUC {
 
         cpfCliente = cpfCliente.replace(/[.-]/g, '');
         if (!cpf.isValid(cpfCliente)) {
-            throw new AppError("O CPF é Inválido", 400);
+            throw new AppError("O CPF é Inválido", HTTPStatusCode.BadRequest);
         }
 
         let clienteExists = await this.clientesRepository.getByCodigoCliente(codigoCliente);
 
         if (!clienteExists) {
-            throw new AppError("Cliente não encontrado", 404);
+            throw new AppError("Cliente não encontrado", HTTPStatusCode.NotFound);
         }
         // Verifica-se os dados tentando criar uma instância de cliente
         let cliente = new Cliente({ codigoCliente: clienteExists.codigoCliente, nomeCliente, cpfCliente, celularCliente, emailCliente, createdAt: clienteExists.createdAt });
@@ -29,7 +30,7 @@ export class UpdateClienteUC {
             let cpfExists = await this.clientesRepository.getByCpfCliente(cpfCliente);
 
             if (cpfExists) {
-                throw new AppError("O novo cpf informado já está cadastrado", 400);
+                throw new AppError("O novo cpf informado já está cadastrado", HTTPStatusCode.Conflict);
             }
         }
 
@@ -37,7 +38,7 @@ export class UpdateClienteUC {
             let emailExists = await this.clientesRepository.getByEmailCliente(emailCliente);
 
             if (emailExists) {
-                throw new AppError("O novo e-mail informado já está cadastrado", 400);
+                throw new AppError("O novo e-mail informado já está cadastrado", HTTPStatusCode.Conflict);
             }
         }
 

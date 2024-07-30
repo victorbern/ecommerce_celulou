@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
 import { IFindProdutoRequestDTO, IFindProdutoResponseDTO } from "./FindProdutoDTO";
@@ -13,7 +14,7 @@ export class FindProdutoUC {
         const produto = await this.produtosRepository.getByCodigo(codigoProduto);
 
         if (!produto) {
-            throw new AppError("Produto não encontrado!", 404);
+            throw new AppError("Produto não encontrado!", HTTPStatusCode.NotFound);
         }
 
         let result: IFindProdutoResponseDTO = {

@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IEnderecosRepository } from "../../../repositories/IEnderecosRepository";
 import { IFindEnderecoRequestDTO, IFindEnderecoResponseDTO } from "./FindEnderecoDTO";
@@ -11,7 +12,7 @@ export class FindEnderecoUC {
         const { codigoEndereco } = data;
 
         if (codigoEndereco == null) {
-            throw new AppError("Código inválido", 400);
+            throw new AppError("Código inválido", HTTPStatusCode.BadRequest);
         }
 
         let endereco = await this.enderecosRepository.getByCodigoEndereco(codigoEndereco);

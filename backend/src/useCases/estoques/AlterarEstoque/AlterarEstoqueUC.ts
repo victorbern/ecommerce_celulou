@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IEstoquesRepository } from "../../../repositories/IEstoquesRepository";
 import { CreateAlteracaoEstoqueUC } from "../../alteracao_estoque/CreateAlteracaoEstoque/CreateAlteracaoEstoqueUC";
@@ -15,11 +16,11 @@ export class AlterarEstoqueUC {
         const estoqueExists = await this.estoquesRepository.getByProduto(codigoProduto);
 
         if (!estoqueExists) {
-            throw new AppError("Estoque não encontrado!", 404);
+            throw new AppError("Estoque não encontrado!", HTTPStatusCode.NotFound);
         }
 
         if (estoqueExists.quantidade + valorAlteracao < 0) {
-            throw new AppError("Estoque insuficiente!", 400);
+            throw new AppError("Estoque insuficiente!", HTTPStatusCode.BadRequest);
         }
 
         const quantidadeAtual = estoqueExists.quantidade;

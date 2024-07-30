@@ -1,3 +1,4 @@
+import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { CreateEnderecoUC } from "./CreateEnderecoUC";
 import { NextFunction, Request, Response } from "express";
 
@@ -14,7 +15,7 @@ export class CreateEnderecoController {
                 nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente
             });
 
-            return response.status(201).json({ message: result.message, codigoEndereco: result.codigoEndereco });
+            return response.status(HTTPStatusCode.Created).json({ message: result.message, codigoEndereco: result.codigoEndereco });
         } catch (error) {
             next(error);
         }
