@@ -970,20 +970,31 @@ paths:
                     $ref: "#/components/schemas/Produto"
 
               example:
-                result:
-                  codigoProduto: "Pc2klw50xy54"
-                  valor: 22222222.22
-                  nomeProduto: "Samsung Galaxy A54"
-                  marca: "Samsung"
-                  descricaoProduto: "Preto"
-                  imagensFolder: "/produtos/Pc2klw50xy54/"
-                  nota: null
-                  pesoGramas: 200
-                  alturaCM: 2.7
-                  larguraCM: 7
-                  comprimentoCM: 15.8
-                  isDisponivelCompra: false
-                  isVisivel: false
+                "result": {
+                  "codigoProduto": "Pa5klzbd0sev",
+                  "valor": 22222222.22,
+                  "nomeProduto": "Samsung Galaxy S24",
+                  "marca": "Samsung",
+                  "descricaoProduto": "Preto",
+                  "imagensFolder": "/produtos/Pa5klzbd0sev/",
+                  "nota": null,
+                  "pesoGramas": 200,
+                  "larguraCM": 7,
+                  "alturaCM": 2.7,
+                  "comprimentoCM": 15.8,
+                  "isDisponivelCompra": false,
+                  "isVisivel": false,
+                  "categorias": [
+                      {
+                          "codigoCategoria": "Ta5klzbczvf3",
+                          "nomeCategoria": "Intermediario"
+                      },
+                      {
+                          "codigoCategoria": "Ta5klzbcziie",
+                          "nomeCategoria": "Memoria"
+                      }
+                  ]
+                }
         
         "404":
           $ref: "#/components/responses/Error404"

@@ -9,11 +9,22 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             where: {
                 codigoProduto: codigoProduto
             },
+            include: {
+                produtoHasCategoria: {
+                    include: {
+                        categoria: true
+                    }
+                }
+            }
         })
 
         if (!result) {
             return null;
         }
+
+        const produtoHasCategoria = result.produtoHasCategoria;
+
+        result.produtoHasCategoria = undefined;
 
         const produto: Produto = {
             ...result,
@@ -22,8 +33,10 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             alturaCM: result.alturaCM.toNumber(),
             larguraCM: result.larguraCM.toNumber(),
             comprimentoCM: result.comprimentoCM.toNumber(),
-            categorias: undefined
-        }
+            
+            // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
+            categorias: produtoHasCategoria.map(phc => phc.categoria),
+        };
 
         return produto;
     }
