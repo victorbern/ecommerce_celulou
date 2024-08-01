@@ -79,7 +79,7 @@ describe("POST /clientes", () => {
 
         const {status, body} = await  request(app).post("/clientes").send(clientJson)
 
-        expect(status).toBe(400);
+        expect(status).toBe(409);
         expect(body).haveOwnProperty("error")
         expect(body.error).toBe("O CPF já está cadastrado")
 
@@ -100,7 +100,7 @@ describe("POST /clientes", () => {
 
         const {status, body} = await  request(app).post("/clientes").send(clientJson)
 
-        expect(status).toBe(400);
+        expect(status).toBe(409);
         expect(body).haveOwnProperty("error")
         expect(body.error).toBe("O e-mail já está cadastrado")
 
