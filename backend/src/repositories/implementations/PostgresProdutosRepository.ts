@@ -44,6 +44,38 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         })
     }
 
+    async getAll(): Promise<Produto[]> {
+        const result = await prisma.produto.findMany({
+            include: {
+                produtoHasCategoria: {
+                    include: {
+                        categoria: true
+                    }
+                }
+            }
+        });
+
+        if (!result) {
+            return null;
+        }
+
+        const produtos = result.map((produto) => ({
+            ...produto,
+            valor: produto.valor.toNumber(),
+            nota: produto.nota ? produto.nota.toNumber() : null,
+            alturaCM: produto.alturaCM.toNumber(),
+            larguraCM: produto.larguraCM.toNumber(),
+            comprimentoCM: produto.comprimentoCM.toNumber(),
+            
+            // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
+            categorias: produto.produtoHasCategoria.map(phc => phc.categoria),
+            // Remove o nome antigo de categorias
+            produtoHasCategoria: undefined
+        }));
+        
+        return produtos;
+    }
+
     async getByCategorias(categorias: string[]): Promise<Produto[]> {
         const result = await prisma.produto.findMany({
             where: {
