@@ -1,3 +1,5 @@
+import { Categoria } from "../../../entities/Categoria";
+
 export interface IUpdateProdutoRequestDTO {
     codigoProduto: string;
     valor: number;
@@ -8,6 +10,7 @@ export interface IUpdateProdutoRequestDTO {
     alturaCM: number;
     larguraCM: number;
     comprimentoCM: number;
+    categorias: Categoria[]
 }
 
 export interface IUpdateProdutoResponseDTO {

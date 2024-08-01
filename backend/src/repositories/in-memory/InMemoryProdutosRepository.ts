@@ -111,6 +111,14 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
                 this.items[i].comprimentoCM = produto.comprimentoCM;
             }
         }
+
+        this.produtoHasCategoriaBanco = this.produtoHasCategoriaBanco.filter(phc => phc.codigoProduto !== produto.codigoProduto)
+        for (let i in produto.categorias) {
+            this.produtoHasCategoriaBanco.push({
+                codigoCategoria: produto.categorias[i].codigoCategoria,
+                codigoProduto: produto.codigoProduto
+            })
+        }
     }
 
     async updateIsVisible(codigoProduto: string, isVisible: boolean): Promise<void> {

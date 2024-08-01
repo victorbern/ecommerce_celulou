@@ -1,6 +1,7 @@
 import { IProdutosRepository } from "../IProdutosRepository";
 import { Produto } from "../../entities/Produto";
 import prisma from "./prisma";
+import { ProdutoHasCategoria } from "@prisma/client";
 
 export class PostgresProdutosRepository implements IProdutosRepository {
 
@@ -33,7 +34,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             alturaCM: result.alturaCM.toNumber(),
             larguraCM: result.larguraCM.toNumber(),
             comprimentoCM: result.comprimentoCM.toNumber(),
-            
+
             // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
             categorias: produtoHasCategoria.map(phc => phc.categoria),
         };
@@ -79,13 +80,13 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             alturaCM: produto.alturaCM.toNumber(),
             larguraCM: produto.larguraCM.toNumber(),
             comprimentoCM: produto.comprimentoCM.toNumber(),
-            
+
             // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
             categorias: produto.produtoHasCategoria.map(phc => phc.categoria),
             // Remove o nome antigo de categorias
             produtoHasCategoria: undefined
         }));
-        
+
         return produtos;
     }
 
@@ -123,22 +124,47 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             alturaCM: produto.alturaCM.toNumber(),
             larguraCM: produto.larguraCM.toNumber(),
             comprimentoCM: produto.comprimentoCM.toNumber(),
-            
+
             // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
             categorias: produto.produtoHasCategoria.map(phc => phc.categoria),
             // Remove o nome antigo de categorias
             produtoHasCategoria: undefined
         }));
-        
+
         return produtos;
     }
 
     async update(produto: Produto): Promise<void> {
-        await prisma.produto.update({
-            where: {
-                codigoProduto: produto.codigoProduto,
-            },
-            data: produto
+        const codigosCategoria = produto.categorias ? produto.categorias.map(phc => { return phc.codigoCategoria }) : null;
+        prisma.$transaction(async (prisma) => {
+            produto.categorias = undefined;
+            await prisma.produto.update({
+                where: {
+                    codigoProduto: produto.codigoProduto,
+                },
+                data: produto
+            })
+
+            await prisma.produtoHasCategoria.deleteMany({
+                where: {
+                    codigoProduto: produto.codigoProduto
+                }
+            })
+            
+            if (codigosCategoria && codigosCategoria.length > 0) {
+                const promises = codigosCategoria.map(async (codigoCategoria) => {
+                    await prisma.produtoHasCategoria.create({
+                        data: {
+                            codigoCategoria: codigoCategoria,
+                            codigoProduto: produto.codigoProduto
+                        }
+                    })
+                });
+
+
+                await Promise.all(promises);
+            }
+
         })
     }
 
