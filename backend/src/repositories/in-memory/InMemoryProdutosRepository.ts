@@ -1,6 +1,7 @@
 import { Estoque, ProdutoHasCategoria } from "@prisma/client";
 import { Produto } from "../../entities/Produto";
 import { IProdutosRepository } from "../IProdutosRepository";
+import { Categoria } from "../../entities/Categoria";
 
 export class InMemoryProdutosRepository implements IProdutosRepository {
     public items: Produto[] = [
@@ -17,15 +18,21 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
             larguraCM: 15.00,
             comprimentoCM: 6.9,
             isVisivel: false,
-            isDisponivelCompra: false
+            isDisponivelCompra: false,
+            categorias: []
         }
     ]
 
     public produtoHasCategoriaBanco: ProdutoHasCategoria[] = []
     public estoques: Estoque[] = [];
+    public categorias: Categoria[] = [];
 
     setProdutoHasCategoriaBanco(produtoHasCategoriaList: ProdutoHasCategoria[]) {
         this.produtoHasCategoriaBanco = produtoHasCategoriaList;
+    }
+
+    setCategoriasBanco(categorias: Categoria[]) {
+        this.categorias = categorias;
     }
 
     setEstoqueBanco(estoques: Estoque[]) {
@@ -61,6 +68,28 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
                 codigoProduto: codigoProduto
             }
         )
+    }
+
+    async getByCategorias(categorias: string[]): Promise<Produto[]> {
+        const produtos: Produto[] = [];
+
+        for (let i in this.produtoHasCategoriaBanco) {
+            const codigoProduto = this.produtoHasCategoriaBanco[i].codigoProduto;
+            const codigoCategoria = this.produtoHasCategoriaBanco[i].codigoCategoria;
+            const nomeCategoria = this.categorias.find(categoria => categoria.codigoCategoria === codigoCategoria).nomeCategoria;
+            this.items.find(produto => produto.codigoProduto === codigoProduto).categorias.push({ codigoCategoria, nomeCategoria })
+        }
+        
+        for (let i in this.items) {
+            const isProdutoValido = categorias.every(codigo => {
+                return this.items[i].categorias.some(categoria => categoria.codigoCategoria === codigo)
+            })
+            if (isProdutoValido) {
+                produtos.push(this.items[i])
+            }
+        }
+
+        return produtos;
     }
 
     async update(produto: Produto): Promise<void> {

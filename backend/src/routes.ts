@@ -25,6 +25,7 @@ import { findCategoriaController } from "./useCases/categorias/FindCategoria";
 import { findCategoriasByProdutoController } from "./useCases/categorias/FindCategoriasByProduto";
 import { findEstoqueController } from "./useCases/estoques/FindEstoque";
 import { alterarEstoqueController } from "./useCases/estoques/AlterarEstoque";
+import { findAllProdutoByCategoriasController } from "./useCases/produtos/FindAllProdutoByCategorias";
 
 const router = Router();
 
@@ -121,6 +122,11 @@ router.get('/produtos/:codigo', async(request, response, next) => {
 // Buscar todas as categorias de um produto
 router.get('/produtos/:codigo/categorias/', async(request, response, next) => {
     return findCategoriasByProdutoController.handle(request, response, next);
+})
+
+// Busca todos os produtos com base em uma ou várias categorias
+router.get('/produtos/', async(request, response, next) => {
+    return findAllProdutoByCategoriasController.handle(request, response, next);
 })
 
 // Rota para fazer o upload das imagens do produto

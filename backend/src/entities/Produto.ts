@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Categoria } from "./Categoria";
 
 export class Produto {
     public codigoProduto: string;
@@ -14,6 +15,7 @@ export class Produto {
     public comprimentoCM: number;
     public isDisponivelCompra: boolean = false;
     public isVisivel: boolean = false;
+    public categorias?: Categoria[] = [];
 
     private static produtoSchema = z.object({
         codigoProduto: z.string({
@@ -163,7 +165,7 @@ export class Produto {
         }),
     })
 
-    constructor(props: Omit<Produto, "isDisponivelCompra" | "isVisivel">, isDisponivelCompra?: boolean, isVisivel?: boolean) {
+    constructor(props: Omit<Produto, "isDisponivelCompra" | "isVisivel" | "categorias">, isDisponivelCompra?: boolean, isVisivel?: boolean, categorias?: Categoria[]) {
         Produto.produtoSchema.parse(props);
         Object.assign(this, props);
     }

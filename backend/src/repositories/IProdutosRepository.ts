@@ -1,9 +1,11 @@
+import { Categoria } from "../entities/Categoria";
 import { Produto } from "../entities/Produto";
 
 export interface IProdutosRepository {
     getByCodigo(codigoProduto: string): Promise<Produto>;
     save(produto: Produto): Promise<void>;
     addCategoria(codigoCategoria: string, codigoProduto: string): Promise<void>;
+    getByCategorias(categorias: string[]): Promise<Produto[]>;
     update(produto: Produto): Promise<void>;
     updateIsVisible(codigoProduto: string, isVisible: boolean): Promise<void>;
     updateIsDisponivelCompra(codigoProduto: string, isDisponivelCompra: boolean): Promise<void>;

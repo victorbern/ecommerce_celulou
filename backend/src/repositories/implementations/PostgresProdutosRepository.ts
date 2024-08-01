@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { IProdutosRepository } from "../IProdutosRepository";
 import { Produto } from "../../entities/Produto";
-import { Produto as ProdutoPrisma } from "@prisma/client";
 import prisma from "./prisma";
 
 export class PostgresProdutosRepository implements IProdutosRepository {
@@ -10,19 +8,28 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         const result = await prisma.produto.findUnique({
             where: {
                 codigoProduto: codigoProduto
-            }
+            },
         })
 
         if (!result) {
             return null;
         }
 
-        let produto = this.convertToEntity(result);
+        const produto: Produto = {
+            ...result,
+            valor: result.valor.toNumber(),
+            nota: result.nota ? result.nota.toNumber() : null,
+            alturaCM: result.alturaCM.toNumber(),
+            larguraCM: result.larguraCM.toNumber(),
+            comprimentoCM: result.comprimentoCM.toNumber(),
+            categorias: undefined
+        }
 
         return produto;
     }
 
     async save(produto: Produto): Promise<void> {
+        produto.categorias = undefined;
         await prisma.produto.create({
             data: produto
         })
@@ -35,6 +42,50 @@ export class PostgresProdutosRepository implements IProdutosRepository {
                 codigoProduto: codigoProduto
             }
         })
+    }
+
+    async getByCategorias(categorias: string[]): Promise<Produto[]> {
+        const result = await prisma.produto.findMany({
+            where: {
+                produtoHasCategoria: {
+                    some: {
+                        codigoCategoria: {
+                            in: categorias
+                        }
+                    }
+                }
+            },
+            include: {
+                produtoHasCategoria: {
+                    include: {
+                        categoria: true
+                    }
+                }
+            }
+        });
+
+        if (!result) {
+            return null;
+        }
+        const produtos = result.filter(produto => {
+            const codigosCategorias = produto.produtoHasCategoria.map(phc => phc.codigoCategoria);
+
+            return categorias.every(categoria => codigosCategorias.includes(categoria))
+        }).map((produto) => ({
+            ...produto,
+            valor: produto.valor.toNumber(),
+            nota: produto.nota ? produto.nota.toNumber() : null,
+            alturaCM: produto.alturaCM.toNumber(),
+            larguraCM: produto.larguraCM.toNumber(),
+            comprimentoCM: produto.comprimentoCM.toNumber(),
+            
+            // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
+            categorias: produto.produtoHasCategoria.map(phc => phc.categoria),
+            // Remove o nome antigo de categorias
+            produtoHasCategoria: undefined
+        }));
+        
+        return produtos;
     }
 
     async update(produto: Produto): Promise<void> {
@@ -101,25 +152,5 @@ export class PostgresProdutosRepository implements IProdutosRepository {
                 codigoProduto: codigoProduto
             },
         })
-    }
-
-    convertToEntity(produto: ProdutoPrisma): Produto {
-        let result: Produto = {
-            codigoProduto: produto.codigoProduto,
-            valor: produto.valor.toNumber(),
-            nomeProduto: produto.nomeProduto,
-            marca: produto.marca,
-            descricaoProduto: produto.descricaoProduto,
-            imagensFolder: produto.imagensFolder,
-            nota: produto.nota ? produto.nota.toNumber() : null,
-            pesoGramas: produto.pesoGramas,
-            alturaCM: produto.alturaCM.toNumber(),
-            larguraCM: produto.larguraCM.toNumber(),
-            comprimentoCM: produto.comprimentoCM.toNumber(),
-            isDisponivelCompra: produto.isDisponivelCompra,
-            isVisivel: produto.isVisivel
-        }
-
-        return result;
     }
 }

@@ -193,6 +193,12 @@ components:
           type: boolean
           description: Mostra se um determinado produto está disponível para ser exibido para todos os usuários do sistema
           readOnly: true
+        categorias:
+          type: array
+          description: Lista de categorias que o produto tem
+          items:
+            $ref: "#/components/schemas/Categoria"
+          readOnly: true
 
       required:
         - valor
@@ -871,6 +877,69 @@ paths:
         "400":
           $ref: "#/components/responses/Error400"
 
+        "404":
+          $ref: "#/components/responses/Error404"
+
+        default:
+          $ref: "#/components/responses/ErrorDefault"
+
+    get:
+      summary: Busca todos os produtos que contém uma lista de categorias especificas
+      description: Esta rota recebe um array de categorias e devolve os produtos que possuem todas elas. Caso não envie nenhuma categoria, devolve todos os produtos do banco
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                categorias:
+                  type: array
+                  items:
+                    type: string
+            example:
+              "categorias": ["Ta5klzbcziie", "Ta5klzbczvf3"]
+      responses:
+        "200":
+          description: Um array de produtos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Produto"
+              example:
+                "result": [
+                    {
+                        "codigoProduto": "Pa5klzbd0sev",
+                        "valor": 22222222.22,
+                        "nomeProduto": "Samsung Galaxy S24",
+                        "marca": "Samsung",
+                        "descricaoProduto": "Preto",
+                        "imagensFolder": "/produtos/Pa5klzbd0sev/",
+                        "nota": null,
+                        "pesoGramas": 200,
+                        "larguraCM": 7,
+                        "alturaCM": 2.7,
+                        "comprimentoCM": 15.8,
+                        "isDisponivelCompra": false,
+                        "isVisivel": false,
+                        "categorias": [
+                            {
+                                "codigoCategoria": "Ta5klzbczvf3",
+                                "nomeCategoria": "Intermediario"
+                            },
+                            {
+                                "codigoCategoria": "Ta5klzbcziie",
+                                "nomeCategoria": "Memoria"
+                            }
+                        ]
+                    }
+                ]
+        
         "404":
           $ref: "#/components/responses/Error404"
 
