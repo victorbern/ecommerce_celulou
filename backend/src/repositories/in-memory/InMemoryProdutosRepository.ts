@@ -70,6 +70,10 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
         )
     }
 
+    async getAll(): Promise<Produto[]> {
+        return this.items;
+    }
+
     async getByCategorias(categorias: string[]): Promise<Produto[]> {
         const produtos: Produto[] = [];
 

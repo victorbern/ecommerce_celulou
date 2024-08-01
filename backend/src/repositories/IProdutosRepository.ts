@@ -5,6 +5,7 @@ export interface IProdutosRepository {
     getByCodigo(codigoProduto: string): Promise<Produto>;
     save(produto: Produto): Promise<void>;
     addCategoria(codigoCategoria: string, codigoProduto: string): Promise<void>;
+    getAll(): Promise<Produto[]>;
     getByCategorias(categorias: string[]): Promise<Produto[]>;
     update(produto: Produto): Promise<void>;
     updateIsVisible(codigoProduto: string, isVisible: boolean): Promise<void>;
