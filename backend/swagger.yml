@@ -886,19 +886,17 @@ paths:
     get:
       summary: Busca todos os produtos que contém uma lista de categorias especificas
       description: Esta rota recebe um array de categorias e devolve os produtos que possuem todas elas. Caso não envie nenhuma categoria, devolve todos os produtos do banco
-      requestBody: 
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                categorias:
-                  type: array
-                  items:
-                    type: string
-            example:
-              "categorias": ["Ta5klzbcziie", "Ta5klzbczvf3"]
+      parameters:
+        - in: query
+          name: categorias
+          description: Uma lista de categorias para filtrar os produtos por elas. Múltiplas categorias podem ser enviadas repetindo o parâmetro 'categorias'
+          required: false
+          schema:
+            type: array
+            items: 
+              type: string
+          example: 
+            "/produtos?categorias=Ta5klzbczvf3&categorias=Ta5klzbcziie"
       responses:
         "200":
           description: Um array de produtos

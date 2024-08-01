@@ -10,13 +10,14 @@ export class FindAllProdutoByCategoriasController {
     ) {}
 
     async handle(request: Request, response: Response, next: NextFunction): Promise<Response> {
-        const { categorias } = request.body;
+        const categorias = request.query.categorias as string[];
         try {
+            const categoriasArray = Array.isArray(categorias) ? categorias : [categorias]
             let result = null;
             if (categorias) {
                 result = await this.findAllProdutoByCategoriasUC.execute({
-                categorias
-            });
+                    categorias: categoriasArray
+                });
             } else {
                 result = await this.findAllProdutoUC.execute();
             }   
