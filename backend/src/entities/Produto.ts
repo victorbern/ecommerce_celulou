@@ -15,7 +15,6 @@ export class Produto {
     public comprimentoCM: number;
     public isDisponivelCompra: boolean = false;
     public isVisivel: boolean = false;
-    public categorias?: Categoria[] = [];
 
     private static produtoSchema = z.object({
         codigoProduto: z.string({
@@ -165,7 +164,7 @@ export class Produto {
         }),
     })
 
-    constructor(props: Omit<Produto, "isDisponivelCompra" | "isVisivel" | "categorias">, isDisponivelCompra?: boolean, isVisivel?: boolean, categorias?: Categoria[]) {
+    constructor(props: Omit<Produto, "isDisponivelCompra" | "isVisivel" | "categorias">, isDisponivelCompra?: boolean, isVisivel?: boolean) {
         Produto.produtoSchema.parse(props);
         Object.assign(this, props);
     }

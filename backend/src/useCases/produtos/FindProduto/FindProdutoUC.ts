@@ -1,4 +1,5 @@
 import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
+import { IProdutoDTO } from "../../../entities/EntitiesDTO/ProdutoDTO";
 import { Produto } from "../../../entities/Produto";
 import { AppError } from "../../../errors/AppError";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
@@ -9,10 +10,10 @@ export class FindProdutoUC {
         private produtosRepository: IProdutosRepository,
     ) {}
 
-    async execute(data: IFindProdutoRequestDTO): Promise<Produto> {
+    async execute(data: IFindProdutoRequestDTO): Promise<IProdutoDTO> {
         const { codigoProduto } = data;
 
-        const produto = await this.produtosRepository.getByCodigo(codigoProduto);
+        const produto: IProdutoDTO = await this.produtosRepository.getByCodigo(codigoProduto);
 
         if (!produto) {
             throw new AppError("Produto não encontrado!", HTTPStatusCode.NotFound);

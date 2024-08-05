@@ -199,6 +199,12 @@ components:
           items:
             $ref: "#/components/schemas/Categoria"
           readOnly: true
+        quantidadeEstoque:
+          type: number
+          minimum: 0
+          maximum: 999999
+          example: 50
+          readOnly: true
 
       required:
         - valor
@@ -934,7 +940,8 @@ paths:
                                 "codigoCategoria": "Ta5klzbcziie",
                                 "nomeCategoria": "Memoria"
                             }
-                        ]
+                        ],
+                        "quantidadeEstoque": 50
                     }
                 ]
         
@@ -991,7 +998,8 @@ paths:
                           "codigoCategoria": "Ta5klzbcziie",
                           "nomeCategoria": "Memoria"
                       }
-                  ]
+                  ],
+                  "quantidadeEstoque": 50
                 }
         
         "404":
