@@ -2,10 +2,12 @@ import { IProdutosRepository } from "../IProdutosRepository";
 import { Produto } from "../../entities/Produto";
 import prisma from "./prisma";
 import { ProdutoHasCategoria } from "@prisma/client";
+import { Categoria } from "../../entities/Categoria";
+import { IProdutoDTO } from "../../entities/EntitiesDTO/ProdutoDTO";
 
 export class PostgresProdutosRepository implements IProdutosRepository {
 
-    async getByCodigo(codigoProduto: string): Promise<Produto> {
+    async getByCodigo(codigoProduto: string): Promise<IProdutoDTO> {
         const result = await prisma.produto.findUnique({
             where: {
                 codigoProduto: codigoProduto
@@ -15,7 +17,8 @@ export class PostgresProdutosRepository implements IProdutosRepository {
                     include: {
                         categoria: true
                     }
-                }
+                },
+                estoque: true
             }
         })
 
@@ -24,10 +27,12 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         }
 
         const produtoHasCategoria = result.produtoHasCategoria;
+        const quantidadeEstoque = result.estoque.quantidade;
 
         result.produtoHasCategoria = undefined;
+        result.estoque = undefined;
 
-        const produto: Produto = {
+        const produto: IProdutoDTO = {
             ...result,
             valor: result.valor.toNumber(),
             nota: result.nota ? result.nota.toNumber() : null,
@@ -37,13 +42,15 @@ export class PostgresProdutosRepository implements IProdutosRepository {
 
             // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
             categorias: produtoHasCategoria.map(phc => phc.categoria),
+
+            // Pega somente a quantidade do estoque em estoque
+            quantidadeEstoque: quantidadeEstoque  
         };
 
         return produto;
     }
 
     async save(produto: Produto): Promise<void> {
-        produto.categorias = undefined;
         await prisma.produto.create({
             data: produto
         })
@@ -58,14 +65,15 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         })
     }
 
-    async getAll(): Promise<Produto[]> {
+    async getAll(): Promise<IProdutoDTO[]> {
         const result = await prisma.produto.findMany({
             include: {
                 produtoHasCategoria: {
                     include: {
                         categoria: true
                     }
-                }
+                },
+                estoque: true
             }
         });
 
@@ -84,13 +92,17 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
             categorias: produto.produtoHasCategoria.map(phc => phc.categoria),
             // Remove o nome antigo de categorias
-            produtoHasCategoria: undefined
+            produtoHasCategoria: undefined,
+            // Pega a quantidade de estoque do produto
+            quantidadeEstoque: produto.estoque.quantidade,
+            // Remove o atributo estoque
+            estoque: undefined
         }));
 
         return produtos;
     }
 
-    async getByCategorias(categorias: string[]): Promise<Produto[]> {
+    async getByCategorias(categorias: string[]): Promise<IProdutoDTO[]> {
         const result = await prisma.produto.findMany({
             where: {
                 produtoHasCategoria: {
@@ -106,7 +118,8 @@ export class PostgresProdutosRepository implements IProdutosRepository {
                     include: {
                         categoria: true
                     }
-                }
+                },
+                estoque: true
             }
         });
 
@@ -128,16 +141,21 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             // Pega somente as informações úteis de produtoHasCategoria e renomeia para categorias
             categorias: produto.produtoHasCategoria.map(phc => phc.categoria),
             // Remove o nome antigo de categorias
-            produtoHasCategoria: undefined
+            produtoHasCategoria: undefined,
+            // Pega a quantidade do estoque
+            quantidadeEstoque: produto.estoque.quantidade,  
+            // Remove o atributo estoque
+            estoque: undefined
         }));
 
         return produtos;
     }
 
-    async update(produto: Produto): Promise<void> {
+    async update(produto: IProdutoDTO): Promise<void> {
         const codigosCategoria = produto.categorias ? produto.categorias.map(phc => { return phc.codigoCategoria }) : null;
         prisma.$transaction(async (prisma) => {
             produto.categorias = undefined;
+            produto.quantidadeEstoque = undefined;
             await prisma.produto.update({
                 where: {
                     codigoProduto: produto.codigoProduto,

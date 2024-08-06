@@ -1,3 +1,4 @@
+import { IProdutoDTO } from "../../../entities/EntitiesDTO/ProdutoDTO";
 import { Produto } from "../../../entities/Produto";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
 
@@ -6,9 +7,9 @@ export class FindAllProdutoUC {
         private produtosRepository: IProdutosRepository,
     ) {}
 
-    async execute(): Promise<Produto[]> {
+    async execute(): Promise<IProdutoDTO[]> {
 
-        const produtos: Produto[] = await this.produtosRepository.getAll();
+        const produtos: IProdutoDTO[] = await this.produtosRepository.getAll();
 
         return produtos;
     }

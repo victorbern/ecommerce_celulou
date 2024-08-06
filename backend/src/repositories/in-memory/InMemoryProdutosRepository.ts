@@ -2,6 +2,7 @@ import { Estoque, ProdutoHasCategoria } from "@prisma/client";
 import { Produto } from "../../entities/Produto";
 import { IProdutosRepository } from "../IProdutosRepository";
 import { Categoria } from "../../entities/Categoria";
+import { IProdutoDTO } from "../../entities/EntitiesDTO/ProdutoDTO";
 
 export class InMemoryProdutosRepository implements IProdutosRepository {
     public items: Produto[] = [
@@ -19,7 +20,6 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
             comprimentoCM: 6.9,
             isVisivel: false,
             isDisponivelCompra: false,
-            categorias: []
         }
     ]
 
@@ -48,10 +48,15 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
         return null;
     }
 
-    async getByCodigo(codigoProduto: string): Promise<Produto> {
+    async getByCodigo(codigoProduto: string): Promise<IProdutoDTO> {
         for (let i in this.items) {
             if (this.items[i].codigoProduto === codigoProduto) {
-                return this.items[i];
+                const produto: IProdutoDTO = {
+                    ...this.items[i],
+                    categorias: [],
+                    quantidadeEstoque: null
+                }
+                return produto;
             }
         }
         return null;
@@ -70,28 +75,49 @@ export class InMemoryProdutosRepository implements IProdutosRepository {
         )
     }
 
-    async getAll(): Promise<Produto[]> {
-        return this.items;
+    async getAll(): Promise<IProdutoDTO[]> {
+        const produtos: IProdutoDTO[] = this.items.map(produto => {
+            return {
+                ...produto,
+                categorias: [],
+                q
+            }
+        })
     }
 
-    async getByCategorias(categorias: string[]): Promise<Produto[]> {
-        const produtos: Produto[] = [];
+    async getByCategorias(categorias: string[]): Promise<IProdutoDTO[]> {
+        const produtos: IProdutoDTO[] = [];
 
-        for (let i in this.produtoHasCategoriaBanco) {
-            const codigoProduto = this.produtoHasCategoriaBanco[i].codigoProduto;
-            const codigoCategoria = this.produtoHasCategoriaBanco[i].codigoCategoria;
-            const nomeCategoria = this.categorias.find(categoria => categoria.codigoCategoria === codigoCategoria).nomeCategoria;
-            this.items.find(produto => produto.codigoProduto === codigoProduto).categorias.push({ codigoCategoria, nomeCategoria })
-        }
-        
-        for (let i in this.items) {
-            const isProdutoValido = categorias.every(codigo => {
-                return this.items[i].categorias.some(categoria => categoria.codigoCategoria === codigo)
+        const produtosEncontrados = this.produtoHasCategoriaBanco.filter(phc => {
+            categorias.some(codigoCategoria => {
+                return phc.codigoCategoria === codigoCategoria
             })
-            if (isProdutoValido) {
-                produtos.push(this.items[i])
+        });
+
+        produtosEncontrados.map(pe => {
+            const isProdutoSalvo = produtos.find(p => p.codigoProduto === produto.codigoProduto);
+            const produto = this.items.find(p => p.codigoProduto === pe.codigoProduto);
+            const categoria = this.categorias.find(c => c.codigoCategoria === pe.codigoCategoria);
+            const estoque = this.estoques.find(e => e.codigoProduto = pe.codigoProduto)
+            if (!isProdutoSalvo) {
+                produtos.push({
+                    ...produto,
+                    categorias: [
+                        {
+                            codigoCategoria: pe.codigoCategoria,
+                            nomeCategoria: categoria.nomeCategoria
+                        }
+                    ],
+                    quantidadeEstoque: estoque.quantidade
+                })
+            } else {
+                produtos.find(produto => produto.codigoProduto === pe.codigoProduto).categorias.push({
+                    codigoCategoria: pe.codigoCategoria,
+                    nomeCategoria: categoria.nomeCategoria
+                })
             }
-        }
+        })
+        console.log(produtos)
 
         return produtos;
     }

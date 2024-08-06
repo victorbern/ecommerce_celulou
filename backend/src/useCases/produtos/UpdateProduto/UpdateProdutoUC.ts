@@ -19,9 +19,12 @@ export class UpdateProdutoUC {
         }
         
         const produto = new Produto({codigoProduto, valor, nomeProduto, marca, descricaoProduto, imagensFolder: produtoExists.imagensFolder, nota: produtoExists.nota, pesoGramas, alturaCM, larguraCM, comprimentoCM });
-        produto.categorias = categorias;
+        const produtoDTO = {
+            ...produto,
+            categorias: categorias
+        }
 
-        await this.produtosRepository.update(produto);
+        await this.produtosRepository.update(produtoDTO);
 
         return { message: "Dados atualizados com sucesso!" }
     }
