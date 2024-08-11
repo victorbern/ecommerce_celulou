@@ -57,13 +57,13 @@ export class CreateProdutoUC {
             return { message: "Produto cadastrado com sucesso", codigoProduto: codigoProduto }
         } catch (error) {
             // Apaga todos os ProdutoHasCategoria criados
-            this.produtosRepository.removeAllCategorias(codigoProduto);
+            await this.produtosRepository.removeAllCategorias(codigoProduto);
 
             // Apaga o estoque criado
-            this.produtosRepository.deleteEstoque(codigoProduto);
+            await this.produtosRepository.deleteEstoque(codigoProduto);
 
             // Apaga o produto criado
-            this.produtosRepository.delete(codigoProduto);
+            await this.produtosRepository.delete(codigoProduto);
 
             throw error;
 

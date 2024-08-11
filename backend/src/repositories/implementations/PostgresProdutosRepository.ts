@@ -6,6 +6,9 @@ import { Categoria } from "../../entities/Categoria";
 import { IProdutoDTO } from "../../entities/EntitiesDTO/ProdutoDTO";
 
 export class PostgresProdutosRepository implements IProdutosRepository {
+    updateCategorias(categorias: Categoria[]): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 
     async getByCodigo(codigoProduto: string): Promise<IProdutoDTO> {
         const result = await prisma.produto.findUnique({
@@ -27,7 +30,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         }
 
         const produtoHasCategoria = result.produtoHasCategoria;
-        const quantidadeEstoque = result.estoque.quantidade;
+        const estoque = result.estoque;
 
         result.produtoHasCategoria = undefined;
         result.estoque = undefined;
@@ -44,7 +47,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             categorias: produtoHasCategoria.map(phc => phc.categoria),
 
             // Pega somente a quantidade do estoque em estoque
-            quantidadeEstoque: quantidadeEstoque  
+            quantidadeEstoque: estoque ? estoque.quantidade : 0  
         };
 
         return produto;
