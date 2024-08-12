@@ -13,7 +13,7 @@ export class FindCategoriasByProdutoUC {
     async execute(data: IFindCategoriasByProdutoRequestDTO): Promise<IFindCategoriasByProdutoResponseDTO[]> {
         const { codigoProduto } = data;
 
-        if (codigoProduto === null) {
+        if (!codigoProduto) {
             throw new AppError("Código inválido!", HTTPStatusCode.BadRequest)
         }
 

@@ -1,11 +1,11 @@
 import { postgresCategoriasRepository } from "../../../repositories/implementations";
-import { inMemoryCategoriasRepository } from "../../../repositories/in-memory";
+import { categoriasRepositoryMocked } from "../../../repositories/implementations/tests";
 import { CreateCategoriaController } from "./CreateCategoriaController";
 import { CreateCategoriaUC } from "./CreateCategoriaUC";
 
 const createCategoriaUC = new CreateCategoriaUC(postgresCategoriasRepository);
 const createCategoriaController = new CreateCategoriaController(createCategoriaUC);
 
-const createCategoriaUCTest = new CreateCategoriaUC(inMemoryCategoriasRepository);
+const createCategoriaUCTest = new CreateCategoriaUC(categoriasRepositoryMocked);
 
 export { createCategoriaUC, createCategoriaController, createCategoriaUCTest }

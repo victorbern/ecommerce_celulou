@@ -11,7 +11,7 @@ export class FindClienteUC {
     async execute(data: IFindClienteRequestDTO): Promise<IFindClienteResponseDTO> {
         const { codigoCliente } = data;
 
-        if (codigoCliente == null) {
+        if (!codigoCliente) {
             throw new AppError("Código inválido", HTTPStatusCode.BadRequest);
         }
 

@@ -1,0 +1,85 @@
+import { beforeAll, describe, expect, it, vi } from "vitest";
+import { findClienteUCTest } from "../../clientes/FindCliente";
+import { Cliente } from "../../../entities/Cliente";
+import { enderecosRepositoryMocked } from "../../../repositories/implementations/tests";
+import { Endereco } from "../../../entities/Endereco";
+import { findEnderecoByClienteUCTest } from ".";
+
+const clienteDTO: Cliente = {
+    nomeCliente: "Teste Cliente",
+    celularCliente: "11953162653",
+    cpfCliente: "47555465465",
+    emailCliente: "teste@teste.com",
+    codigoCliente: "CAABBBCCCDDD",
+    createdAt: new Date(Date.now())
+}
+
+const enderecos: Endereco[] = [
+    {
+        codigoEndereco: "EAABBBCCCDDD",
+        codigoCliente: "CAABBBCCCDDD",
+        nomeRua: "Rua",
+        numeroCasa: "12",
+        bairro: "Centro",
+        cidade: "São Paulo",
+        complemento: "",
+        cep: "12232121",
+        estado: "SP",
+        nomeEndereco: "Casa"
+    },
+    {
+        codigoEndereco: "EBBCCCDDDEEE",
+        codigoCliente: "CBBCCCDDDEEE",
+        nomeRua: "Rua 2",
+        numeroCasa: "14",
+        bairro: "Jardim 2",
+        cidade: "São Paulo",
+        complemento: "",
+        cep: "12121121",
+        estado: "SP",
+        nomeEndereco: "Trabalho"
+    }
+]
+
+describe("Testando a classe FindEnderecoByClienteUC", () => {
+    beforeAll(() => {
+        vi.clearAllMocks();
+    });
+
+    it("Deve ser possível buscar todos os endereços de um cliente", async () => {
+        vi.spyOn(findClienteUCTest, 'execute').mockResolvedValue(clienteDTO);
+        enderecosRepositoryMocked.getByCodigoCliente.mockResolvedValue(enderecos);
+
+        const response = await findEnderecoByClienteUCTest.execute({
+            codigoCliente: "CAABBBCCCDDD"
+        });
+
+        expect(response).toEqual(enderecos);
+
+        expect(enderecosRepositoryMocked.getByCodigoCliente).toHaveBeenCalledWith(expect.any(String));
+    });
+
+    it("Não deve ser possível buscar os endereços de um cliente se o código do cliente for inválido", () => {
+        expect(findEnderecoByClienteUCTest.execute({
+            codigoCliente: undefined
+        })).rejects.toThrow("Código inválido");
+    });
+
+    it("Não deve ser possível buscar os endereços de um cliente caso o cliente não exista", () => {
+        vi.spyOn(findClienteUCTest, 'execute').mockResolvedValue(null)
+        expect(findEnderecoByClienteUCTest.execute({
+            codigoCliente: "CAABBBCCCDDD"
+        })).rejects.toThrow("Cliente não encontrado");
+    });
+
+    it("Não deve ser possível buscar os endereços de um cliente caso o cliente não possua nenhum endereço cadastrado", async () => {
+        vi.spyOn(findClienteUCTest, 'execute').mockResolvedValue(clienteDTO);
+        enderecosRepositoryMocked.getByCodigoCliente.mockResolvedValue(null);
+
+        const response = await findEnderecoByClienteUCTest.execute({
+            codigoCliente: "CAABBBCCCDDD"
+        });
+
+        expect(response).toBeNull();
+    })
+})

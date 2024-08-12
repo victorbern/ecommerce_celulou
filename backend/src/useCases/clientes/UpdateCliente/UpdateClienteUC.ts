@@ -13,9 +13,17 @@ export class UpdateClienteUC {
     async execute(data: IUpdateClienteRequestDTO): Promise<IUpdateClienteResponseDTO> {
         let { codigoCliente, nomeCliente, cpfCliente, celularCliente, emailCliente } = data;
 
+        if (!cpfCliente) {
+            throw new AppError("É necessário inserir um cpf!", HTTPStatusCode.BadRequest);
+        }
+
+        if (!codigoCliente) {
+            throw new AppError("Código inválido!", HTTPStatusCode.BadRequest)
+        }
+
         cpfCliente = cpfCliente.replace(/[.-]/g, '');
         if (!cpf.isValid(cpfCliente)) {
-            throw new AppError("O CPF é Inválido", HTTPStatusCode.BadRequest);
+            throw new AppError("O CPF é inválido", HTTPStatusCode.BadRequest);
         }
 
         let clienteExists = await this.clientesRepository.getByCodigoCliente(codigoCliente);
@@ -29,7 +37,7 @@ export class UpdateClienteUC {
         if (cpfCliente != clienteExists.cpfCliente) {
             let cpfExists = await this.clientesRepository.getByCpfCliente(cpfCliente);
 
-            if (cpfExists) {
+            if (cpfExists && cpfExists.codigoCliente !== codigoCliente) {
                 throw new AppError("O novo cpf informado já está cadastrado", HTTPStatusCode.Conflict);
             }
         }
@@ -37,7 +45,7 @@ export class UpdateClienteUC {
         if (emailCliente != clienteExists.emailCliente) {
             let emailExists = await this.clientesRepository.getByEmailCliente(emailCliente);
 
-            if (emailExists) {
+            if (emailExists && emailExists.codigoCliente !== codigoCliente) {
                 throw new AppError("O novo e-mail informado já está cadastrado", HTTPStatusCode.Conflict);
             }
         }

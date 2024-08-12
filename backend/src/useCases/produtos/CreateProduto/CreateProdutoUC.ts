@@ -17,7 +17,7 @@ export class CreateProdutoUC {
     async execute(data: ICreateProdutoRequestDTO): Promise<ICreateProdutoResponseDTO> {
         let codigoProduto, codigoExists = null;
         do {
-            codigoProduto = "P" + uniqid().slice(-11);
+            codigoProduto = "P" + uniqid.process().slice(-11);
             codigoExists = await this.produtosRepository.getByCodigo(codigoProduto);
         } while (codigoExists != null);
 

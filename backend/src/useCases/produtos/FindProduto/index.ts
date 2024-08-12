@@ -1,11 +1,11 @@
 import { postgresProdutosRepository } from "../../../repositories/implementations";
-import { inMemoryProdutosRepository } from "../../../repositories/in-memory";
+import { produtosRepositoryMocked } from "../../../repositories/implementations/tests";
 import { FindProdutoController } from "./FindProdutoController";
 import { FindProdutoUC } from "./FindProdutoUC";
 
 const findProdutoUC = new FindProdutoUC(postgresProdutosRepository);
 const findProdutoController = new FindProdutoController(findProdutoUC);
 
-const findProdutoUCTest = new FindProdutoUC(inMemoryProdutosRepository);
+const findProdutoUCTest = new FindProdutoUC(produtosRepositoryMocked);
 
 export { findProdutoUC, findProdutoController, findProdutoUCTest }

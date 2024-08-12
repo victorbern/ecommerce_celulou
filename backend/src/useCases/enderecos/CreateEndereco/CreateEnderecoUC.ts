@@ -16,7 +16,12 @@ export class CreateEnderecoUC {
         let { nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente } = data;
 
         // Remove os caracteres especiais do cep
-        cep = cep.replace(/[.-]/g, '');
+        // Se o cep for nulo lança uma exceção
+        cep ? cep = cep.replace(/[.-]/g, ''): () => { throw new AppError("É necessário inserir um cep", HTTPStatusCode.BadRequest) };
+
+        if (!codigoCliente) {
+            throw new AppError("É necessário inserir um código do cliente para o endereço", HTTPStatusCode.BadRequest);
+        }
 
         const clienteExists = await this.findClienteUC.execute({codigoCliente});
 
@@ -26,7 +31,7 @@ export class CreateEnderecoUC {
         
         const limiteEnderecos = await this.enderecosRepository.getByCodigoCliente(codigoCliente) 
 
-        if (limiteEnderecos.length >= 3) {
+        if (limiteEnderecos && limiteEnderecos.length >= 3) {
             throw new AppError("Cada cliente só pode ter até 3 endereços cadastrados", HTTPStatusCode.BadRequest);
         }
 

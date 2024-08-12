@@ -32,7 +32,7 @@ export class PostgresEstoquesRepository implements IEstoquesRepository {
     }
 
     async alterarEstoque(codigoEstoque: string, valorAlteracao: number): Promise<void> {
-        await this.prisma.estoque.update({
+        await prisma.estoque.update({
             where: {
                 codigoEstoque: codigoEstoque,
             },

@@ -11,20 +11,13 @@ export class FindAllCategoriaUC {
         const { filtro } = data;
 
         let categorias: Categoria[] = [];
-        let result: IFindAllCategoriaResponseDTO[] = [];
+
         if (filtro) {
             categorias = await this.categoriasRepository.getAllWithFilter(filtro);
         } else {
             categorias = await this.categoriasRepository.getAll();
         }
 
-        for (let i in categorias) {
-            result.push({
-                codigoCategoria: categorias[i].codigoCategoria,
-                nomeCategoria: categorias[i].nomeCategoria,
-            });
-        }
-
-        return result;
+        return categorias;
     }
 }

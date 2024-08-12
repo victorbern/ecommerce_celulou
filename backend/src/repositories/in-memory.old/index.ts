@@ -1,4 +1,5 @@
 import { InMemoryAlteracaoEstoqueRepository } from "./InMemoryAlteracaoEstoqueRepository";
+
 import { InMemoryCategoriasRepository } from "./InMemoryCategoriasRepository";
 import { InMemoryClientesRepository } from "./InMemoryClientesRepository";
 import { InMemoryEnderecosRepository } from "./InMemoryEnderecosRepository";

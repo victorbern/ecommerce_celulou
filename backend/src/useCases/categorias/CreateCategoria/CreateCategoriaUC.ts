@@ -13,6 +13,10 @@ export class CreateCategoriaUC {
     async execute(data: ICreateCategoriaRequestDTO): Promise<ICreateCategoriaResponseDTO> {
         const { nomeCategoria } = data;
 
+        if (!nomeCategoria) {
+            throw new AppError("Nome da categoria inválida", HTTPStatusCode.BadRequest);
+        }
+
         const categoriaExists = await this.categoriasRepository.getByName(nomeCategoria);
 
         if (categoriaExists) {
