@@ -21,7 +21,7 @@ export class CreateClienteUC {
         cpfCliente = cpfCliente.replace(/[.-]/g, '');
 
         if (!cpf.isValid(cpfCliente)) {
-            throw new AppError("O CPF é Inválido", HTTPStatusCode.BadRequest);
+            throw new AppError("O CPF é inválido", HTTPStatusCode.BadRequest);
         }
 
         let codigoCliente, codigoExists = null;

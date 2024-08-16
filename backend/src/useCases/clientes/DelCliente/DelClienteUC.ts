@@ -15,6 +15,10 @@ export class DelClienteUC {
     async execute(data: IDelClienteRequestDTO): Promise<IDelClienteResponseDTO> {
         const { codigoCliente } = data;
 
+        if (!codigoCliente) {
+            throw new AppError("Código inválido", HTTPStatusCode.BadRequest)
+        }
+
         const clienteExists = await this.clientesRepository.getByCodigoCliente(codigoCliente);
 
         if (!clienteExists) {

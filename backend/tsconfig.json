@@ -11,8 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext"],
   },
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts"  // Exclui todos os arquivos de teste
-  ]
+  // "exclude": [
+  //   "node_modules",
+  //   "**/*.test.ts"  // Exclui todos os arquivos de teste
+  // ]
 }

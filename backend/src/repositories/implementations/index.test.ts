@@ -51,4 +51,10 @@ const estoquesRepositoryMocked = {
     alterarEstoque: vi.fn(),
 }
 
-export { clientesRepositoryMocked, enderecosRepositoryMocked, categoriasRepositoryMocked, produtosRepositoryMocked, estoquesRepositoryMocked }
+const alteracaoEstoqueRepositoryMocked = {
+    save: vi.fn(),
+    getByCodigo: vi.fn(),
+    delete: vi.fn(),
+}
+
+export { clientesRepositoryMocked, enderecosRepositoryMocked, categoriasRepositoryMocked, produtosRepositoryMocked, estoquesRepositoryMocked, alteracaoEstoqueRepositoryMocked }
