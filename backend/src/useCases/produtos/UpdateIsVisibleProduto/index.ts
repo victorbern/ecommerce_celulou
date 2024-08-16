@@ -1,10 +1,5 @@
-import { postgresProdutosRepository } from "../../../repositories/implementations";
-import { inMemoryProdutosRepository } from "../../../repositories/in-memory";
-import { UpdateIsVisibleProdutoController } from "./UpdateIsVisibleProdutoController";
-import { UpdateIsVisibleProdutoUC } from "./UpdateIsVisibleProdutoUC";
+import { produtoFactory } from "../../../factories";
 
-const updateIsVisibleProdutoUC = new UpdateIsVisibleProdutoUC(postgresProdutosRepository);
-const updateIsVisibleProdutoUCTest = new UpdateIsVisibleProdutoUC(inMemoryProdutosRepository);
-const updateIsVisibleProdutoController = new UpdateIsVisibleProdutoController(updateIsVisibleProdutoUC);
+const updateIsVisibleProdutoController = produtoFactory.controllers.updateIsVisibleProdutoController();
 
-export { updateIsVisibleProdutoUC, updateIsVisibleProdutoController, updateIsVisibleProdutoUCTest }
+export { updateIsVisibleProdutoController }

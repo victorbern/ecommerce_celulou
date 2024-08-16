@@ -11,7 +11,7 @@ export class FindCategoriaUC {
     async execute(data: IFindCategoriaRequestDTO): Promise<IFindCategoriaResponseDTO> {
         const { codigoCategoria } = data;
 
-        if (codigoCategoria == null) {
+        if (!codigoCategoria) {
             throw new AppError("Código inválido!", HTTPStatusCode.BadRequest)
         }
 

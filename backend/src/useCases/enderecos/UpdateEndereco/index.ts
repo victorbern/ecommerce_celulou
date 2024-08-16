@@ -1,11 +1,5 @@
-import { postgresEnderecosRepository } from "../../../repositories/implementations";
-import { inMemoryEnderecosRepository } from "../../../repositories/in-memory";
-import { UpdateEnderecoController } from "./UpdateEnderecoController";
-import { UpdateEnderecoUC } from "./UpdateEnderecoUC";
+import { enderecoFactory } from "../../../factories";
 
-const updateEnderecoUC = new UpdateEnderecoUC(postgresEnderecosRepository);
-const updateEnderecoController = new UpdateEnderecoController(updateEnderecoUC);
+const updateEnderecoController = enderecoFactory.controllers.updateEnderecoController();
 
-const updateEnderecoUCTest = new UpdateEnderecoUC(inMemoryEnderecosRepository);
-
-export { updateEnderecoUC, updateEnderecoController, updateEnderecoUCTest }
+export { updateEnderecoController }

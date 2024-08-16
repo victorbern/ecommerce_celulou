@@ -1,23 +1,23 @@
 import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { ICategoriasRepository } from "../../../repositories/ICategoriasRepository";
-import { FindProdutoUC } from "../../produtos/FindProduto/FindProdutoUC";
+import { ProdutoExistsUC } from "../../produtos/ProdutoExists/ProdutoExistsUC";
 import { IFindCategoriasByProdutoRequestDTO, IFindCategoriasByProdutoResponseDTO } from "./FindCategoriasByProdutoDTO";
 
 export class FindCategoriasByProdutoUC {
     constructor(
         private categoriasRepository: ICategoriasRepository,
-        private findProdutoUC: FindProdutoUC
+        private produtoExistsUC: ProdutoExistsUC
     ) {}
 
     async execute(data: IFindCategoriasByProdutoRequestDTO): Promise<IFindCategoriasByProdutoResponseDTO[]> {
         const { codigoProduto } = data;
 
-        if (codigoProduto === null) {
+        if (!codigoProduto) {
             throw new AppError("Código inválido!", HTTPStatusCode.BadRequest)
         }
 
-        const produtoExists = await this.findProdutoUC.execute({ codigoProduto: codigoProduto })
+        const produtoExists = await this.produtoExistsUC.execute({ codigoProduto: codigoProduto })
 
         if (!produtoExists) {
             throw new AppError("Produto não encontrado!", HTTPStatusCode.NotFound)

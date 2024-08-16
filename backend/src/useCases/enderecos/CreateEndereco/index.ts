@@ -1,12 +1,5 @@
-import { postgresEnderecosRepository } from "../../../repositories/implementations";
-import { inMemoryEnderecosRepository } from "../../../repositories/in-memory";
-import { findClienteUC, findClienteUCTest } from "../../clientes/FindCliente";
-import { CreateEnderecoController } from "./CreateEnderecoController";
-import { CreateEnderecoUC } from "./CreateEnderecoUC";
+import { clienteFactory, enderecoFactory } from "../../../factories";
 
-const createEnderecoUC = new CreateEnderecoUC(postgresEnderecosRepository, findClienteUC);
-const createEnderecoController = new CreateEnderecoController(createEnderecoUC);
+const createEnderecoController = enderecoFactory.controllers.createEnderecoController(clienteFactory);
 
-const createEnderecoUCTest = new CreateEnderecoUC(inMemoryEnderecosRepository, findClienteUCTest);
-
-export { createEnderecoUC, createEnderecoController, createEnderecoUCTest }
+export { createEnderecoController }

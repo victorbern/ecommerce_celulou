@@ -2,14 +2,14 @@ import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AlteracaoEstoque } from "../../../entities/AlteracaoEstoque";
 import { AppError } from "../../../errors/AppError";
 import { IAlteracaoEstoqueRepository } from "../../../repositories/IAlteracaoEstoqueRepository";
-import { FindEstoqueUC } from "../../estoques/FindEstoque/FindEstoqueUC";
+import { EstoqueExistsUC } from "../../estoques/EstoqueExists/EstoqueExistsUC";
 import { ICreateAlteracaoEstoqueRequestDTO, ICreateAlteracaoEstoqueResponseDTO } from "./CreateAlteracaoEstoqueDTO";
 import uniqid from "uniqid";
 
 export class CreateAlteracaoEstoqueUC {
     constructor(
         private alteracaoEstoqueRepository: IAlteracaoEstoqueRepository,
-        private findEstoqueUC: FindEstoqueUC,
+        private estoqueExistsUC: EstoqueExistsUC,
     ) { }
 
     async execute(data: ICreateAlteracaoEstoqueRequestDTO): Promise<ICreateAlteracaoEstoqueResponseDTO> {
@@ -25,7 +25,7 @@ export class CreateAlteracaoEstoqueUC {
             throw new AppError("Código do estoque inválido!", HTTPStatusCode.BadRequest);
         }
 
-        const estoqueExists = await this.findEstoqueUC.execute({ codigoEstoque })
+        const estoqueExists = await this.estoqueExistsUC.execute({ codigoEstoque })
 
         if (!estoqueExists) {
             throw new AppError("Estoque não encontrado!", HTTPStatusCode.NotFound);

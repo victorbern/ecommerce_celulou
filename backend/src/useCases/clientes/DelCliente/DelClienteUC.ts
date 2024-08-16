@@ -1,9 +1,7 @@
 import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { AppError } from "../../../errors/AppError";
 import { IClientesRepository } from "../../../repositories/IClientesRepository";
-import { deleteEnderecoUC } from "../../enderecos/DeleteEndereco";
 import { DeleteEnderecoUC } from "../../enderecos/DeleteEndereco/DeleteEnderecoUC";
-import { findEnderecoByClienteUC } from "../../enderecos/FindEnderecoByCliente";
 import { FindEnderecoByClienteUC } from "../../enderecos/FindEnderecoByCliente/FindEnderecoByClienteUC";
 import { IDelClienteRequestDTO, IDelClienteResponseDTO } from "./DelClienteDTO";
 

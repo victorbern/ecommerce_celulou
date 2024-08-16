@@ -1,11 +1,5 @@
-import { postgresCategoriasRepository } from "../../../repositories/implementations";
-import { inMemoryCategoriasRepository } from "../../../repositories/in-memory";
-import { UpdateCategoriaController } from "./UpdateCategoriaController";
-import { UpdateCategoriaUC } from "./UpdateCategoriaUC";
+import { categoriaFactory } from "../../../factories";
 
-const updateCategoriaUC = new UpdateCategoriaUC(postgresCategoriasRepository);
-const updateCategoriaController = new UpdateCategoriaController(updateCategoriaUC);
+const updateCategoriaController = categoriaFactory.controllers.updateCategoriaController();
 
-const updateCategoriaUCTest = new UpdateCategoriaUC(inMemoryCategoriasRepository);
-
-export { updateCategoriaUC, updateCategoriaController, updateCategoriaUCTest }
+export { updateCategoriaController }

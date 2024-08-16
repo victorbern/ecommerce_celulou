@@ -1,8 +1,4 @@
 import { Router } from "express";
-import { createClienteController } from "./useCases/clientes/CreateCliente";
-import { findClienteController } from "./useCases/clientes/FindCliente";
-import { updateClienteController } from "./useCases/clientes/UpdateCliente";
-import { delClienteController } from "./useCases/clientes/DelCliente";
 import { createEnderecoController } from "./useCases/enderecos/CreateEndereco";
 import { findEnderecoByClienteController } from "./useCases/enderecos/FindEnderecoByCliente";
 import { findEnderecoController } from "./useCases/enderecos/FindEndereco";
@@ -26,6 +22,10 @@ import { findCategoriasByProdutoController } from "./useCases/categorias/FindCat
 import { findEstoqueController } from "./useCases/estoques/FindEstoque";
 import { alterarEstoqueController } from "./useCases/estoques/AlterarEstoque";
 import { findAllProdutoByCategoriasController } from "./useCases/produtos/FindAllProdutoByCategorias";
+import { createClienteController } from "./useCases/clientes/CreateCliente";
+import { findClienteController } from "./useCases/clientes/FindCliente";
+import { updateClienteController } from "./useCases/clientes/UpdateCliente";
+import { delClienteController } from "./useCases/clientes/DelCliente";
 
 const router = Router();
 

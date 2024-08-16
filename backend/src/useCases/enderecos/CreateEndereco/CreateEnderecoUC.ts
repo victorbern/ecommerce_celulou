@@ -3,13 +3,13 @@ import uniqid from "uniqid";
 import { ICreateEnderecoRequestDTO, ICreateEnderecoResponseDTO } from "./CreateEnderecoDTO";
 import { IEnderecosRepository } from "../../../repositories/IEnderecosRepository";
 import { Endereco } from "../../../entities/Endereco";
-import { FindClienteUC } from "../../clientes/FindCliente/FindClienteUC";
 import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
+import { ClienteExistsUC } from "../../clientes/ClienteExists/ClienteExistsUC";
 
 export class CreateEnderecoUC {
     constructor(
         private enderecosRepository: IEnderecosRepository,
-        private findClienteUC: FindClienteUC,
+        private clienteExistsUC: ClienteExistsUC
     ) {}
 
     async execute(data: ICreateEnderecoRequestDTO): Promise<ICreateEnderecoResponseDTO> {
@@ -18,7 +18,7 @@ export class CreateEnderecoUC {
         // Remove os caracteres especiais do cep
         cep = cep.replace(/[.-]/g, '');
 
-        const clienteExists = await this.findClienteUC.execute({codigoCliente});
+        const clienteExists = await this.clienteExistsUC.execute({codigoCliente});
 
         if (!clienteExists) {
             throw new AppError("Cliente não encontrado!", HTTPStatusCode.NotFound);

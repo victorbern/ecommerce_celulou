@@ -2,7 +2,7 @@ import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 import { Produto } from "../../../entities/Produto";
 import { AppError } from "../../../errors/AppError";
 import { IProdutosRepository } from "../../../repositories/IProdutosRepository";
-import { FindCategoriaUC } from "../../categorias/FindCategoria/FindCategoriaUC";
+import { CategoriaExistsUC } from "../../categorias/CategoriaExists/CategoriaExistsUC";
 import { CreateEstoqueUC } from "../../estoques/CreateEstoque/CreateEstoqueUC";
 import { ICreateProdutoRequestDTO, ICreateProdutoResponseDTO } from "./CreateProdutoDTO";
 import uniqid from "uniqid";
@@ -10,7 +10,7 @@ import uniqid from "uniqid";
 export class CreateProdutoUC {
     constructor(
         private produtosRepository: IProdutosRepository,
-        private findCategoriaUC: FindCategoriaUC,
+        private categoriaExistsUC: CategoriaExistsUC,
         private createEstoqueUC: CreateEstoqueUC,
     ) { }
 
@@ -24,7 +24,7 @@ export class CreateProdutoUC {
         try {
             const { valor, nomeProduto, marca, descricaoProduto, pesoGramas, alturaCM, larguraCM, comprimentoCM, categorias, quantidadeEstoque } = data;
             for (let i in categorias) {
-                const categoriaExists = await this.findCategoriaUC.execute({
+                const categoriaExists = await this.categoriaExistsUC.execute({
                     codigoCategoria: categorias[i].codigoCategoria
                 })
 

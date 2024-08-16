@@ -1,11 +1,5 @@
-import { postgresCategoriasRepository } from "../../../repositories/implementations";
-import { inMemoryCategoriasRepository } from "../../../repositories/in-memory";
-import { FindAllCategoriaController } from "./FindAllCategoriaController";
-import { FindAllCategoriaUC } from "./FindAllCategoriaUC";
+import { categoriaFactory } from "../../../factories";
 
-const findAllCategoriaUC = new FindAllCategoriaUC(postgresCategoriasRepository);
-const findAllCategoriaController = new FindAllCategoriaController(findAllCategoriaUC);
+const findAllCategoriaController = categoriaFactory.controllers.findAllCategoriaController();
 
-const findAllCategoriaUCTest = new FindAllCategoriaUC(inMemoryCategoriasRepository);
-
-export { findAllCategoriaUC, findAllCategoriaController, findAllCategoriaUCTest }
+export { findAllCategoriaController }

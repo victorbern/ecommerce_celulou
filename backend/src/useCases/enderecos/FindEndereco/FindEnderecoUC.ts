@@ -11,7 +11,7 @@ export class FindEnderecoUC {
     async execute(data: IFindEnderecoRequestDTO): Promise<IFindEnderecoResponseDTO> {
         const { codigoEndereco } = data;
 
-        if (codigoEndereco == null) {
+        if (!codigoEndereco) {
             throw new AppError("Código inválido", HTTPStatusCode.BadRequest);
         }
 

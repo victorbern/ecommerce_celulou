@@ -1,11 +1,5 @@
-import { postgresClientesRepository } from "../../../repositories/implementations";
-import { inMemoryClientesRepository } from "../../../repositories/in-memory";
-import { UpdateClienteController } from "./UpdateClienteController";
-import { UpdateClienteUC } from "./UpdateClienteUC";
+import { clienteFactory } from "../../../factories";
 
-const updateClienteUC = new UpdateClienteUC(postgresClientesRepository);
-const updateClienteController = new UpdateClienteController(updateClienteUC);
+const updateClienteController = clienteFactory.controllers.updateClienteController();
 
-const updateClienteUCTest = new UpdateClienteUC(inMemoryClientesRepository);
-
-export { updateClienteUC, updateClienteController, updateClienteUCTest }
+export { updateClienteController }
