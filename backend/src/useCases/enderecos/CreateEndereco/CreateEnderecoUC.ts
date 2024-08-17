@@ -10,23 +10,28 @@ export class CreateEnderecoUC {
     constructor(
         private enderecosRepository: IEnderecosRepository,
         private clienteExistsUC: ClienteExistsUC
-    ) {}
+    ) { }
 
     async execute(data: ICreateEnderecoRequestDTO): Promise<ICreateEnderecoResponseDTO> {
         let { nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado, codigoCliente } = data;
 
         // Remove os caracteres especiais do cep
-        cep = cep.replace(/[.-]/g, '');
+        // Se o cep for nulo lança uma exceção
+        cep ? cep = cep.replace(/[.-]/g, '') : () => { throw new AppError("É necessário inserir um cep", HTTPStatusCode.BadRequest) };
 
-        const clienteExists = await this.clienteExistsUC.execute({codigoCliente});
+        if (!codigoCliente) {
+            throw new AppError("É necessário inserir um código do cliente para o endereço", HTTPStatusCode.BadRequest);
+        }
+
+        const clienteExists = await this.clienteExistsUC.execute({ codigoCliente });
 
         if (!clienteExists) {
             throw new AppError("Cliente não encontrado!", HTTPStatusCode.NotFound);
         }
-        
-        const limiteEnderecos = await this.enderecosRepository.getByCodigoCliente(codigoCliente) 
 
-        if (limiteEnderecos.length >= 3) {
+        const limiteEnderecos = await this.enderecosRepository.getByCodigoCliente(codigoCliente)
+
+        if (limiteEnderecos && limiteEnderecos.length >= 3) {
             throw new AppError("Cada cliente só pode ter até 3 endereços cadastrados", HTTPStatusCode.BadRequest);
         }
 

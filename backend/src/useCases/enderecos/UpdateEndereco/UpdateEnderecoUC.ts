@@ -12,6 +12,10 @@ export class UpdateEnderecoUC {
     async execute(data: IUpdateEnderecoRequestDTO): Promise<IUpdateEnderecoResponseDTO> {
         const { codigoEndereco, nomeEndereco, cep, nomeRua, numeroCasa, complemento, bairro, cidade, estado } = data;
 
+        if (!codigoEndereco) {
+            throw new AppError("Código inválido!", HTTPStatusCode.BadRequest);
+        }
+
         const enderecoExists = await this.enderecosRepository.getByCodigoEndereco(codigoEndereco);
 
         if (!enderecoExists) {

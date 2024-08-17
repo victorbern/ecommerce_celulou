@@ -11,6 +11,10 @@ export class DeleteEnderecoUC {
     async execute(data: IDeleteEnderecoRequestDTO): Promise<IDeleteEnderecoResponseDTO> {
         const { codigoEndereco } = data;
 
+        if (!codigoEndereco) {
+            throw new AppError("Código inválido", HTTPStatusCode.BadRequest);
+        }
+
         const enderecoExists = await this.enderecosRepository.getByCodigoEndereco(codigoEndereco);
 
         if (!enderecoExists) {
