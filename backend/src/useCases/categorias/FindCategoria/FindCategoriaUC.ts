@@ -17,13 +17,6 @@ export class FindCategoriaUC {
 
         let categoria: IFindCategoriaResponseDTO = await this.categoriasRepository.getByCodigo(codigoCategoria);
 
-        if (categoria) {
-            return {
-                codigoCategoria: categoria.codigoCategoria,
-                nomeCategoria: categoria.nomeCategoria
-            }
-        }
-
-        return null;
+        return categoria;
     }
 }

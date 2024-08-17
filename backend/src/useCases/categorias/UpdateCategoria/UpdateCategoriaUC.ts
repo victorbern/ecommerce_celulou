@@ -12,6 +12,10 @@ export class UpdateCategoriaUC {
     async execute(data: IUpdateCategoriaRequestDTO): Promise<IUpdateCategoriaResponseDTO> {
         const { codigoCategoria, nomeCategoria } = data;
 
+        if (!codigoCategoria) {
+            throw new AppError("Código inválido!", HTTPStatusCode.BadRequest);
+        }
+
         const categoriaExists = await this.categoriasRepository.getByCodigo(codigoCategoria);
 
         if (!categoriaExists) {

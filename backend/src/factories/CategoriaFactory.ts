@@ -22,7 +22,7 @@ export class CategoriaFactory {
         findAllCategoriaUseCase: this.getFindAllCategoriaUseCase.bind(this),
         findCategoriaUseCase: this.getFindCategoriaUseCase.bind(this),
         findCategoriasByProdutoUseCase: this.getFindCategoriasByProdutoUseCase.bind(this),
-        updateCategoria: this.getUpdateCategoriaUseCase.bind(this),
+        updateCategoriaUseCase: this.getUpdateCategoriaUseCase.bind(this),
     }
 
     public controllers = {

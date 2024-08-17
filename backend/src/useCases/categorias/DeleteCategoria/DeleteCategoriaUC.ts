@@ -10,6 +10,10 @@ export class DeleteCategoriaUC {
 
     async execute(data: IDeleteCategoriaRequestDTO): Promise<IDeleteCategoriaResponseDTO> {
         const { codigoCategoria } = data;
+    
+        if (!codigoCategoria) {
+            throw new AppError("Código inválido!", HTTPStatusCode.BadRequest);
+        }
 
         const categoriaExists = await this.categoriasRepository.getByCodigo(codigoCategoria);
 
