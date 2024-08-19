@@ -97,7 +97,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             // Remove o nome antigo de categorias
             produtoHasCategoria: undefined,
             // Pega a quantidade de estoque do produto
-            quantidadeEstoque: produto.estoque.quantidade,
+            quantidadeEstoque: produto.estoque ? produto.estoque.quantidade : null,
             // Remove o atributo estoque
             estoque: undefined
         }));
