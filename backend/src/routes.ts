@@ -15,7 +15,6 @@ import { uploadMiddleware } from "./useCases/produtos/imagens/UploadImages/Uploa
 import { deleteFolder } from "./useCases/produtos/imagens/DeleteImages/DeleteFolder";
 import { produtoExistsMiddleware } from "./middlewares/ProdutoExistsMiddleware";
 import { updateProdutoController } from "./useCases/produtos/UpdateProduto";
-import { updateIsVisibleProdutoController } from "./useCases/produtos/UpdateIsVisibleProduto";
 import { updateIsDisponivelProdutoController } from "./useCases/produtos/UpdateIsDisponivelProduto";
 import { findCategoriaController } from "./useCases/categorias/FindCategoria";
 import { findCategoriasByProdutoController } from "./useCases/categorias/FindCategoriasByProduto";
@@ -26,6 +25,7 @@ import { createClienteController } from "./useCases/clientes/CreateCliente";
 import { findClienteController } from "./useCases/clientes/FindCliente";
 import { updateClienteController } from "./useCases/clientes/UpdateCliente";
 import { delClienteController } from "./useCases/clientes/DelCliente";
+import { updateIsVisivelProdutoController } from "./useCases/produtos/UpdateIsVisivelProduto";
 
 const router = Router();
 
@@ -139,9 +139,9 @@ router.put('/produtos/:codigo', async (request, response, next) => {
     return updateProdutoController.handle(request, response, next);
 });
 
-// Rota para alterar o valor do isVisible de produto
+// Rota para alterar o valor do isVisivel de produto
 router.patch('/produtos/:codigo/visibilidade/', async (request, response, next) => {
-    return updateIsVisibleProdutoController.handle(request, response, next);
+    return updateIsVisivelProdutoController.handle(request, response, next);
 })
 
 // Rota para alterar o valor do isDisponivelCompra de produto

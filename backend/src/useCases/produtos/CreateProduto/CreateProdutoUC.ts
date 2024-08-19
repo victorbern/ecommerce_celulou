@@ -27,7 +27,6 @@ export class CreateProdutoUC {
                 const categoriaExists = await this.categoriaExistsUC.execute({
                     codigoCategoria: categorias[i].codigoCategoria
                 })
-
                 if (!categoriaExists) {
                     throw new AppError("A categoria '" + categorias[i].nomeCategoria + "' não existe", HTTPStatusCode.NotFound)
                 }
@@ -40,7 +39,6 @@ export class CreateProdutoUC {
             const imagensFolder = "/produtos/" + codigoProduto + "/";
 
             // Testar se o que está sendo salvo em imagensFolder está correto
-
             const produto = new Produto({ codigoProduto, valor, nomeProduto, marca, descricaoProduto, imagensFolder, nota, pesoGramas, alturaCM, larguraCM, comprimentoCM });
 
             await this.produtosRepository.save(produto);

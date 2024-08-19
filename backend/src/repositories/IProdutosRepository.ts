@@ -10,7 +10,7 @@ export interface IProdutosRepository {
     getByCategorias(categorias: string[]): Promise<IProdutoDTO[]>;
     update(produto: Produto): Promise<void>;
     updateCategorias(categorias: Categoria[]): Promise<void>;
-    updateIsVisible(codigoProduto: string, isVisible: boolean): Promise<void>;
+    updateIsVisivel(codigoProduto: string, isVisivel: boolean): Promise<void>;
     updateIsDisponivelCompra(codigoProduto: string, isDisponivelCompra: boolean): Promise<void>;
     removeCategoria(codigoCategoria: string, codigoProduto: string): Promise<void>;
     removeAllCategorias(codigoProduto: string): Promise<void>;

@@ -11,12 +11,16 @@ export class UpdateIsDisponivelProdutoUC {
     async execute(data: IUpdateIsDisponivelProdutoRequestDTO): Promise<IUpdateIsDisponivelProdutoResponseDTO> {
         const { codigoProduto, isDisponivelCompra } = data;
 
-        const produtoExists = await this.produtosRepository.getByCodigo(codigoProduto);
-
+        if (!codigoProduto) {
+            throw new AppError("Código inválido", HTTPStatusCode.BadRequest);
+        }
+        
         if (isDisponivelCompra === null || isDisponivelCompra === undefined) {
             throw new AppError("Dados inválidos", HTTPStatusCode.BadRequest);
         }
-
+        
+        const produtoExists = await this.produtosRepository.getByCodigo(codigoProduto);
+        
         if (!produtoExists) {
             throw new AppError("Produto não encontrado", HTTPStatusCode.NotFound);
         }
@@ -27,6 +31,6 @@ export class UpdateIsDisponivelProdutoUC {
 
         await this.produtosRepository.updateIsDisponivelCompra(codigoProduto, isDisponivelCompra);
 
-        return { message: "Visibilidade alterada com sucesso" }
+        return { message: "Disponibilidade de compra alterada com sucesso!" }
     }
 }

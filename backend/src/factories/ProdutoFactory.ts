@@ -9,8 +9,8 @@ import { FindProdutoUC } from "../useCases/produtos/FindProduto/FindProdutoUC";
 import { ProdutoExistsUC } from "../useCases/produtos/ProdutoExists/ProdutoExistsUC";
 import { UpdateIsDisponivelProdutoController } from "../useCases/produtos/UpdateIsDisponivelProduto/UpdateIsDisponivelProdutoController";
 import { UpdateIsDisponivelProdutoUC } from "../useCases/produtos/UpdateIsDisponivelProduto/UpdateIsDisponivelProdutoUC";
-import { UpdateIsVisibleProdutoController } from "../useCases/produtos/UpdateIsVisibleProduto/UpdateIsVisibleProdutoController";
-import { UpdateIsVisibleProdutoUC } from "../useCases/produtos/UpdateIsVisibleProduto/UpdateIsVisibleProdutoUC";
+import { UpdateIsVisivelProdutoController } from "../useCases/produtos/UpdateIsVisivelProduto/UpdateIsVisivelProdutoController";
+import { UpdateIsVisivelProdutoUC } from "../useCases/produtos/UpdateIsVisivelProduto/UpdateIsVisivelProdutoUC";
 import { UpdateProdutoController } from "../useCases/produtos/UpdateProduto/UpdateProdutoController";
 import { UpdateProdutoUC } from "../useCases/produtos/UpdateProduto/UpdateProdutoUC";
 import { CategoriaFactory } from "./CategoriaFactory";
@@ -25,7 +25,7 @@ export class ProdutoFactory {
         findAllProdutoByCategoriasUseCase: this.getFindAllProdutoByCategoriasUseCase.bind(this),
         findProdutoUseCase: this.getFindProdutoUseCase.bind(this),
         updateIsDisponivelProdutoUseCase: this.getUpdateIsDisponivelProdutoUseCase.bind(this),
-        updateIsVisibleProdutoUseCase: this.getUpdateIsVisibleProdutoUseCase.bind(this),
+        updateIsVisivelProdutoUseCase: this.getUpdateIsVisivelProdutoUseCase.bind(this),
         updateProdutoUseCase: this.getUpdateProdutoUseCase.bind(this),
     }
 
@@ -34,7 +34,7 @@ export class ProdutoFactory {
         findAllProdutoByCategoriasController: this.getFindAllProdutoByCategoriasController.bind(this),
         findProdutoController: this.getFindProdutoController.bind(this),
         updateIsDisponivelProdutoController: this.getUpdateIsDisponivelProdutoController.bind(this),
-        updateIsVisibleProdutoController: this.getUpdateIsVisibleProdutoController.bind(this),
+        updateIsVisivelProdutoController: this.getUpdateIsVisivelProdutoController.bind(this),
         updateProdutoController: this.getUpdateProdutoController.bind(this),
     }
 
@@ -102,16 +102,16 @@ export class ProdutoFactory {
         return updateIsDisponivelProdutoController;
     }
 
-    private getUpdateIsVisibleProdutoUseCase(): UpdateIsVisibleProdutoUC {
-        const updateIsVisibleProdutoUC = new UpdateIsVisibleProdutoUC(this.repository);
+    private getUpdateIsVisivelProdutoUseCase(): UpdateIsVisivelProdutoUC {
+        const updateIsVisivelProdutoUC = new UpdateIsVisivelProdutoUC(this.repository);
 
-        return updateIsVisibleProdutoUC;
+        return updateIsVisivelProdutoUC;
     }
 
-    private getUpdateIsVisibleProdutoController(): UpdateIsVisibleProdutoController {
-        const updateIsVisibleProdutoController = new UpdateIsVisibleProdutoController(this.getUpdateIsVisibleProdutoUseCase());
+    private getUpdateIsVisivelProdutoController(): UpdateIsVisivelProdutoController {
+        const updateIsVisivelProdutoController = new UpdateIsVisivelProdutoController(this.getUpdateIsVisivelProdutoUseCase());
 
-        return updateIsVisibleProdutoController;
+        return updateIsVisivelProdutoController;
     }
 
     private getUpdateProdutoUseCase(): UpdateProdutoUC {

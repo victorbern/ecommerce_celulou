@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from "express";
-import { UpdateIsVisibleProdutoUC } from "./UpdateIsVisibleProdutoUC";
+import { UpdateIsVisivelProdutoUC } from "./UpdateIsVisivelProdutoUC";
 import { HTTPStatusCode } from "../../../../lib/http/HttpStatusCode";
 
-export class UpdateIsVisibleProdutoController {
+export class UpdateIsVisivelProdutoController {
     constructor(
-        private updateIsVisibleProdutoUC: UpdateIsVisibleProdutoUC,
+        private updateIsVisivelProdutoUC: UpdateIsVisivelProdutoUC,
     ) {}
 
     async handle(request: Request, response: Response, next: NextFunction) {
         const codigo = request.params.codigo;
-        const { isVisible } = request.body;
+        const { isVisivel } = request.body;
         try {
-            let result = await this.updateIsVisibleProdutoUC.execute({
-                codigoProduto: codigo, isVisible
+            let result = await this.updateIsVisivelProdutoUC.execute({
+                codigoProduto: codigo, isVisivel
             });
 
             if (!result) {

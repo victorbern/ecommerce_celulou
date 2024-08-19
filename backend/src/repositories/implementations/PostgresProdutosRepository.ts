@@ -189,13 +189,13 @@ export class PostgresProdutosRepository implements IProdutosRepository {
         })
     }
 
-    async updateIsVisible(codigoProduto: string, isVisible: boolean) {
+    async updateIsVisivel(codigoProduto: string, isVisivel: boolean) {
         await prisma.produto.update({
             where: {
                 codigoProduto: codigoProduto,
             },
             data: {
-                isVisivel: isVisible,
+                isVisivel,
             }
         });
     }

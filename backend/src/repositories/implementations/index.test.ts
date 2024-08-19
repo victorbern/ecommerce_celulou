@@ -36,7 +36,7 @@ const produtosRepositoryMocked = {
     getByCategorias: vi.fn(),
     update: vi.fn(),
     updateCategorias: vi.fn(),
-    updateIsVisible: vi.fn(),
+    updateIsVisivel: vi.fn(),
     updateIsDisponivelCompra: vi.fn(),
     removeCategoria: vi.fn(),
     removeAllCategorias: vi.fn(),

@@ -13,10 +13,14 @@ export class FindProdutoUC {
     async execute(data: IFindProdutoRequestDTO): Promise<IProdutoDTO> {
         const { codigoProduto } = data;
 
+        if (!codigoProduto) {
+            throw new AppError("Código inválido", HTTPStatusCode.BadRequest);
+        }
+
         const produto: IProdutoDTO = await this.produtosRepository.getByCodigo(codigoProduto);
 
         if (!produto) {
-            throw new AppError("Produto não encontrado!", HTTPStatusCode.NotFound);
+            return null;
         }
 
         return produto;
