@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import { findProdutoUC } from "../useCases/produtos/FindProduto";
+import { produtoFactory } from "../factories";
+
+const produtoExistsUC = produtoFactory.useCases.produtoExistsUseCase();
 
 export const produtoExistsMiddleware: RequestHandler = async (request: Request, response: Response, next: NextFunction) => {
     const codigo = request.params.codigo;
     try {
-        await findProdutoUC.execute({ codigoProduto: codigo })
+        await produtoExistsUC.execute({ codigoProduto: codigo })
 
         next();
     } catch (error) {
