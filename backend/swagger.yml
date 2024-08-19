@@ -1155,7 +1155,7 @@ paths:
           $ref: "#/components/responses/ErrorDefault"
 
   /produtos/{codigo}/visibilidade:
-    put:
+    patch:
       summary: Altera a visibilidade de um produto
       description: Esta rota recebe um codigo e um valor de visibilidade para alterar a visibilidade do produto
       parameters:
@@ -1173,7 +1173,7 @@ paths:
             schema:
               type: object
               properties:
-                isVisible:
+                isVisivel:
                   type: boolean
                   example: true
 
@@ -1194,7 +1194,7 @@ paths:
           $ref: "#/components/responses/ErrorDefault"
 
   /produtos/{codigo}/disponibilidade/:
-    put:
+    patch:
       summary: Altera a disponibilidade de um produto
       description: Esta rota recebe um boolean que determina se o produto está ou não disponível para compra
       parameters:
