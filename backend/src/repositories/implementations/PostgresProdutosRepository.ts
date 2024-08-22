@@ -1,7 +1,6 @@
 import { IProdutosRepository } from "../IProdutosRepository";
 import { Produto } from "../../entities/Produto";
 import prisma from "./prisma";
-import { ProdutoHasCategoria } from "@prisma/client";
 import { Categoria } from "../../entities/Categoria";
 import { IProdutoDTO } from "../../entities/EntitiesDTO/ProdutoDTO";
 
@@ -146,7 +145,7 @@ export class PostgresProdutosRepository implements IProdutosRepository {
             // Remove o nome antigo de categorias
             produtoHasCategoria: undefined,
             // Pega a quantidade do estoque
-            quantidadeEstoque: produto.estoque.quantidade,  
+            quantidadeEstoque: produto.estoque ? produto.estoque.quantidade : null,  
             // Remove o atributo estoque
             estoque: undefined
         }));

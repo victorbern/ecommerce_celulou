@@ -12,6 +12,10 @@ export class UpdateProdutoUC {
     async execute(data: IUpdateProdutoRequestDTO): Promise<IUpdateProdutoResponseDTO> {
         const { codigoProduto, valor, nomeProduto, marca, descricaoProduto, pesoGramas, alturaCM, larguraCM, comprimentoCM, categorias } = data;
 
+        if (!codigoProduto) {
+            throw new AppError("Código inválido!", HTTPStatusCode.BadRequest);
+        }
+
         const produtoExists = await this.produtosRepository.getByCodigo(codigoProduto);
 
         if (!produtoExists) {
