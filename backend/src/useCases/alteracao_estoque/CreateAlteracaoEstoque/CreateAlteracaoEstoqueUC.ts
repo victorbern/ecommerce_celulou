@@ -15,15 +15,15 @@ export class CreateAlteracaoEstoqueUC {
     async execute(data: ICreateAlteracaoEstoqueRequestDTO): Promise<ICreateAlteracaoEstoqueResponseDTO> {
         const { valorAlteracao, codigoEstoque } = data;
 
+        if (!codigoEstoque) {
+            throw new AppError("Código do estoque inválido!", HTTPStatusCode.BadRequest);
+        }
+
         let codigoAlteracaoEstoque, codigoExists = null;
         do {
             codigoAlteracaoEstoque = "G" + uniqid().slice(-11);
             codigoExists = await this.alteracaoEstoqueRepository.getByCodigo(codigoAlteracaoEstoque);
         } while (codigoExists != null);
-
-        if (!codigoEstoque) {
-            throw new AppError("Código do estoque inválido!", HTTPStatusCode.BadRequest);
-        }
 
         const estoqueExists = await this.estoqueExistsUC.execute({ codigoEstoque })
 
