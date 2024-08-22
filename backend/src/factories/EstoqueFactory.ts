@@ -38,14 +38,14 @@ export class EstoqueFactory {
         return createEstoqueUC;
     }
 
-    private getAlterarEstoqueUseCase(alteracaoEstoqueFactory: AlteracaoEstoqueFactory): AlterarEstoqueUC {
-        const alterarEstoqueUC = new AlterarEstoqueUC(this.repository, alteracaoEstoqueFactory.useCases.createAlteracaoEstoqueUseCase(this));
+    private getAlterarEstoqueUseCase(alteracaoEstoqueFactory: AlteracaoEstoqueFactory, produtoFactory: ProdutoFactory): AlterarEstoqueUC {
+        const alterarEstoqueUC = new AlterarEstoqueUC(this.repository, alteracaoEstoqueFactory.useCases.createAlteracaoEstoqueUseCase(this), produtoFactory.useCases.produtoExistsUseCase());
 
         return alterarEstoqueUC;
     }
 
-    private getAlterarEstoqueController(alteracaoEstoqueFactory: AlteracaoEstoqueFactory): AlterarEstoqueController {
-        const alterarEstoqueController = new AlterarEstoqueController(this.getAlterarEstoqueUseCase(alteracaoEstoqueFactory));
+    private getAlterarEstoqueController(alteracaoEstoqueFactory: AlteracaoEstoqueFactory, produtoFactory: ProdutoFactory): AlterarEstoqueController {
+        const alterarEstoqueController = new AlterarEstoqueController(this.getAlterarEstoqueUseCase(alteracaoEstoqueFactory, produtoFactory));
 
         return alterarEstoqueController;
     }

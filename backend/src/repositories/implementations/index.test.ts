@@ -1,4 +1,10 @@
-import { vi } from "vitest";
+import { describe, it, vi } from "vitest";
+import { IClientesRepository } from "../IClientesRepository";
+import { IEnderecosRepository } from "../IEnderecosRepository";
+import { ICategoriasRepository } from "../ICategoriasRepository";
+import { IProdutosRepository } from "../IProdutosRepository";
+import { IEstoquesRepository } from "../IEstoquesRepository";
+import { IAlteracaoEstoqueRepository } from "../IAlteracaoEstoqueRepository";
 
 const clientesRepositoryMocked = {
     getByCodigoCliente: vi.fn(),

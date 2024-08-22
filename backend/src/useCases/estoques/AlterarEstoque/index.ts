@@ -1,5 +1,5 @@
-import { alteracaoEstoqueFactory, estoqueFactory } from "../../../factories";
+import { alteracaoEstoqueFactory, estoqueFactory, produtoFactory } from "../../../factories";
 
-const alterarEstoqueController = estoqueFactory.controllers.alterarEstoqueController(alteracaoEstoqueFactory);
+const alterarEstoqueController = estoqueFactory.controllers.alterarEstoqueController(alteracaoEstoqueFactory, produtoFactory);
 
 export { alterarEstoqueController }
