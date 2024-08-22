@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import { IProdutoDTO } from "../../../entities/EntitiesDTO/ProdutoDTO";
 import { produtoFactoryTest } from "../../../factories/index.test";
 import { produtosRepositoryMocked } from "../../../repositories/implementations/index.test";
@@ -57,6 +57,10 @@ const produtos: IProdutoDTO[] = [
 ]
 
 describe("Testando a classe FindAllProdutoByCategoriasUC", () => {
+    beforeAll(() => {
+        vi.clearAllMocks();
+    });
+    
     it("Deve ser possível buscar todos os produtos que contenham determinadas categorias", async () => {
         produtosRepositoryMocked.getByCategorias.mockResolvedValue(produtos);
 

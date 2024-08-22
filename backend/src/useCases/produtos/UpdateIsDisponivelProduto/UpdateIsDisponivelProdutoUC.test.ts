@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import { Produto } from "../../../entities/Produto";
 import { produtoFactoryTest } from "../../../factories/index.test";
 import { produtosRepositoryMocked } from "../../../repositories/implementations/index.test";
@@ -22,6 +22,10 @@ const produtoDTO: Produto = {
 }
 
 describe("Testando a classe UpdateIsDisponivelProdutoUC", () => {
+    beforeAll(() => {
+        vi.clearAllMocks();
+    });
+
     it("Deve ser possível alterar a disponibilidade de compra de um produto", async () => {
         produtosRepositoryMocked.getByCodigo.mockResolvedValue(produtoDTO);
 
