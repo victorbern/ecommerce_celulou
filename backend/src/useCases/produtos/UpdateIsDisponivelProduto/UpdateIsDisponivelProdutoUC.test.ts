@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { Produto } from "../../../entities/Produto";
-import { produtoFactoryTest } from "../../../factories/index.test";
-import { produtosRepositoryMocked } from "../../../repositories/implementations/index.test";
+import { produtoFactoryTest } from "../../../factories/index.mocks";
+import { produtosRepositoryMocked } from "../../../repositories/implementations/index.mocks";
 
 const updateIsDisponivelProdutoUCTest = produtoFactoryTest.useCases.updateIsDisponivelProdutoUseCase();
 

@@ -1,9 +1,9 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { cpf } from "cpf-cnpj-validator";
-import { clientesRepositoryMocked } from "../../../repositories/implementations/index.test";
+import { clientesRepositoryMocked } from "../../../repositories/implementations/index.mocks";
 import { ICreateClienteRequestDTO } from "./CreateClienteDTO";
 import { Cliente } from "../../../entities/Cliente";
-import { clienteFactoryTest } from "../../../factories/index.test";
+import { clienteFactoryTest } from "../../../factories/index.mocks";
 
 const createClienteUCTest = clienteFactoryTest.useCases.createClienteUseCase();
 

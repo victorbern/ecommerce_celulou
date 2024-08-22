@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { Cliente } from "../../../entities/Cliente";
-import { clientesRepositoryMocked } from "../../../repositories/implementations/index.test";
-import { clienteFactoryTest } from "../../../factories/index.test";
+import { clientesRepositoryMocked } from "../../../repositories/implementations/index.mocks";
+import { clienteFactoryTest } from "../../../factories/index.mocks";
 const date = new Date(Date.now())
 
 const findClienteUCTest = clienteFactoryTest.useCases.findClienteUseCase();

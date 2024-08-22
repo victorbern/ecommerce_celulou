@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { Cliente } from "../../../entities/Cliente";
 import { cpf } from "cpf-cnpj-validator";
-import { clientesRepositoryMocked } from "../../../repositories/implementations/index.test";
-import { clienteFactoryTest } from "../../../factories/index.test";
+import { clientesRepositoryMocked } from "../../../repositories/implementations/index.mocks";
+import { clienteFactoryTest } from "../../../factories/index.mocks";
 
 const updateClienteUCTest = clienteFactoryTest.useCases.updateClienteUseCase();
 

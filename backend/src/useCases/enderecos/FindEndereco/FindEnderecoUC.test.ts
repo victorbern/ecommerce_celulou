@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { Endereco } from "../../../entities/Endereco";
-import { enderecosRepositoryMocked } from "../../../repositories/implementations/index.test";
-import { enderecoFactoryTest } from "../../../factories/index.test";
+import { enderecosRepositoryMocked } from "../../../repositories/implementations/index.mocks";
+import { enderecoFactoryTest } from "../../../factories/index.mocks";
 
 const findEnderecoUCTest = enderecoFactoryTest.useCases.findEnderecoUseCase();
 

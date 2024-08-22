@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { IProdutoDTO } from "../../../entities/EntitiesDTO/ProdutoDTO";
 import { Categoria } from "../../../entities/Categoria";
-import { categoriasRepositoryMocked } from "../../../repositories/implementations/index.test";
-import { produtoFactoryTest } from "../../../factories/index.test";
+import { categoriasRepositoryMocked } from "../../../repositories/implementations/index.mocks";
+import { produtoFactoryTest } from "../../../factories/index.mocks";
 import { FindCategoriasByProdutoUC } from "./FindCategoriasByProdutoUC";
 
 const produtoExistsUCTest = produtoFactoryTest.useCases.produtoExistsUseCase();

@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { ICreateProdutoRequestDTO } from "./CreateProdutoDTO";
-import { produtosRepositoryMocked } from "../../../repositories/implementations/index.test";
+import { produtosRepositoryMocked } from "../../../repositories/implementations/index.mocks";
 import { Produto } from "../../../entities/Produto";
-import { categoriaFactoryTest, estoqueFactoryTest, produtoFactoryTest } from "../../../factories/index.test";
+import { categoriaFactoryTest, estoqueFactoryTest, produtoFactoryTest } from "../../../factories/index.mocks";
 import { CreateProdutoUC } from "./CreateProdutoUC";
 
 const createEstoqueUCTest = estoqueFactoryTest.useCases.createEstoqueUseCase(produtoFactoryTest);

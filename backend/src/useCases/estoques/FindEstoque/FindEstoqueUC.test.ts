@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { Estoque } from "../../../entities/Estoque";
-import { estoqueFactoryTest } from "../../../factories/index.test";
-import { estoquesRepositoryMocked } from "../../../repositories/implementations/index.test";
+import { estoqueFactoryTest } from "../../../factories/index.mocks";
+import { estoquesRepositoryMocked } from "../../../repositories/implementations/index.mocks";
 
 const findEstoqueUCTest = estoqueFactoryTest.useCases.findEstoqueUseCase(); 
 

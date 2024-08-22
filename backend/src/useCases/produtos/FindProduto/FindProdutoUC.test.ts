@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { IProdutoDTO } from "../../../entities/EntitiesDTO/ProdutoDTO";
-import { produtosRepositoryMocked } from "../../../repositories/implementations/index.test";
-import { produtoFactoryTest } from "../../../factories/index.test";
+import { produtosRepositoryMocked } from "../../../repositories/implementations/index.mocks";
+import { produtoFactoryTest } from "../../../factories/index.mocks";
 
 const findProdutoUCTest = produtoFactoryTest.useCases.findProdutoUseCase();
 

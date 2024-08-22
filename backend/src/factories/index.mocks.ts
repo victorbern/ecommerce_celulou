@@ -1,4 +1,4 @@
-import { alteracaoEstoqueRepositoryMocked, categoriasRepositoryMocked, clientesRepositoryMocked, enderecosRepositoryMocked, estoquesRepositoryMocked, produtosRepositoryMocked } from '../repositories/implementations/index.test'
+import { alteracaoEstoqueRepositoryMocked, categoriasRepositoryMocked, clientesRepositoryMocked, enderecosRepositoryMocked, estoquesRepositoryMocked, produtosRepositoryMocked } from '../repositories/implementations/index.mocks'
 import { AlteracaoEstoqueFactory } from "./AlteracaoEstoqueFactory";
 import { CategoriaFactory } from "./CategoriaFactory";
 import { ClienteFactory } from "./ClienteFactory";

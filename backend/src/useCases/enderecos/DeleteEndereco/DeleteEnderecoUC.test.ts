@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { enderecosRepositoryMocked } from "../../../repositories/implementations/index.test";
+import { enderecosRepositoryMocked } from "../../../repositories/implementations/index.mocks";
 import { Endereco } from "../../../entities/Endereco";
-import { enderecoFactoryTest } from "../../../factories/index.test";
+import { enderecoFactoryTest } from "../../../factories/index.mocks";
 
 const deleteEnderecoUCTest = enderecoFactoryTest.useCases.deleteEnderecoUseCase();
 

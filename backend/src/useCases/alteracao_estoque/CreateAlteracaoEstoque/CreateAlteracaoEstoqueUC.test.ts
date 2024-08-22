@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { alteracaoEstoqueFactoryTest, estoqueFactoryTest } from "../../../factories/index.test";
+import { alteracaoEstoqueFactoryTest, estoqueFactoryTest } from "../../../factories/index.mocks";
 import { CreateAlteracaoEstoqueUC } from "./CreateAlteracaoEstoqueUC";
-import { alteracaoEstoqueRepositoryMocked } from "../../../repositories/implementations/index.test";
+import { alteracaoEstoqueRepositoryMocked } from "../../../repositories/implementations/index.mocks";
 
 const estoqueExistsUCTest = estoqueFactoryTest.useCases.estoqueExistsUseCase();
 const createAlteracaoEstoqueUCTest = new CreateAlteracaoEstoqueUC(alteracaoEstoqueRepositoryMocked, estoqueExistsUCTest);

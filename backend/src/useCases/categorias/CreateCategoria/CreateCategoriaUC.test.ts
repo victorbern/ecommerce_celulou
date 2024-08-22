@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { categoriasRepositoryMocked } from "../../../repositories/implementations/index.test";
+import { categoriasRepositoryMocked } from "../../../repositories/implementations/index.mocks";
 import { Categoria } from "../../../entities/Categoria";
-import { categoriaFactoryTest } from "../../../factories/index.test";
+import { categoriaFactoryTest } from "../../../factories/index.mocks";
 
 const createCategoriaUCTest = categoriaFactoryTest.useCases.createCategoriaUseCase();
 
