@@ -7,7 +7,7 @@ import { resetDatabase } from "../../utils";
 
 
 beforeAll(async () => {
-    execSync("npx prisma migrate reset --force")
+    await execSync("npx prisma migrate reset --force")
 })
 
 afterAll(async () => {
