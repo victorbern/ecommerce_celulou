@@ -21,6 +21,22 @@ services:
     networks:
       - net
 
+  db-test:
+    image: postgres:10.3
+    restart: always
+    environment:
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=test_password
+      - POSTGRES_DB=test_db
+    volumes:
+      - postgres:/var/lib/test-data/data
+    expose:
+      - '5431'
+    ports:
+      - '5431:5432'
+    networks:
+      - net
+
   adminer:
     image: adminer
     restart: always
