@@ -44,7 +44,7 @@ model ProdutoHasCategoria {
   codigoProduto       String
   codigoCategoria     String
   produto             Produto             @relation(fields: [codigoProduto], references: [codigoProduto], onUpdate: Restrict, map: "produto_has_categoria_ibfk_1")
-  categoria           Categoria           @relation(fields: [codigoCategoria], references: [codigoCategoria], onUpdate: Restrict, map: "produto_has_categoria_ibfk_2")
+  categoria           Categoria           @relation(fields: [codigoCategoria], references: [codigoCategoria], onUpdate: Restrict, map: "produto_has_categoria_ibfk_2", onDelete: Cascade)
   @@id([codigoProduto, codigoCategoria])
   @@index([codigoCategoria], map: "codigoCategoria")
 }
@@ -89,7 +89,7 @@ model Endereco {
   cidade              String              @db.VarChar(60)
   estado              String              @db.VarChar(60)
   codigoCliente       String
-  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "endereco_ibfk_1")
+  cliente             Cliente             @relation(fields: [codigoCliente], references: [codigoCliente], onUpdate: Restrict, map: "endereco_ibfk_1", onDelete: Cascade)
   @@index([codigoCliente], map: "codigoCliente")
 }
 
