@@ -1,17 +1,8 @@
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest"
+import { beforeEach, describe, expect, it } from "vitest"
 import { resetDatabase } from "../../utils"
 import prisma from "../../../src/repositories/implementations/prisma"
-import { execSync } from "child_process";
 import request from "supertest";
 import { app } from "../../../src";
-
-beforeAll(async () => {
-    await execSync("npx prisma migrate reset --force")
-})
-
-afterAll(async () => {
-    await resetDatabase(prisma)
-})
 
 describe("Testando as repositories de cliente", () => {
     beforeEach(async () => {
@@ -110,7 +101,7 @@ describe("Testando as repositories de cliente", () => {
                 emailCliente: "teste@teste.com",
             }
 
-            const responseCreate = await request(app).post("/clientes").send(clienteJSON);
+            const responseCreate = await request(app).post("/clientes/").send(clienteJSON);
             expect(responseCreate.status).toBe(201);
 
             const responseDelete = await request(app).delete("/clientes/" + responseCreate.body.codigoCliente).send();

@@ -1,18 +1,8 @@
-import { afterAll, beforeAll, describe, expect, it, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
 import { app } from "../../../src/index";
 import request from "supertest";
 import prisma from "../../../src/repositories/implementations/prisma";
-import { execSync } from "child_process";
 import { resetDatabase } from "../../utils";
-
-
-beforeAll(async () => {
-    await execSync("npx prisma migrate reset --force")
-})
-
-afterAll(async () => {
-    await resetDatabase(prisma)
-})
 
 describe("Testando todas as rotas de cliente", () => {
     beforeEach(async () => {
